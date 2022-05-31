@@ -1,11 +1,18 @@
 import React, {useEffect} from 'react';
-import {View, Text, Image, TextInput, Platform} from 'react-native';
+import {
+  View,
+  Text,
+  Image,
+  TextInput,
+  Platform,
+  TouchableOpacity,
+} from 'react-native';
 
 const Login = () => {
-  useEffect(() => {
-    //Runs only on the first render
-    console.log('useEffect CAlled');
-  }, []);
+  //  useEffect(() => {
+  //    //Runs only on the first render
+  //    console.log('useEffect CAlled');
+  //  }, []);
 
   const displayGreetings = () => {
     var date = new Date();
@@ -21,6 +28,18 @@ const Login = () => {
     } else {
       return 'Good Evening';
     }
+  };
+
+  const forgotPasswordButtonClicked = () => {
+    console.log('forgotPasswordButtonClicked');
+  };
+
+  const signInButtonClicked = () => {
+    console.log('signInButtonClicked');
+  };
+
+  const registerButtonClicked = () => {
+    console.log('registerButtonClicked');
   };
 
   return (
@@ -40,7 +59,6 @@ const Login = () => {
       />
       <View
         style={{
-          //backgroundColor: 'yellow',
           width: '85%',
           top: 30,
         }}>
@@ -57,7 +75,6 @@ const Login = () => {
             borderColor: 'white',
             borderBottomWidth: 1,
             alignItems: 'flex-start',
-            //  justifyContent: 'center',
             paddingLeft: 5,
             flexDirection: 'row',
           }}>
@@ -83,6 +100,7 @@ const Login = () => {
             autoCorrect={false}
           />
         </View>
+
         <View
           style={{
             margin: 15,
@@ -116,6 +134,63 @@ const Login = () => {
             autoCorrect={false}
             secureTextEntry={true}
           />
+        </View>
+
+        <View
+          style={{
+            margin: 15,
+            height: 25,
+            alignItems: 'flex-end',
+            justifyContent: 'center',
+          }}>
+          <TouchableOpacity
+            onPress={() => forgotPasswordButtonClicked()}
+            style={{
+              height: 25,
+              justifyContent: 'center',
+            }}>
+            <Text style={{fontSize: 13, color: 'white'}}>Forgot Password?</Text>
+          </TouchableOpacity>
+        </View>
+
+        <View
+          style={{
+            top: 25,
+            height: 40,
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
+          <TouchableOpacity
+            onPress={() => signInButtonClicked()}
+            style={{
+              backgroundColor: '#D1AA70',
+              height: 40,
+              justifyContent: 'center',
+              alignItems: 'center',
+              width: 130,
+              borderRadius: 20,
+            }}>
+            <Text style={{color: 'white', fontSize: 15}}>SIGN IN</Text>
+          </TouchableOpacity>
+          <Text style={{color: 'white', top: 15}}>Don't have an account?</Text>
+          <TouchableOpacity
+            onPress={() => registerButtonClicked()}
+            style={{
+              top: 15,
+              width: 150,
+              height: 30,
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
+            <Text
+              style={{
+                fontSize: 18,
+                fontWeight: '700',
+                color: 'pink',
+              }}>
+              Register
+            </Text>
+          </TouchableOpacity>
         </View>
       </View>
     </View>
