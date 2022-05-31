@@ -1,12 +1,9 @@
 import React from 'react';
 import {View, Text} from 'react-native';
+import Login from './Screens/Login';
 
 const App = () => {
-  return (
-    <View>
-      <Text>Welcome to bMb!</Text>
-    </View>
-  );
+  return <Login />;
 };
 
 export default App;
