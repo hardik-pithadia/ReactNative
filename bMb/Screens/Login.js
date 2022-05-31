@@ -94,7 +94,7 @@ const Login = () => {
               justifyContent: 'center',
               color: 'white',
             }}
-            placeholder="Email*"
+            placeholder="Email"
             placeholderTextColor="white"
             autoCapitalize="none"
             autoCorrect={false}
