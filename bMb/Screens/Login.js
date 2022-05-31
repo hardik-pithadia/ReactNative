@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-const Login = () => {
+const Login = ({navigation}) => {
   //  useEffect(() => {
   //    //Runs only on the first render
   //    console.log('useEffect CAlled');
@@ -40,6 +40,7 @@ const Login = () => {
 
   const registerButtonClicked = () => {
     console.log('registerButtonClicked');
+    navigation.navigate('Register');
   };
 
   return (
