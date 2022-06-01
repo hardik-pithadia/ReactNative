@@ -36,6 +36,8 @@ const Login = ({navigation}) => {
 
   const signInButtonClicked = () => {
     console.log('signInButtonClicked');
+
+    navigation.navigate('Base');
   };
 
   const registerButtonClicked = () => {
