@@ -8,6 +8,7 @@ import FeedsView from './Screens/FeedsView';
 import EventsView from './Screens/EventsView';
 import ProfileView from './Screens/ProfileView';
 import BaseView from './Screens/BaseView';
+import WhatsApp from './Screens/WhatsApp';
 
 const Stack = createNativeStackNavigator();
 
@@ -46,8 +47,8 @@ const App = () => {
         />
 
         <Stack.Screen
-          name="Feeds"
-          component={FeedsView}
+          name="WhatsApp"
+          component={WhatsApp}
           options={{
             headerShown: false,
             //  headerBackTitleVisible: false,

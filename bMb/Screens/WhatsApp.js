@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text, TouchableOpacity, Linking} from 'react-native';
 
-const HomeView = ({navigation}) => {
+const WhatsApp = ({navigation}) => {
   const openWhatsApp = () => {
     console.log('openWhatsApp');
 
@@ -34,4 +34,4 @@ const HomeView = ({navigation}) => {
   );
 };
 
-export default HomeView;
+export default WhatsApp;

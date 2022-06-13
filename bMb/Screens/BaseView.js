@@ -4,7 +4,7 @@ import {Image} from 'react-native';
 import ProfileView from './ProfileView';
 import HomeView from './HomeView';
 import EventsView from './EventsView';
-import FeedsView from './FeedsView';
+import WhatsApp from './WhatsApp';
 
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
@@ -20,7 +20,8 @@ const BaseView = ({navigation}) => {
         activeTintColor: '#3F60A0',
         inactiveTintColor: 'black',
         style: {backgroundColor: 'white'},
-      }}>
+      }}
+    >
       <sampleTabNavigation.Screen
         name="Home"
         options={{
@@ -35,11 +36,11 @@ const BaseView = ({navigation}) => {
         }}
         component={HomeView}
       />
-      <sampleTabNavigation.Screen
+      {/*<sampleTabNavigation.Screen
         name="Feeds"
         options={{
           headerShown: false,
-          tabBarLabel: 'Feeds',
+          tabBarLabel: 'Events',
           tabBarIcon: ({color}) => (
             <Image
               style={{width: 25, height: 25, tintColor: color}}
@@ -48,7 +49,7 @@ const BaseView = ({navigation}) => {
           ),
         }}
         component={FeedsView}
-      />
+      />*/}
       <sampleTabNavigation.Screen
         name="Events"
         options={{
@@ -77,6 +78,20 @@ const BaseView = ({navigation}) => {
           ),
         }}
         component={ProfileView}
+      />
+      <sampleTabNavigation.Screen
+        name="WhatsApp"
+        options={{
+          headerShown: false,
+          tabBarLabel: 'WhatsApp',
+          tabBarIcon: ({color}) => (
+            <Image
+              style={{width: 25, height: 25, tintColor: color}}
+              source={require('../Images/ProfileIcon.png')}
+            />
+          ),
+        }}
+        component={WhatsApp}
       />
     </sampleTabNavigation.Navigator>
   );
