@@ -4,7 +4,6 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Login from './Screens/Login';
 import Register from './Screens/Register';
 import HomeView from './Screens/HomeView';
-import FeedsView from './Screens/FeedsView';
 import EventsView from './Screens/EventsView';
 import ProfileView from './Screens/ProfileView';
 import BaseView from './Screens/BaseView';

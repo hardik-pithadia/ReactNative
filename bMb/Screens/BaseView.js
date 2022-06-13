@@ -1,6 +1,5 @@
 import React from 'react';
 import {Image} from 'react-native';
-
 import ProfileView from './ProfileView';
 import HomeView from './HomeView';
 import EventsView from './EventsView';
@@ -36,20 +35,7 @@ const BaseView = ({navigation}) => {
         }}
         component={HomeView}
       />
-      {/*<sampleTabNavigation.Screen
-        name="Feeds"
-        options={{
-          headerShown: false,
-          tabBarLabel: 'Events',
-          tabBarIcon: ({color}) => (
-            <Image
-              style={{width: 25, height: 25, tintColor: color}}
-              source={require('../Images/feedsIcon.png')}
-            />
-          ),
-        }}
-        component={FeedsView}
-      />*/}
+
       <sampleTabNavigation.Screen
         name="Events"
         options={{
