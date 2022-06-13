@@ -88,66 +88,6 @@ const App = () => {
             //  headerTitle: 'SaffronPAY',
           }}
         />
-        {/*<Stack.Screen
-          name="ForgotPassword"
-          component={ForgotPassword}
-          options={{
-            headerBackTitleVisible: false,
-            headerBackVisible: true,
-            headerTitleAlign: 'center',
-            headerTintColor: 'white',
-            headerTitle: 'Forgot Password',
-            headerStyle: {
-              backgroundColor: 'red',
-            },
-          }}
-        />*/}
-
-        {/*<Stack.Screen
-          name="SignUp"
-          component={SignUp}
-          options={{
-            headerBackTitleVisible: false,
-            headerBackVisible: true,
-            headerTitleAlign: 'center',
-            headerTintColor: 'white',
-            headerTitle: 'SIGN UP',
-            headerShadowVisible: true,
-            headerStyle: {
-              backgroundColor: 'red',
-            },
-          }}
-        />*/}
-
-        {/*<Stack.Screen
-          name="MerchantLogin"
-          component={MerchantLogin}
-          options={{
-            headerBackTitleVisible: false,
-            headerBackVisible: true,
-            headerTitleAlign: 'center',
-            headerTintColor: 'white',
-            headerTitle: 'Merchant Login',
-            headerStyle: {
-              backgroundColor: 'red',
-            },
-          }}
-        />*/}
-
-        {/*<Stack.Screen
-          name="Profile"
-          component={Profile}
-          options={{
-            headerBackTitleVisible: false,
-            headerBackVisible: true,
-            headerTitleAlign: 'center',
-            headerTintColor: 'white',
-            headerTitle: 'Profile',
-            headerStyle: {
-              backgroundColor: 'red',
-            },
-          }}
-        />*/}
       </Stack.Navigator>
     </NavigationContainer>
   );
