@@ -87,7 +87,6 @@ const App = () => {
             //  headerBackVisible: false,
             //  headerTitle: 'SaffronPAY',
           }}
-          //TEST
         />
       </Stack.Navigator>
     </NavigationContainer>
