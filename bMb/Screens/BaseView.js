@@ -52,20 +52,6 @@ const BaseView = ({navigation}) => {
       />
 
       <sampleTabNavigation.Screen
-        name="Profile"
-        options={{
-          headerShown: false,
-          tabBarLabel: 'Profile',
-          tabBarIcon: ({color}) => (
-            <Image
-              style={{width: 25, height: 25, tintColor: color}}
-              source={require('../Images/ProfileIcon.png')}
-            />
-          ),
-        }}
-        component={ProfileView}
-      />
-      <sampleTabNavigation.Screen
         name="WhatsApp"
         options={{
           headerShown: false,
@@ -78,6 +64,21 @@ const BaseView = ({navigation}) => {
           ),
         }}
         component={WhatsApp}
+      />
+
+      <sampleTabNavigation.Screen
+        name="Profile"
+        options={{
+          headerShown: false,
+          tabBarLabel: 'Profile',
+          tabBarIcon: ({color}) => (
+            <Image
+              style={{width: 25, height: 25, tintColor: color}}
+              source={require('../Images/ProfileIcon.png')}
+            />
+          ),
+        }}
+        component={ProfileView}
       />
     </sampleTabNavigation.Navigator>
   );

@@ -1,35 +1,17 @@
 import React from 'react';
-import {View, Text, TouchableOpacity, Linking} from 'react-native';
+import {View, Text} from 'react-native';
 
 const HomeView = ({navigation}) => {
-  const openWhatsApp = () => {
-    console.log('openWhatsApp');
-
-    let msg = 'Hello World';
-    let mobile = 7666240144;
-    if (mobile) {
-      if (msg) {
-        let url = 'whatsapp://send?text=' + msg + '&phone=91' + mobile;
-        Linking.openURL(url)
-          .then(data => {
-            console.log('WhatsApp Opened successfully ' + data);
-          })
-          .catch(() => {
-            alert('Make sure WhatsApp installed on your device');
-          });
-      } else {
-        alert('Please enter message to send');
-      }
-    } else {
-      alert('Please enter mobile no');
-    }
-  };
-
   return (
-    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-      <TouchableOpacity onPress={() => openWhatsApp()}>
-        <Text>Open WhatsApp!</Text>
-      </TouchableOpacity>
+    <View
+      style={{
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: 'white',
+      }}
+    >
+      <Text>Welcome To Home View!</Text>
     </View>
   );
 };
