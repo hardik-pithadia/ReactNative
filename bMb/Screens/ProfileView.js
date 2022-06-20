@@ -9,8 +9,8 @@ const ProfileView = ({navigation}) => {
           <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
             <Image
               style={{
-                height: 150,
-                width: 150,
+                height: 130,
+                width: 90,
               }}
               source={require('../Images/headerPatch.png')}
               resizeMethod="scale"
