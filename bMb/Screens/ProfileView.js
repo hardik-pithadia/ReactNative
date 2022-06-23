@@ -147,18 +147,50 @@ const ProfileView = ({navigation}) => {
 
           <View
             style={{
-              backgroundColor: 'white',
+              backgroundColor: 'pink',
               height: 125.0,
-              //    margin: 25,
               marginTop: 25,
               marginRight: 25,
               marginLeft: 25,
               borderRadius: 10.0,
+              alignItems: 'flex-start',
+              justifyContent: 'flex-end',
+              flexDirection: 'row',
             }}
           >
             <TouchableOpacity
-              style={{backgroundColor: '#E2F2F2', width: 30, height: 30}}
-            />
+              style={{
+                backgroundColor: '#F2F2F2',
+                width: 30,
+                height: 30,
+                marginLeft: 50,
+                borderRadius: 15,
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              <Image
+                source={require('../Images/camera_purple.png')}
+                style={{width: 25, height: 25}}
+              />
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={{
+                backgroundColor: '#F2F2F2',
+                width: 30,
+                height: 30,
+                marginLeft: 50,
+                borderRadius: 15,
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              <Image
+                source={require('../Images/camera_purple.png')}
+                style={{width: 25, height: 25}}
+              />
+            </TouchableOpacity>
           </View>
 
           <View
