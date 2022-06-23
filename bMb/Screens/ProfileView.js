@@ -8,7 +8,6 @@ import {
   TouchableOpacity,
   StyleSheet,
   ImageBackground,
-  Platform,
 } from 'react-native';
 import {FlatGrid} from 'react-native-super-grid';
 
@@ -32,6 +31,22 @@ const ProfileView = ({navigation}) => {
     console.log('profileImage Button Clicked');
   };
 
+  const handleImageClickEvent = idValue => {
+    console.log('handleImageClickEvent : ' + idValue);
+  };
+
+  const imagePickerButtonClicked = () => {
+    console.log('imagePicker Button Clicked');
+  };
+
+  const locationButtonClicked = () => {
+    console.log('Location Button Clicked');
+  };
+
+  const postButtonClicked = () => {
+    console.log('Post Button Clicked');
+  };
+
   return (
     <SafeAreaView>
       <ScrollView style={{backgroundColor: '#F2F2F2'}}>
@@ -52,13 +67,11 @@ const ProfileView = ({navigation}) => {
                 width: 175.0,
                 alignItems: 'flex-end',
                 justifyContent: 'space-between',
-              }}
-            >
+              }}>
               <Text
                 style={{
                   fontSize: 25.0,
-                }}
-              >
+                }}>
                 My Profile
               </Text>
               <View
@@ -77,14 +90,12 @@ const ProfileView = ({navigation}) => {
               flexDirection: 'row',
               alignItems: 'center',
               justifyContent: 'space-evenly',
-            }}
-          >
+            }}>
             <View style={{width: '50%', height: 100}}>
               <Text
                 style={{
                   fontSize: 23.0,
-                }}
-              >
+                }}>
                 Dr. Hardik Pithadia
               </Text>
 
@@ -92,8 +103,7 @@ const ProfileView = ({navigation}) => {
                 style={{
                   textAlign: 'left',
                   top: 5.0,
-                }}
-              >
+                }}>
                 @hardik-pithadia
               </Text>
 
@@ -106,8 +116,7 @@ const ProfileView = ({navigation}) => {
               style={{
                 height: 100,
                 alignItems: 'flex-end',
-              }}
-            >
+              }}>
               <Image
                 style={{
                   width: 95,
@@ -130,8 +139,7 @@ const ProfileView = ({navigation}) => {
                   alignItems: 'center',
                   justifyContent: 'center',
                   right: 5,
-                }}
-              >
+                }}>
                 <Image
                   source={require('../Images/camera_icon.png')}
                   style={{
@@ -147,7 +155,7 @@ const ProfileView = ({navigation}) => {
 
           <View
             style={{
-              backgroundColor: 'pink',
+              backgroundColor: 'white',
               height: 125.0,
               marginTop: 25,
               marginRight: 25,
@@ -155,52 +163,76 @@ const ProfileView = ({navigation}) => {
               borderRadius: 10.0,
               alignItems: 'flex-start',
               justifyContent: 'flex-end',
-              flexDirection: 'row',
-            }}
-          >
-            <TouchableOpacity
+              flexDirection: 'column',
+            }}>
+            <View
               style={{
-                backgroundColor: '#F2F2F2',
-                width: 30,
-                height: 30,
-                marginLeft: 50,
-                borderRadius: 15,
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
-            >
-              <Image
-                source={require('../Images/camera_purple.png')}
-                style={{width: 25, height: 25}}
-              />
-            </TouchableOpacity>
+                flexDirection: 'row',
+                width: '100%',
+              }}>
+              <TouchableOpacity
+                onPress={() => imagePickerButtonClicked()}
+                style={{
+                  backgroundColor: '#F2F2F2',
+                  width: 30,
+                  height: 30,
+                  marginLeft: 25,
+                  marginBottom: 10,
+                  borderRadius: 15,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}>
+                <Image
+                  source={require('../Images/camera_purple.png')}
+                  style={{width: 25, height: 25}}
+                />
+              </TouchableOpacity>
 
-            <TouchableOpacity
-              style={{
-                backgroundColor: '#F2F2F2',
-                width: 30,
-                height: 30,
-                marginLeft: 50,
-                borderRadius: 15,
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
-            >
-              <Image
-                source={require('../Images/camera_purple.png')}
-                style={{width: 25, height: 25}}
-              />
-            </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => locationButtonClicked()}
+                style={{
+                  backgroundColor: '#F2F2F2',
+                  width: 30,
+                  height: 30,
+                  marginLeft: 25,
+                  borderRadius: 15,
+                  marginBottom: 10,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}>
+                <Image
+                  source={require('../Images/location_purple.png')}
+                  style={{width: 25, height: 25}}
+                />
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                onPress={() => postButtonClicked()}
+                style={{
+                  backgroundColor: '#3F60A0',
+                  width: 100,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  marginLeft: 100,
+                  borderRadius: 5,
+                  marginBottom: 5,
+                }}>
+                <Text style={{color: 'white', fontSize: 15}}>POST</Text>
+              </TouchableOpacity>
+            </View>
+
+            <Text style={{fontSize: 15, color: 'lightgray', marginLeft: 25}}>
+              What do you want to tell everyone?
+            </Text>
           </View>
 
           <View
             style={{
-              height: Platform.OS == 'ios' ? 300 : 180,
               marginTop: 15,
               marginLeft: 25,
               marginRight: 25,
-            }}
-          >
+              marginBottom: 25,
+            }}>
             <FlatGrid
               itemDimension={80}
               data={items}
@@ -214,11 +246,10 @@ const ProfileView = ({navigation}) => {
                     borderRadius: 10,
                     height: 80,
                     overflow: 'hidden',
-                  }}
-                >
+                  }}>
                   <TouchableOpacity
                     style={{width: '100%', height: '100%'}}
-                    onPress={value => handleImageClickEvent(value.id)}
+                    onPress={() => handleImageClickEvent(item.id)}
                   />
                 </ImageBackground>
               )}
