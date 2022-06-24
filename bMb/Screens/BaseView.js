@@ -19,8 +19,7 @@ const BaseView = ({navigation}) => {
         activeTintColor: '#3F60A0',
         inactiveTintColor: 'black',
         style: {backgroundColor: 'white'},
-      }}
-    >
+      }}>
       <sampleTabNavigation.Screen
         name="Home"
         options={{
