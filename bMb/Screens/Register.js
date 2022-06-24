@@ -5,6 +5,8 @@ import {StackActions} from '@react-navigation/native';
 const Register = ({navigation}) => {
   const sendRequestButtonClicked = () => {
     console.log('sendRequestButtonClicked');
+
+    navigation.navigate('RegisterEvent');
   };
 
   const loginButtonClicked = () => {

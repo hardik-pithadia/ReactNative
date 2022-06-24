@@ -8,6 +8,7 @@ import EventsView from './Screens/EventsView';
 import ProfileView from './Screens/ProfileView';
 import BaseView from './Screens/BaseView';
 import WhatsApp from './Screens/WhatsApp';
+import RegisterEvent from './Screens/RegisterEvent';
 
 const Stack = createNativeStackNavigator();
 
@@ -29,9 +30,6 @@ const App = () => {
             headerTitleAlign: 'center',
             headerTintColor: 'black',
             headerTitle: 'Join Us',
-            //  headerStyle: {
-            //    backgroundColor: 'red',
-            //  },
           }}
         />
         <Stack.Screen
@@ -39,9 +37,6 @@ const App = () => {
           component={HomeView}
           options={{
             headerShown: false,
-            //  headerBackTitleVisible: false,
-            //  headerBackVisible: false,
-            //  headerTitle: 'SaffronPAY',
           }}
         />
 
@@ -50,9 +45,6 @@ const App = () => {
           component={WhatsApp}
           options={{
             headerShown: false,
-            //  headerBackTitleVisible: false,
-            //  headerBackVisible: false,
-            //  headerTitle: 'SaffronPAY',
           }}
         />
 
@@ -61,9 +53,6 @@ const App = () => {
           component={EventsView}
           options={{
             headerShown: false,
-            //  headerBackTitleVisible: false,
-            //  headerBackVisible: false,
-            //  headerTitle: 'SaffronPAY',
           }}
         />
 
@@ -83,9 +72,21 @@ const App = () => {
           component={BaseView}
           options={{
             headerShown: false,
-            //  headerBackTitleVisible: false,
-            //  headerBackVisible: false,
-            //  headerTitle: 'SaffronPAY',
+          }}
+        />
+
+        <Stack.Screen
+          name="RegisterEvent"
+          component={RegisterEvent}
+          options={{
+            headerBackTitleVisible: false,
+            headerBackVisible: true,
+            headerTitleAlign: 'center',
+            headerTintColor: 'black',
+            headerTitle: 'Register Event',
+            //  headerStyle: {
+            //    backgroundColor: 'red',
+            //  },
           }}
         />
       </Stack.Navigator>
