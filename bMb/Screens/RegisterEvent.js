@@ -1,9 +1,34 @@
 import React from 'react';
 import {View, Text, Image, TextInput, TouchableOpacity} from 'react-native';
+import RazorpayCheckout from 'react-native-razorpay';
 
 const RegisterEvent = ({navigation}) => {
   const payButtonClicked = () => {
     console.log('pay Button Clicked');
+
+    var options = {
+      description: 'KP World Wide',
+      image: 'https://i.imgur.com/3g7nmJC.png',
+      currency: 'INR',
+      key: 'rzp_test_WXfTPTwgnQufLh', // Your api key
+      amount: '10000',
+      name: 'T-Shirt',
+      prefill: {
+        email: 'hardik.pithadia@tejora.com',
+        contact: '7666240144',
+        name: 'Razorpay Software',
+      },
+      theme: {color: '#3F60A0'},
+    };
+    RazorpayCheckout.open(options)
+      .then(data => {
+        // handle success
+        alert(`Success: ${data.razorpay_payment_id}`);
+      })
+      .catch(error => {
+        // handle failure
+        alert(`Error: ${error.code} | ${error.description}`);
+      });
   };
 
   return (
