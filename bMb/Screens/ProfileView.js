@@ -71,6 +71,7 @@ const ProfileView = ({navigation}) => {
               <Text
                 style={{
                   fontSize: 25.0,
+                  color: 'black',
                 }}>
                 My Profile
               </Text>
@@ -126,6 +127,7 @@ const ProfileView = ({navigation}) => {
                   borderWidth: 3,
                   borderColor: '#3F60A0',
                 }}
+                resizeMode="stretch"
                 source={require('../Images/ProfileIcon.png')}
               />
               <TouchableOpacity
