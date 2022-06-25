@@ -50,7 +50,7 @@ const BaseView = ({navigation}) => {
         component={EventsView}
       />
 
-      <sampleTabNavigation.Screen
+      {/*<sampleTabNavigation.Screen
         name="WhatsApp"
         options={{
           headerShown: false,
@@ -63,7 +63,7 @@ const BaseView = ({navigation}) => {
           ),
         }}
         component={WhatsApp}
-      />
+      />*/}
 
       <sampleTabNavigation.Screen
         name="Profile"
