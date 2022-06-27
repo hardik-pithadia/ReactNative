@@ -9,6 +9,7 @@ import ProfileView from './Screens/ProfileView';
 import BaseView from './Screens/BaseView';
 import WhatsApp from './Screens/WhatsApp';
 import RegisterEvent from './Screens/RegisterEvent';
+import RegisterSuccess from './Screens/RegisterSuccess';
 
 const Stack = createNativeStackNavigator();
 
@@ -84,9 +85,18 @@ const App = () => {
             headerTitleAlign: 'center',
             headerTintColor: 'black',
             headerTitle: 'Register Event',
-            //  headerStyle: {
-            //    backgroundColor: 'red',
-            //  },
+          }}
+        />
+
+        <Stack.Screen
+          name="RegisterEventSuccess"
+          component={RegisterSuccess}
+          options={{
+            headerBackTitleVisible: false,
+            headerBackVisible: true,
+            headerTitleAlign: 'center',
+            headerTintColor: 'black',
+            headerTitle: 'Register for Event',
           }}
         />
       </Stack.Navigator>
