@@ -12,7 +12,7 @@ const RegisterEvent = ({navigation}) => {
       currency: 'INR',
       key: 'rzp_test_WXfTPTwgnQufLh', // Your api key
       amount: '10000',
-      name: 'T-Shirt',
+      name: 'BMB MediMeet 2022',
       prefill: {
         email: 'hardik.pithadia@tejora.com',
         contact: '7666240144',

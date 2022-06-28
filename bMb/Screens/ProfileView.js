@@ -96,6 +96,7 @@ const ProfileView = ({navigation}) => {
               <Text
                 style={{
                   fontSize: 23.0,
+                  color: 'black',
                 }}>
                 Dr. Hardik Pithadia
               </Text>
@@ -104,11 +105,12 @@ const ProfileView = ({navigation}) => {
                 style={{
                   textAlign: 'left',
                   top: 5.0,
+                  color: 'black',
                 }}>
                 @hardik-pithadia
               </Text>
 
-              <Text style={{top: 20.0}}>
+              <Text style={{top: 20.0, color: 'black'}}>
                 Hello, I'm Dr. Hardik Pithadia, Welcome To My Profile
               </Text>
             </View>
@@ -116,18 +118,22 @@ const ProfileView = ({navigation}) => {
             <View
               style={{
                 height: 100,
+                width: 100,
                 alignItems: 'flex-end',
+                // backgroundColor: 'pink',
               }}>
               <Image
                 style={{
-                  width: 95,
-                  height: 95,
+                  width: 80,
+                  height: 80,
                   backgroundColor: 'lightgray',
                   borderRadius: 45,
                   borderWidth: 3,
                   borderColor: '#3F60A0',
+                  alignItems: 'center',
+                  justifyContent: 'center',
                 }}
-                resizeMode="stretch"
+                resizeMode="center"
                 source={require('../Images/ProfileIcon.png')}
               />
               <TouchableOpacity
@@ -159,7 +165,7 @@ const ProfileView = ({navigation}) => {
             style={{
               backgroundColor: 'white',
               height: 125.0,
-              marginTop: 25,
+              marginTop: 35,
               marginRight: 25,
               marginLeft: 25,
               borderRadius: 10.0,

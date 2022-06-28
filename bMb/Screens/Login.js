@@ -72,13 +72,14 @@ const Login = ({navigation}) => {
 
         <View
           style={{
-            margin: 15,
-            top: 30,
-            height: 40,
+            marginTop: 30,
+            //  top: 30,
+            //  height: 40,
             borderColor: 'white',
             borderBottomWidth: 1,
             alignItems: 'flex-start',
-            paddingLeft: 5,
+            //  paddingLeft: 5,
+            padding: 5,
             flexDirection: 'row',
           }}>
           <Image
@@ -86,16 +87,19 @@ const Login = ({navigation}) => {
             style={{
               width: 25,
               height: 25,
+              marginTop: 8,
             }}
           />
           <TextInput
             style={{
-              height: Platform.OS == 'ios' ? 25 : 40,
+              //    height: Platform.OS == 'ios' ? 25 : 40,
               width: '85%',
-              left: 20,
+              //    left: 20,
+              marginLeft: 20,
               fontSize: 20,
               justifyContent: 'center',
               color: 'white',
+              padding: 5,
             }}
             placeholder="Email"
             placeholderTextColor="white"
@@ -106,13 +110,13 @@ const Login = ({navigation}) => {
 
         <View
           style={{
-            margin: 15,
-            top: 15,
-            height: 40,
+            marginTop: 25,
+            //  top: 15,
+            //  height: 40,
             borderColor: 'white',
             borderBottomWidth: 1,
             alignItems: 'flex-start',
-            paddingLeft: 5,
+            padding: 5,
             flexDirection: 'row',
           }}>
           <Image
@@ -120,16 +124,18 @@ const Login = ({navigation}) => {
             style={{
               width: 25,
               height: 25,
+              marginTop: 5,
             }}
           />
           <TextInput
             style={{
-              height: Platform.OS == 'ios' ? 25 : 40,
+              //    height: Platform.OS == 'ios' ? 25 : 40,
               width: '85%',
-              left: 20,
+              marginLeft: 20,
               fontSize: 20,
               justifyContent: 'center',
               color: 'white',
+              padding: 5,
             }}
             placeholder="Password"
             placeholderTextColor="white"
