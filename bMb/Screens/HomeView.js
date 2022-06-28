@@ -6,6 +6,7 @@ import {
   Image,
   ScrollView,
   Linking,
+  SafeAreaView,
 } from 'react-native';
 
 const HomeView = ({navigation}) => {
@@ -33,36 +34,38 @@ const HomeView = ({navigation}) => {
   };
 
   return (
-    <ScrollView>
-      <View
-        style={{
-          flexDirection: 'column',
-          flex: 1,
-        }}>
+    <SafeAreaView>
+      <ScrollView>
         <View
           style={{
-            alignItems: 'flex-end',
-            marginRight: 10,
-            marginTop: 10,
+            flexDirection: 'column',
+            flex: 1,
           }}>
-          <TouchableOpacity
-            onPress={() => whatsAppButtonClicked()}
+          <View
             style={{
-              height: 40,
-              width: 40,
-              alignItems: 'center',
-              justifyContent: 'center',
+              alignItems: 'flex-end',
+              marginRight: 10,
+              marginTop: 10,
             }}>
-            <Image
-              source={require('../Images/whatsApp.png')}
-              style={{width: 30, height: 30}}
-            />
-          </TouchableOpacity>
-        </View>
+            <TouchableOpacity
+              onPress={() => whatsAppButtonClicked()}
+              style={{
+                height: 40,
+                width: 40,
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}>
+              <Image
+                source={require('../Images/whatsApp.png')}
+                style={{width: 30, height: 30}}
+              />
+            </TouchableOpacity>
+          </View>
 
-        <Text style={{color: 'black'}}> Welcome To HomePage!</Text>
-      </View>
-    </ScrollView>
+          <Text style={{color: 'black'}}> Welcome To HomePage!</Text>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
