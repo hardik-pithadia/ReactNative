@@ -84,7 +84,7 @@ const App = () => {
             headerBackVisible: true,
             headerTitleAlign: 'center',
             headerTintColor: 'black',
-            headerTitle: 'Register Event',
+            headerTitle: 'Register for Event',
           }}
         />
 
