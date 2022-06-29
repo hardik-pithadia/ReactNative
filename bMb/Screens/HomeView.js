@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -7,9 +7,24 @@ import {
   ScrollView,
   Linking,
   SafeAreaView,
+  StyleSheet,
+  ImageBackground,
 } from 'react-native';
+import {FlatGrid} from 'react-native-super-grid';
 
 const HomeView = ({navigation}) => {
+  const [items, setItems] = useState([
+    {id: 0, name: require('../Images/demoImage1.png'), title: 'Discovery'},
+    {id: 1, name: require('../Images/demoImage1.png'), title: 'Calendar'},
+    {id: 2, name: require('../Images/demoImage1.png'), title: 'Events'},
+    {id: 3, name: require('../Images/demoImage1.png'), title: 'About Us'},
+    {id: 4, name: require('../Images/demoImage1.png'), title: 'Gallery'},
+    {id: 5, name: require('../Images/demoImage1.png'), title: 'Join Us'},
+    {id: 6, name: require('../Images/demoImage1.png'), title: 'Member Feeds'},
+    {id: 7, name: require('../Images/demoImage1.png'), title: 'Sponsers'},
+    {id: 8, name: require('../Images/demoImage1.png'), title: 'Contact Us'},
+  ]);
+
   const whatsAppButtonClicked = () => {
     console.log('whatsApp Button Clicked');
 
@@ -33,40 +48,266 @@ const HomeView = ({navigation}) => {
     }
   };
 
+  const handleQuickLinksClickEvent = idValue => {
+    console.log('handleImageClickEvent : ' + items[idValue].title);
+  };
+
   return (
     <SafeAreaView>
       <ScrollView>
+        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+          <Image
+            style={{
+              height: 130,
+              width: 90,
+            }}
+            source={require('../Images/headerPatch.png')}
+            resizeMethod="scale"
+            resizeMode="stretch"
+          />
+          <View
+            style={{
+              margin: '10%',
+              width: 175.0,
+              alignItems: 'flex-end',
+              justifyContent: 'space-between',
+            }}
+          >
+            <Text
+              style={{
+                fontSize: 25.0,
+                color: '#3F60A0',
+              }}
+            >
+              Dashboard
+            </Text>
+            <View
+              style={{
+                height: 2,
+                width: '100%',
+                backgroundColor: '#3F60A0',
+              }}
+            />
+          </View>
+        </View>
+
         <View
           style={{
             flexDirection: 'column',
             flex: 1,
-          }}>
+          }}
+        >
+          <ScrollView
+            horizontal={true}
+            style={{
+              height: 175,
+              backgroundColor: '#3F60A0',
+              marginLeft: 25,
+              marginRight: 25,
+              borderRadius: 10,
+            }}
+          >
+            <Image
+              source={require('../Images/demoImage1.png')}
+              style={{
+                height: 175,
+                width: 360,
+                borderRadius: 10,
+              }}
+            />
+
+            <Image
+              source={require('../Images/demoImage1.png')}
+              style={{
+                marginLeft: 15,
+                height: 175,
+                width: 360,
+                borderRadius: 10,
+              }}
+            />
+
+            <Image
+              source={require('../Images/demoImage1.png')}
+              style={{
+                marginLeft: 15,
+                height: 175,
+                width: 360,
+                borderRadius: 10,
+              }}
+            />
+          </ScrollView>
+
+          <Text
+            style={{
+              marginTop: 10,
+              marginLeft: 25,
+              color: '#1B195B',
+              fontSize: 16,
+              fontWeight: '600',
+            }}
+          >
+            Latest Updates
+          </Text>
+
+          <Text
+            style={{
+              marginTop: 10,
+              marginLeft: 25,
+              marginRight: 25,
+              color: '#D1AA70',
+              fontSize: 12,
+              fontWeight: '500',
+            }}
+          >
+            BMB Medimeet 2022 | March 2022 | Gujarat
+          </Text>
+
           <View
             style={{
-              alignItems: 'flex-end',
-              marginRight: 10,
+              height: 2,
+              backgroundColor: '#3F60A0',
+              marginLeft: 25,
+              marginRight: 25,
               marginTop: 10,
-            }}>
-            <TouchableOpacity
-              onPress={() => whatsAppButtonClicked()}
-              style={{
-                height: 40,
-                width: 40,
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}>
-              <Image
-                source={require('../Images/whatsApp.png')}
-                style={{width: 30, height: 30}}
-              />
-            </TouchableOpacity>
+            }}
+          />
+
+          <Text
+            style={{
+              marginTop: 15,
+              marginLeft: 25,
+              color: '#3F60A0',
+              fontSize: 22,
+            }}
+          >
+            Quick Links
+          </Text>
+
+          <View
+            style={{
+              marginTop: 15,
+              marginLeft: 15,
+              marginRight: 15,
+              marginBottom: 25,
+            }}
+          >
+            <FlatGrid
+              itemDimension={80}
+              data={items}
+              style={styles.gridView}
+              spacing={15}
+              renderItem={({item}) => (
+                <View>
+                  <ImageBackground
+                    source={item.name}
+                    resizeMode="stretch"
+                    style={{
+                      borderRadius: 10,
+                      height: 80,
+                      overflow: 'hidden',
+                    }}
+                  >
+                    <TouchableOpacity
+                      style={{width: '100%', height: '100%'}}
+                      onPress={() => handleQuickLinksClickEvent(item.id)}
+                    />
+                  </ImageBackground>
+                  <Text style={{color: '#3F60A0'}}>{item.title}</Text>
+                </View>
+              )}
+            />
           </View>
 
-          <Text style={{color: 'black'}}> Welcome To HomePage!</Text>
+          <ScrollView
+            horizontal={true}
+            style={{
+              marginBottom: 25,
+              height: 110,
+              backgroundColor: '#3F60A0',
+            }}
+          >
+            <Image
+              source={require('../Images/demoImage1.png')}
+              style={{
+                height: 80,
+                width: 175,
+                marginTop: 15,
+                marginRight: 15,
+                marginLeft: 25,
+                borderRadius: 10,
+              }}
+            />
+            <Image
+              source={require('../Images/demoImage1.png')}
+              style={{
+                height: 80,
+                width: 175,
+                marginTop: 15,
+                marginRight: 10,
+                borderRadius: 10,
+              }}
+            />
+
+            <Image
+              source={require('../Images/demoImage1.png')}
+              style={{
+                height: 80,
+                width: 175,
+                marginTop: 15,
+                marginRight: 10,
+                borderRadius: 10,
+              }}
+            />
+
+            <Image
+              source={require('../Images/demoImage1.png')}
+              style={{
+                height: 80,
+                width: 175,
+                marginTop: 15,
+                marginRight: 10,
+                borderRadius: 10,
+              }}
+            />
+
+            <Image
+              source={require('../Images/demoImage1.png')}
+              style={{
+                height: 80,
+                width: 175,
+                marginTop: 15,
+                marginRight: 10,
+                borderRadius: 10,
+              }}
+            />
+          </ScrollView>
         </View>
       </ScrollView>
     </SafeAreaView>
   );
 };
+
+const styles = StyleSheet.create({
+  gridView: {
+    marginTop: 10,
+    marginBottom: 20,
+  },
+  itemContainer: {
+    justifyContent: 'flex-end',
+    borderRadius: 5,
+    padding: 10,
+    height: 150,
+  },
+  itemName: {
+    fontSize: 16,
+    color: '#fff',
+    fontWeight: '600',
+  },
+  itemCode: {
+    fontWeight: '600',
+    fontSize: 12,
+    color: '#fff',
+  },
+});
 
 export default HomeView;

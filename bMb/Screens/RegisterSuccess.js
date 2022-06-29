@@ -77,8 +77,6 @@ const RegisterSuccess = ({navigation}) => {
           horizontal={true}
           style={{
             marginTop: 15,
-            //  marginLeft: 25,
-            //  marginRight: 25,
             marginBottom: 25,
             height: 110,
             backgroundColor: '#3F60A0',

@@ -67,12 +67,14 @@ const ProfileView = ({navigation}) => {
                 width: 175.0,
                 alignItems: 'flex-end',
                 justifyContent: 'space-between',
-              }}>
+              }}
+            >
               <Text
                 style={{
                   fontSize: 25.0,
                   color: 'black',
-                }}>
+                }}
+              >
                 My Profile
               </Text>
               <View
@@ -91,13 +93,15 @@ const ProfileView = ({navigation}) => {
               flexDirection: 'row',
               alignItems: 'center',
               justifyContent: 'space-evenly',
-            }}>
+            }}
+          >
             <View style={{width: '50%', height: 100}}>
               <Text
                 style={{
                   fontSize: 23.0,
                   color: 'black',
-                }}>
+                }}
+              >
                 Dr. Hardik Pithadia
               </Text>
 
@@ -106,7 +110,8 @@ const ProfileView = ({navigation}) => {
                   textAlign: 'left',
                   top: 5.0,
                   color: 'black',
-                }}>
+                }}
+              >
                 @hardik-pithadia
               </Text>
 
@@ -121,7 +126,8 @@ const ProfileView = ({navigation}) => {
                 width: 100,
                 alignItems: 'flex-end',
                 // backgroundColor: 'pink',
-              }}>
+              }}
+            >
               <Image
                 style={{
                   width: 80,
@@ -147,7 +153,8 @@ const ProfileView = ({navigation}) => {
                   alignItems: 'center',
                   justifyContent: 'center',
                   right: 5,
-                }}>
+                }}
+              >
                 <Image
                   source={require('../Images/camera_icon.png')}
                   style={{
@@ -172,12 +179,14 @@ const ProfileView = ({navigation}) => {
               alignItems: 'flex-start',
               justifyContent: 'flex-end',
               flexDirection: 'column',
-            }}>
+            }}
+          >
             <View
               style={{
                 flexDirection: 'row',
                 width: '100%',
-              }}>
+              }}
+            >
               <TouchableOpacity
                 onPress={() => imagePickerButtonClicked()}
                 style={{
@@ -189,7 +198,8 @@ const ProfileView = ({navigation}) => {
                   borderRadius: 15,
                   alignItems: 'center',
                   justifyContent: 'center',
-                }}>
+                }}
+              >
                 <Image
                   source={require('../Images/camera_purple.png')}
                   style={{width: 25, height: 25}}
@@ -207,7 +217,8 @@ const ProfileView = ({navigation}) => {
                   marginBottom: 10,
                   alignItems: 'center',
                   justifyContent: 'center',
-                }}>
+                }}
+              >
                 <Image
                   source={require('../Images/location_purple.png')}
                   style={{width: 25, height: 25}}
@@ -224,7 +235,8 @@ const ProfileView = ({navigation}) => {
                   marginLeft: 100,
                   borderRadius: 5,
                   marginBottom: 5,
-                }}>
+                }}
+              >
                 <Text style={{color: 'white', fontSize: 15}}>POST</Text>
               </TouchableOpacity>
             </View>
@@ -240,7 +252,8 @@ const ProfileView = ({navigation}) => {
               marginLeft: 25,
               marginRight: 25,
               marginBottom: 25,
-            }}>
+            }}
+          >
             <FlatGrid
               itemDimension={80}
               data={items}
@@ -254,7 +267,8 @@ const ProfileView = ({navigation}) => {
                     borderRadius: 10,
                     height: 80,
                     overflow: 'hidden',
-                  }}>
+                  }}
+                >
                   <TouchableOpacity
                     style={{width: '100%', height: '100%'}}
                     onPress={() => handleImageClickEvent(item.id)}
