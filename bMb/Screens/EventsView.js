@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, ScrollView, Image} from 'react-native';
+import {View, Text, ScrollView, Image, SafeAreaView} from 'react-native';
 
 const EventsView = ({navigation}) => {
   const [eventListArray, setEventListArray] = useState([]);
@@ -85,17 +85,19 @@ const EventsView = ({navigation}) => {
   };
 
   return (
-    <ScrollView>
-      <View
-        style={{
-          flex: 1,
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
-        {eventListArray}
-      </View>
-    </ScrollView>
+    <SafeAreaView>
+      <ScrollView contentContainerStyle={{flexGrow: 1}}>
+        <View
+          style={{
+            flex: 1,
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          {eventListArray}
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
