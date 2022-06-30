@@ -1,15 +1,31 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
+  ScrollView,
   View,
   Text,
   Image,
-  TextInput,
+  Modal,
   TouchableOpacity,
-  ScrollView,
+  TextInput,
 } from 'react-native';
 import RazorpayCheckout from 'react-native-razorpay';
 
 const RegisterEvent = ({navigation}) => {
+  const [txtName, setName] = useState('');
+  const [txtAge, setAge] = useState('');
+
+  const [arrayList, setArrayList] = useState([]);
+
+  const [isDialogVisible, setDialogVisibleValue] = useState(false);
+
+  var nameArray = [];
+
+  //  useEffect(() => {}, []);
+
+  const closeDialog = () => {
+    setDialogVisibleValue(false);
+  };
+
   const payButtonClicked = () => {
     console.log('pay Button Clicked');
 
@@ -36,6 +52,79 @@ const RegisterEvent = ({navigation}) => {
         // handle failure
         alert(`Error: ${error.code} | ${error.description}`);
       });
+  };
+
+  const submitButtonClicked = () => {
+    console.log('submitButtonClicked');
+
+    nameArray.push(
+      <View
+        style={{
+          backgroundColor: 'lightgray',
+          height: 170,
+          marginTop: 25,
+          marginLeft: 25,
+          marginRight: 25,
+          borderRadius: 10,
+        }}
+      >
+        <View style={{width: '100%', height: 35, alignItems: 'flex-end'}}>
+          <TouchableOpacity
+            style={{marginRight: 10, marginTop: 5}}
+            onPress={() => crossButtonClicked()}
+          >
+            <Image
+              source={require('../Images/cross_icon.png')}
+              style={{width: 35, height: 35}}
+            />
+          </TouchableOpacity>
+        </View>
+
+        <Text
+          style={{
+            borderColor: 'gray',
+            borderWidth: 1,
+            borderRadius: 10,
+            marginLeft: 25,
+            marginRight: 25,
+            marginTop: 10,
+            padding: 10,
+            fontSize: 20,
+          }}
+        >
+          {txtName}
+        </Text>
+
+        <Text
+          style={{
+            borderColor: 'gray',
+            borderWidth: 1,
+            borderRadius: 10,
+            marginTop: 10,
+            marginLeft: 25,
+            marginRight: 25,
+            padding: 10,
+            fontSize: 20,
+          }}
+        >
+          {txtAge}
+        </Text>
+      </View>,
+    );
+
+    setArrayList([...arrayList, nameArray]);
+
+    setDialogVisibleValue(false);
+  };
+
+  const addNewButtonClicked = () => {
+    console.log('addNewButtonClicked');
+
+    setDialogVisibleValue(true);
+  };
+
+  const crossButtonClicked = () => {
+    console.log('crossButtonClicked');
   };
 
   return (
@@ -82,27 +171,48 @@ const RegisterEvent = ({navigation}) => {
           }}
         ></View>
 
-        <TextInput
+        <View
           style={{
-            //height: Platform.OS == 'ios' ? 25 : 40,
-            height: 45,
-            fontSize: 15,
-            fontWeight: '500',
-            color: 'black',
-            borderColor: 'lightgray',
-            borderWidth: 1,
-            padding: 10,
+            height: 40,
             marginLeft: 25,
             marginRight: 25,
-            marginTop: 20,
-            borderRadius: 10,
+            marginTop: 10,
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            flexDirection: 'row',
           }}
-          placeholder="Number of Family Members for Payes Entry"
-          placeholderTextColor="black"
-          autoCapitalize="none"
-          autoCorrect={false}
-        />
+        >
+          <Text
+            style={{
+              fontSize: 18,
+              marginLeft: 5,
+              fontWeight: '600',
+            }}
+          >
+            No.of Family Members
+          </Text>
+          <TouchableOpacity
+            style={{flexDirection: 'row'}}
+            onPress={() => addNewButtonClicked()}
+          >
+            <Image
+              style={{width: 25, height: 25, marginRight: 5}}
+              source={require('../Images/add_icon.png')}
+            />
+            <Text
+              style={{
+                // backgroundColor: 'gray',
+                marginRight: 15,
+                fontSize: 18,
+                fontWeight: '600',
+              }}
+            >
+              Add New
+            </Text>
+          </TouchableOpacity>
+        </View>
 
+        {arrayList}
         <View
           style={{
             height: 50,
@@ -118,6 +228,121 @@ const RegisterEvent = ({navigation}) => {
             Policy
           </Text>
         </View>
+
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={isDialogVisible}
+        >
+          <View
+            style={{
+              flex: 1,
+              justifyContent: 'center',
+              alignItems: 'center',
+              backgroundColor: 'white',
+              height: 200,
+            }}
+          >
+            <View
+              style={{
+                width: '80%',
+                height: 250,
+                backgroundColor: '#1B195B',
+                borderRadius: 10,
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              <Text style={{color: '#D1AA70', fontSize: 20, fontWeight: '700'}}>
+                No.of Family Details for Entry
+              </Text>
+              <TextInput
+                autoCapitalize="none"
+                autoCorrect={false}
+                placeholder="Enter Name"
+                placeholderTextColor={'#D1AA70'}
+                onChangeText={newText => setName(newText)}
+                onChange={newText => setName(newText)}
+                style={{
+                  borderColor: '#D1AA70',
+                  borderWidth: 1,
+                  height: 45,
+                  width: '80%',
+                  paddingLeft: 15,
+                  borderRadius: 10,
+                  fontSize: 20,
+                  color: '#D1AA70',
+                  marginTop: 15,
+                }}
+              />
+
+              <TextInput
+                autoCapitalize="none"
+                autoCorrect={false}
+                keyboardType="numeric"
+                placeholder="Enter Age"
+                placeholderTextColor={'#D1AA70'}
+                onChangeText={newText => setAge(newText)}
+                onChange={newText => setAge(newText)}
+                style={{
+                  borderColor: '#D1AA70',
+                  borderWidth: 1,
+                  height: 45,
+                  width: '80%',
+                  paddingLeft: 15,
+                  borderRadius: 10,
+                  fontSize: 20,
+                  marginTop: 20,
+                  color: '#D1AA70',
+                }}
+              />
+
+              <View
+                style={{
+                  flexDirection: 'row',
+                  width: '80%',
+                  alignItems: 'center',
+                  justifyContent: 'space-around',
+                  marginTop: 25,
+                }}
+              >
+                <TouchableOpacity
+                  onPress={() => submitButtonClicked()}
+                  style={{
+                    backgroundColor: '#D1AA70',
+                    height: 40,
+                    width: 100,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    borderRadius: 10,
+                  }}
+                >
+                  <Text
+                    style={{
+                      fontSize: 20,
+                    }}
+                  >
+                    {' '}
+                    Submit
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => closeDialog()}
+                  style={{
+                    backgroundColor: '#D1AA70',
+                    height: 40,
+                    width: 100,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    borderRadius: 10,
+                  }}
+                >
+                  <Text style={{fontSize: 20}}> Close</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </View>
+        </Modal>
 
         <TouchableOpacity
           onPress={() => payButtonClicked()}
