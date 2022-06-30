@@ -14,7 +14,7 @@ import {FlatGrid} from 'react-native-super-grid';
 
 const HomeView = ({navigation}) => {
   const [items, setItems] = useState([
-    {id: 0, name: require('../Images/demoImage1.png'), title: 'Discovery'},
+    {id: 0, name: require('../Images/demoImage1.png'), title: 'Directory'},
     {id: 1, name: require('../Images/demoImage1.png'), title: 'Calendar'},
     {id: 2, name: require('../Images/demoImage1.png'), title: 'Events'},
     {id: 3, name: require('../Images/demoImage1.png'), title: 'About Us'},
@@ -49,7 +49,12 @@ const HomeView = ({navigation}) => {
   };
 
   const handleQuickLinksClickEvent = idValue => {
-    console.log('handleImageClickEvent : ' + items[idValue].title);
+    console.log('handleImageClickEvent : ' + idValue);
+
+    if (idValue == 'Directory') {
+      navigation.navigate('DorectoryList');
+      console.log('Navigate to Directory List');
+    }
   };
 
   return (
@@ -209,7 +214,7 @@ const HomeView = ({navigation}) => {
                   >
                     <TouchableOpacity
                       style={{width: '100%', height: '100%'}}
-                      onPress={() => handleQuickLinksClickEvent(item.id)}
+                      onPress={() => handleQuickLinksClickEvent(item.title)}
                     />
                   </ImageBackground>
                   <Text style={{color: '#3F60A0'}}>{item.title}</Text>

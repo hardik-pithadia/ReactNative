@@ -10,6 +10,7 @@ import BaseView from './Screens/BaseView';
 import WhatsApp from './Screens/WhatsApp';
 import RegisterEvent from './Screens/RegisterEvent';
 import RegisterSuccess from './Screens/RegisterSuccess';
+import DirectoryList from './Screens/DirectoryList';
 
 const Stack = createNativeStackNavigator();
 
@@ -97,6 +98,19 @@ const App = () => {
             headerTitleAlign: 'center',
             headerTintColor: 'black',
             headerTitle: 'Register for Event',
+          }}
+        />
+
+        <Stack.Screen
+          name="DorectoryList"
+          component={DirectoryList}
+          options={{
+            headerBackTitleVisible: false,
+            headerBackVisible: true,
+            headerTitleAlign: 'center',
+            headerTintColor: 'black',
+            headerTitle: 'Directory',
+            //  headerShown: false,
           }}
         />
       </Stack.Navigator>
