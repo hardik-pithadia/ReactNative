@@ -11,6 +11,7 @@ import WhatsApp from './Screens/WhatsApp';
 import RegisterEvent from './Screens/RegisterEvent';
 import RegisterSuccess from './Screens/RegisterSuccess';
 import DirectoryList from './Screens/DirectoryList';
+import Gallery from './Screens/Gallery';
 
 const Stack = createNativeStackNavigator();
 
@@ -110,6 +111,19 @@ const App = () => {
             headerTitleAlign: 'center',
             headerTintColor: 'black',
             headerTitle: 'Directory',
+            //  headerShown: false,
+          }}
+        />
+
+        <Stack.Screen
+          name="Gallery"
+          component={Gallery}
+          options={{
+            headerBackTitleVisible: false,
+            headerBackVisible: true,
+            headerTitleAlign: 'center',
+            headerTintColor: 'black',
+            headerTitle: 'Gallery',
             //  headerShown: false,
           }}
         />

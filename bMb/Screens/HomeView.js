@@ -62,6 +62,7 @@ const HomeView = ({navigation}) => {
     } else if (menuItem == 'About Us') {
       console.log('Navigate to About Us');
     } else if (menuItem == 'Gallery') {
+      navigation.navigate('Gallery');
       console.log('Navigate to Gallery');
     } else if (menuItem == 'Join Us') {
       console.log('Navigate to Join Us');
