@@ -20,7 +20,7 @@ const HomeView = ({navigation}) => {
     {id: 3, name: require('../Images/demoImage1.png'), title: 'About Us'},
     {id: 4, name: require('../Images/demoImage1.png'), title: 'Gallery'},
     {id: 5, name: require('../Images/demoImage1.png'), title: 'Join Us'},
-    {id: 6, name: require('../Images/demoImage1.png'), title: 'Member Feeds'},
+    //    {id: 6, name: require('../Images/demoImage1.png'), title: 'Member Feeds'},
     {id: 7, name: require('../Images/demoImage1.png'), title: 'Sponsers'},
     {id: 8, name: require('../Images/demoImage1.png'), title: 'Contact Us'},
   ]);
@@ -48,12 +48,27 @@ const HomeView = ({navigation}) => {
     }
   };
 
-  const handleQuickLinksClickEvent = idValue => {
-    console.log('handleImageClickEvent : ' + idValue);
+  const handleQuickLinksClickEvent = menuItem => {
+    console.log('handleImageClickEvent : ' + menuItem);
 
-    if (idValue == 'Directory') {
+    if (menuItem == 'Directory') {
       navigation.navigate('DorectoryList');
       console.log('Navigate to Directory List');
+    } else if (menuItem == 'Calendar') {
+      console.log('Navigate to Calendar');
+    } else if (menuItem == 'Events') {
+      console.log('Navigate to Events');
+      navigation.navigate('Events');
+    } else if (menuItem == 'About Us') {
+      console.log('Navigate to About Us');
+    } else if (menuItem == 'Gallery') {
+      console.log('Navigate to Gallery');
+    } else if (menuItem == 'Join Us') {
+      console.log('Navigate to Join Us');
+    } else if (menuItem == 'Sponsers') {
+      console.log('Navigate to Sponsers');
+    } else if (menuItem == 'Contact Us') {
+      console.log('Navigate to Contact Us');
     }
   };
 
