@@ -51,7 +51,6 @@ const Login = ({navigation}) => {
     <ScrollView>
       <View
         style={{
-          //flex: 1,
           backgroundColor: '#1B195B',
           alignItems: 'center',
           justifyContent: 'center',

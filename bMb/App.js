@@ -12,6 +12,7 @@ import RegisterEvent from './Screens/RegisterEvent';
 import RegisterSuccess from './Screens/RegisterSuccess';
 import DirectoryList from './Screens/DirectoryList';
 import Gallery from './Screens/Gallery';
+import ContactUs from './Screens/ContactUs';
 
 const Stack = createNativeStackNavigator();
 
@@ -111,7 +112,6 @@ const App = () => {
             headerTitleAlign: 'center',
             headerTintColor: 'black',
             headerTitle: 'Directory',
-            //  headerShown: false,
           }}
         />
 
@@ -124,7 +124,18 @@ const App = () => {
             headerTitleAlign: 'center',
             headerTintColor: 'black',
             headerTitle: 'Gallery',
-            //  headerShown: false,
+          }}
+        />
+
+        <Stack.Screen
+          name="ContactUs"
+          component={ContactUs}
+          options={{
+            headerBackTitleVisible: false,
+            headerBackVisible: true,
+            headerTitleAlign: 'center',
+            headerTintColor: 'black',
+            headerTitle: 'Contact Us',
           }}
         />
       </Stack.Navigator>

@@ -70,6 +70,7 @@ const HomeView = ({navigation}) => {
       console.log('Navigate to Sponsers');
     } else if (menuItem == 'Contact Us') {
       console.log('Navigate to Contact Us');
+      navigation.navigate('ContactUs');
     }
   };
 
