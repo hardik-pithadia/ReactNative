@@ -47,6 +47,7 @@ const RegisterEvent = ({navigation}) => {
       .then(data => {
         // handle success
         alert(`Success: ${data.razorpay_payment_id}`);
+        navigation.navigate('RegisterEventSuccess');
       })
       .catch(error => {
         // handle failure

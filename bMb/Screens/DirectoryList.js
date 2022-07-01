@@ -58,7 +58,7 @@ const DirectoryList = ({navigation}) => {
     <View
       style={{
         backgroundColor: 'lightgray',
-        padding: 20,
+        padding: 5,
         marginVertical: 8,
         marginHorizontal: 16,
         marginTop: 15,
@@ -75,8 +75,12 @@ const DirectoryList = ({navigation}) => {
         }}
       />
       <View style={{flexDirection: 'column', marginLeft: 25}}>
-        <Text style={{fontSize: 18, fontWeight: '700'}}>{title}</Text>
-        <Text style={{fontSize: 15, marginTop: 15}}>{mobile}</Text>
+        <Text style={{fontSize: 18, fontWeight: '700', color: '#1B195B'}}>
+          {title}
+        </Text>
+        <Text style={{fontSize: 15, marginTop: 15, color: '#3F60A0'}}>
+          {mobile}
+        </Text>
       </View>
     </View>
   );
