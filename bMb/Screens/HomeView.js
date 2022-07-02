@@ -66,6 +66,9 @@ const HomeView = ({navigation}) => {
       console.log('Navigate to Gallery');
     } else if (menuItem == 'Join Us') {
       console.log('Navigate to Join Us');
+      navigation.navigate('Register', {
+        isHide: true,
+      });
     } else if (menuItem == 'Sponsers') {
       console.log('Navigate to Sponsers');
     } else if (menuItem == 'Contact Us') {

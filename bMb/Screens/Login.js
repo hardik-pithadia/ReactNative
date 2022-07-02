@@ -44,7 +44,9 @@ const Login = ({navigation}) => {
 
   const registerButtonClicked = () => {
     console.log('registerButtonClicked');
-    navigation.navigate('Register');
+    navigation.navigate('Register', {
+      isHide: false,
+    });
   };
 
   return (

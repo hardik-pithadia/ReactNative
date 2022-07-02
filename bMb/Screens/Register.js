@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   Text,
@@ -8,7 +8,19 @@ import {
 } from 'react-native';
 import {StackActions} from '@react-navigation/native';
 
-const Register = ({navigation}) => {
+const Register = ({route, navigation}) => {
+  const [bottomViewArray, setBottomView] = useState([]);
+
+  var bottomView = [];
+
+  useEffect(() => {
+    if (!route.params['isHide']) {
+      getBottomView();
+    } else {
+      return null;
+    }
+  }, [bottomView.length]);
+
   const sendRequestButtonClicked = () => {
     console.log('sendRequestButtonClicked');
 
@@ -20,6 +32,38 @@ const Register = ({navigation}) => {
 
     const popAction = StackActions.pop(1);
     navigation.dispatch(popAction);
+  };
+
+  const getBottomView = () => {
+    bottomView.push(
+      <View
+        style={{
+          alignItems: 'center',
+          justifyContent: 'center',
+          height: 35,
+          marginLeft: 25,
+          marginRight: 25,
+          marginTop: 15,
+        }}
+      >
+        <Text>Already have an account ?</Text>
+      </View>,
+    );
+
+    bottomView.push(
+      <TouchableOpacity
+        onPress={() => loginButtonClicked()}
+        style={{
+          height: 30,
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <Text style={{fontSize: 18, color: '#D1AA70'}}>Login here</Text>
+      </TouchableOpacity>,
+    );
+
+    setBottomView(bottomView);
   };
 
   return (
@@ -164,31 +208,7 @@ const Register = ({navigation}) => {
           </Text>
         </TouchableOpacity>
 
-        <View
-          style={{
-            alignItems: 'center',
-            justifyContent: 'center',
-            height: 35,
-            marginLeft: 25,
-            marginRight: 25,
-            marginTop: 15,
-          }}
-        >
-          <Text>Already have an account ?</Text>
-        </View>
-
-        <TouchableOpacity
-          onPress={() => loginButtonClicked()}
-          style={{
-            height: 30,
-            alignItems: 'center',
-            justifyContent: 'center',
-            //  marginBottom: 150,
-            //  bottom: 60,
-          }}
-        >
-          <Text style={{fontSize: 18, color: '#D1AA70'}}>Login here</Text>
-        </TouchableOpacity>
+        {bottomViewArray}
       </View>
     </ScrollView>
   );
