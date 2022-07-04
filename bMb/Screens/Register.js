@@ -44,8 +44,7 @@ const Register = ({route, navigation}) => {
           marginLeft: 25,
           marginRight: 25,
           marginTop: 15,
-        }}
-      >
+        }}>
         <Text>Already have an account ?</Text>
       </View>,
     );
@@ -57,8 +56,7 @@ const Register = ({route, navigation}) => {
           height: 30,
           alignItems: 'center',
           justifyContent: 'center',
-        }}
-      >
+        }}>
         <Text style={{fontSize: 18, color: '#D1AA70'}}>Login here</Text>
       </TouchableOpacity>,
     );
@@ -77,8 +75,7 @@ const Register = ({route, navigation}) => {
             marginRight: 25,
             marginTop: 25,
             borderRadius: 10,
-          }}
-        >
+          }}>
           <TextInput
             style={{
               height: 40,
@@ -103,8 +100,7 @@ const Register = ({route, navigation}) => {
             marginRight: 25,
             borderRadius: 10,
             marginTop: 20,
-          }}
-        >
+          }}>
           <TextInput
             style={{
               height: 40,
@@ -129,8 +125,7 @@ const Register = ({route, navigation}) => {
             marginRight: 25,
             borderRadius: 10,
             marginTop: 20,
-          }}
-        >
+          }}>
           <TextInput
             style={{
               height: 40,
@@ -156,8 +151,7 @@ const Register = ({route, navigation}) => {
             marginRight: 25,
             borderRadius: 10,
             marginTop: 20,
-          }}
-        >
+          }}>
           <TextInput
             style={{
               height: 40,
@@ -181,8 +175,7 @@ const Register = ({route, navigation}) => {
             fontSize: 14,
             textAlign: 'center',
             color: 'grey',
-          }}
-        >
+          }}>
           By Continuing you agree with our Terms & Conditiones & Privacy Policy
         </Text>
 
@@ -195,15 +188,13 @@ const Register = ({route, navigation}) => {
             alignItems: 'center',
             justifyContent: 'center',
             borderRadius: 12,
-          }}
-        >
+          }}>
           <Text
             style={{
               fontSize: 18,
               color: 'white',
               fontWeight: '700',
-            }}
-          >
+            }}>
             Send Request
           </Text>
         </TouchableOpacity>
