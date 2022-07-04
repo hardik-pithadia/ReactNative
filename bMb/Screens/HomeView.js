@@ -11,6 +11,8 @@ import {
   ImageBackground,
 } from 'react-native';
 import {FlatGrid} from 'react-native-super-grid';
+import Carousel from './Carousel';
+import {dummyData} from '../Screens/Data';
 
 const HomeView = ({navigation}) => {
   const [items, setItems] = useState([
@@ -96,14 +98,12 @@ const HomeView = ({navigation}) => {
               width: 175.0,
               alignItems: 'flex-end',
               justifyContent: 'space-between',
-            }}
-          >
+            }}>
             <Text
               style={{
                 fontSize: 25.0,
                 color: '#3F60A0',
-              }}
-            >
+              }}>
               Dashboard
             </Text>
             <View
@@ -120,9 +120,9 @@ const HomeView = ({navigation}) => {
           style={{
             flexDirection: 'column',
             flex: 1,
-          }}
-        >
-          <ScrollView
+          }}>
+          <Carousel data={dummyData} />
+          {/*<ScrollView
             horizontal={true}
             style={{
               height: 175,
@@ -130,8 +130,7 @@ const HomeView = ({navigation}) => {
               marginLeft: 25,
               marginRight: 25,
               borderRadius: 10,
-            }}
-          >
+            }}>
             <Image
               source={require('../Images/demoImage1.png')}
               style={{
@@ -160,7 +159,7 @@ const HomeView = ({navigation}) => {
                 borderRadius: 10,
               }}
             />
-          </ScrollView>
+          </ScrollView>*/}
 
           <Text
             style={{
@@ -169,8 +168,7 @@ const HomeView = ({navigation}) => {
               color: '#1B195B',
               fontSize: 16,
               fontWeight: '600',
-            }}
-          >
+            }}>
             Latest Updates
           </Text>
 
@@ -182,8 +180,7 @@ const HomeView = ({navigation}) => {
               color: '#D1AA70',
               fontSize: 12,
               fontWeight: '500',
-            }}
-          >
+            }}>
             BMB Medimeet 2022 | March 2022 | Gujarat
           </Text>
 
@@ -203,8 +200,7 @@ const HomeView = ({navigation}) => {
               marginLeft: 25,
               color: '#3F60A0',
               fontSize: 22,
-            }}
-          >
+            }}>
             Quick Links
           </Text>
 
@@ -214,8 +210,7 @@ const HomeView = ({navigation}) => {
               marginLeft: 15,
               marginRight: 15,
               marginBottom: 25,
-            }}
-          >
+            }}>
             <FlatGrid
               itemDimension={80}
               data={items}
@@ -230,8 +225,7 @@ const HomeView = ({navigation}) => {
                       borderRadius: 10,
                       height: 80,
                       overflow: 'hidden',
-                    }}
-                  >
+                    }}>
                     <TouchableOpacity
                       style={{width: '100%', height: '100%'}}
                       onPress={() => handleQuickLinksClickEvent(item.title)}
@@ -249,8 +243,7 @@ const HomeView = ({navigation}) => {
               marginBottom: 25,
               height: 110,
               backgroundColor: '#3F60A0',
-            }}
-          >
+            }}>
             <Image
               source={require('../Images/demoImage1.png')}
               style={{
