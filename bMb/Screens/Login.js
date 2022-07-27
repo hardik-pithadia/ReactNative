@@ -11,6 +11,8 @@ import {
   Alert,
 } from 'react-native';
 
+import PageLoader from '../Utils/loader';
+
 const Login = ({navigation}) => {
   const [isLoading, setLoading] = useState(false);
 
@@ -105,180 +107,172 @@ const Login = ({navigation}) => {
 
   return (
     <ScrollView>
-      {isLoading ? (
-        <ActivityIndicator
-          animating={true}
-          size="large"
-          color="yellow"
-          hidesWhenStopped={true}
+      {isLoading && <PageLoader show={isLoading} />}
+      <View
+        style={{
+          backgroundColor: '#1B195B',
+          alignItems: 'center',
+          justifyContent: 'center',
+          height: Dimensions.get('window').height + 100,
+        }}>
+        <Image
+          source={require('../Images/logo.png')}
+          style={{
+            width: 175,
+            height: 175,
+            marginTop: 5,
+          }}
         />
-      ) : (
         <View
           style={{
-            backgroundColor: '#1B195B',
-            alignItems: 'center',
-            justifyContent: 'center',
-            height: Dimensions.get('window').height + 100,
+            width: '85%',
+            top: 30,
           }}>
-          <Image
-            source={require('../Images/logo.png')}
-            style={{
-              width: 175,
-              height: 175,
-              marginTop: 5,
-            }}
-          />
+          <Text style={{fontSize: 40, color: 'white'}}>Hello</Text>
+          <Text style={{fontSize: 25, color: 'white', top: 10}}>
+            {displayGreetings()}
+          </Text>
+
           <View
             style={{
-              width: '85%',
-              top: 30,
+              marginTop: 30,
+              //  top: 30,
+              //  height: 40,
+              borderColor: 'white',
+              borderBottomWidth: 1,
+              alignItems: 'flex-start',
+              //  paddingLeft: 5,
+              padding: 5,
+              flexDirection: 'row',
             }}>
-            <Text style={{fontSize: 40, color: 'white'}}>Hello</Text>
-            <Text style={{fontSize: 25, color: 'white', top: 10}}>
-              {displayGreetings()}
-            </Text>
-
-            <View
+            <Image
+              source={require('../Images/envelope.png')}
               style={{
-                marginTop: 30,
-                //  top: 30,
-                //  height: 40,
-                borderColor: 'white',
-                borderBottomWidth: 1,
-                alignItems: 'flex-start',
-                //  paddingLeft: 5,
-                padding: 5,
-                flexDirection: 'row',
-              }}>
-              <Image
-                source={require('../Images/envelope.png')}
-                style={{
-                  width: 25,
-                  height: 25,
-                  marginTop: 8,
-                }}
-              />
-              <TextInput
-                style={{
-                  width: '85%',
-                  marginLeft: 20,
-                  fontSize: 20,
-                  justifyContent: 'center',
-                  color: 'white',
-                  padding: 5,
-                }}
-                placeholder="Email"
-                placeholderTextColor="white"
-                autoCapitalize="none"
-                autoCorrect={false}
-                value={txtEmail}
-                onChangeText={text => setEmailTextValue(text)}
-              />
-            </View>
-
-            <View
-              style={{
-                marginTop: 25,
-                //  top: 15,
-                //  height: 40,
-                borderColor: 'white',
-                borderBottomWidth: 1,
-                alignItems: 'flex-start',
-                padding: 5,
-                flexDirection: 'row',
-              }}>
-              <Image
-                source={require('../Images/password.png')}
-                style={{
-                  width: 25,
-                  height: 25,
-                  marginTop: 5,
-                }}
-              />
-              <TextInput
-                style={{
-                  //    height: Platform.OS == 'ios' ? 25 : 40,
-                  width: '85%',
-                  marginLeft: 20,
-                  fontSize: 20,
-                  justifyContent: 'center',
-                  color: 'white',
-                  padding: 5,
-                }}
-                placeholder="Password"
-                placeholderTextColor="white"
-                autoCapitalize="none"
-                autoCorrect={false}
-                secureTextEntry={true}
-                value={txtPassword}
-                onChangeText={text => setPasswordTextValue(text)}
-              />
-            </View>
-
-            <View
-              style={{
-                margin: 15,
+                width: 25,
                 height: 25,
-                alignItems: 'flex-end',
+                marginTop: 8,
+              }}
+            />
+            <TextInput
+              style={{
+                width: '85%',
+                marginLeft: 20,
+                fontSize: 20,
+                justifyContent: 'center',
+                color: 'white',
+                padding: 5,
+              }}
+              placeholder="Email"
+              placeholderTextColor="white"
+              autoCapitalize="none"
+              autoCorrect={false}
+              value={txtEmail}
+              onChangeText={text => setEmailTextValue(text)}
+            />
+          </View>
+
+          <View
+            style={{
+              marginTop: 25,
+              //  top: 15,
+              //  height: 40,
+              borderColor: 'white',
+              borderBottomWidth: 1,
+              alignItems: 'flex-start',
+              padding: 5,
+              flexDirection: 'row',
+            }}>
+            <Image
+              source={require('../Images/password.png')}
+              style={{
+                width: 25,
+                height: 25,
+                marginTop: 5,
+              }}
+            />
+            <TextInput
+              style={{
+                //    height: Platform.OS == 'ios' ? 25 : 40,
+                width: '85%',
+                marginLeft: 20,
+                fontSize: 20,
+                justifyContent: 'center',
+                color: 'white',
+                padding: 5,
+              }}
+              placeholder="Password"
+              placeholderTextColor="white"
+              autoCapitalize="none"
+              autoCorrect={false}
+              secureTextEntry={true}
+              value={txtPassword}
+              onChangeText={text => setPasswordTextValue(text)}
+            />
+          </View>
+
+          <View
+            style={{
+              margin: 15,
+              height: 25,
+              alignItems: 'flex-end',
+              justifyContent: 'center',
+            }}>
+            <TouchableOpacity
+              onPress={() => forgotPasswordButtonClicked()}
+              style={{
+                height: 25,
                 justifyContent: 'center',
               }}>
-              <TouchableOpacity
-                onPress={() => forgotPasswordButtonClicked()}
-                style={{
-                  height: 25,
-                  justifyContent: 'center',
-                }}>
-                <Text style={{fontSize: 13, color: 'white'}}>
-                  Forgot Password?
-                </Text>
-              </TouchableOpacity>
-            </View>
+              <Text style={{fontSize: 13, color: 'white'}}>
+                Forgot Password?
+              </Text>
+            </TouchableOpacity>
+          </View>
 
-            <View
+          <View
+            style={{
+              top: 25,
+              height: 40,
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
+            <TouchableOpacity
+              onPress={() => signInButtonClicked()}
               style={{
-                top: 25,
+                backgroundColor: '#D1AA70',
                 height: 40,
+                justifyContent: 'center',
+                alignItems: 'center',
+                width: 130,
+                borderRadius: 20,
+              }}>
+              <Text style={{color: 'white', fontSize: 15}}>SIGN IN</Text>
+            </TouchableOpacity>
+            <Text style={{color: 'white', top: 15}}>
+              Don't have an account?
+            </Text>
+            <TouchableOpacity
+              onPress={() => registerButtonClicked()}
+              style={{
+                top: 15,
+                width: 150,
+                height: 30,
                 alignItems: 'center',
                 justifyContent: 'center',
+                // marginBottom: 5,
               }}>
-              <TouchableOpacity
-                onPress={() => signInButtonClicked()}
+              <Text
                 style={{
-                  backgroundColor: '#D1AA70',
-                  height: 40,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  width: 130,
-                  borderRadius: 20,
+                  fontSize: 18,
+                  fontWeight: '700',
+                  color: 'pink',
                 }}>
-                <Text style={{color: 'white', fontSize: 15}}>SIGN IN</Text>
-              </TouchableOpacity>
-              <Text style={{color: 'white', top: 15}}>
-                Don't have an account?
+                Register
               </Text>
-              <TouchableOpacity
-                onPress={() => registerButtonClicked()}
-                style={{
-                  top: 15,
-                  width: 150,
-                  height: 30,
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  // marginBottom: 5,
-                }}>
-                <Text
-                  style={{
-                    fontSize: 18,
-                    fontWeight: '700',
-                    color: 'pink',
-                  }}>
-                  Register
-                </Text>
-              </TouchableOpacity>
-            </View>
+            </TouchableOpacity>
           </View>
         </View>
-      )}
+      </View>
     </ScrollView>
   );
 };
