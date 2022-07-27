@@ -54,8 +54,7 @@ const Gallery = () => {
         marginLeft: 15,
         marginRight: 15,
         marginBottom: 25,
-      }}
-    >
+      }}>
       <FlatGrid
         itemDimension={80}
         data={items}
@@ -70,11 +69,10 @@ const Gallery = () => {
                 borderRadius: 10,
                 height: 80,
                 overflow: 'hidden',
-              }}
-            >
+              }}>
               <TouchableOpacity
                 style={{width: '100%', height: '100%'}}
-                onPress={() => handleQuickLinksClickEvent(item.title)}
+                // onPress={() => handleQuickLinksClickEvent(item.title)}
               />
             </ImageBackground>
           </View>
