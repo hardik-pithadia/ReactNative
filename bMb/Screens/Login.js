@@ -57,13 +57,14 @@ const Login = ({navigation}) => {
   };
 
   const postLoginDataToServer = async () => {
+    console.log('postLoginDataToServer');
     setLoading(true);
 
     fetch('http://bmb.bestdoctorsinmumbai.com/api/userlogin.php', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
-        'Content-Type': 'application/json',
+        'Content-Type': 'text/plain',
       },
       body: JSON.stringify({
         username: txtEmail.toString(),
