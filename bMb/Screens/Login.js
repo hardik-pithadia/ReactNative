@@ -108,21 +108,20 @@ const Login = ({navigation}) => {
   };
 
   return (
-    <ScrollView>
+    <View style={{flex: 1, backgroundColor: '#1B195B'}}>
       {isLoading && <PageLoader show={isLoading} />}
       <View
         style={{
-          backgroundColor: '#1B195B',
           alignItems: 'center',
           justifyContent: 'center',
-          height: Dimensions.get('window').height + 100,
+          //height: Dimensions.get('window').height + 100,
         }}>
         <Image
           source={require('../Images/logo.png')}
           style={{
             width: 175,
             height: 175,
-            marginTop: 5,
+            marginTop: 30,
           }}
         />
         <View
@@ -130,20 +129,17 @@ const Login = ({navigation}) => {
             width: '85%',
             top: 30,
           }}>
-          <Text style={{fontSize: 40, color: 'white'}}>Hello</Text>
-          <Text style={{fontSize: 25, color: 'white', top: 10}}>
+          <Text style={{fontSize: 30, color: 'white'}}>Hello</Text>
+          <Text style={{fontSize: 20, color: 'white', top: 10}}>
             {displayGreetings()}
           </Text>
 
           <View
             style={{
               marginTop: 30,
-              //  top: 30,
-              //  height: 40,
               borderColor: 'white',
               borderBottomWidth: 1,
               alignItems: 'flex-start',
-              //  paddingLeft: 5,
               padding: 5,
               flexDirection: 'row',
             }}>
@@ -176,8 +172,6 @@ const Login = ({navigation}) => {
           <View
             style={{
               marginTop: 25,
-              //  top: 15,
-              //  height: 40,
               borderColor: 'white',
               borderBottomWidth: 1,
               alignItems: 'flex-start',
@@ -194,7 +188,6 @@ const Login = ({navigation}) => {
             />
             <TextInput
               style={{
-                //    height: Platform.OS == 'ios' ? 25 : 40,
                 width: '85%',
                 marginLeft: 20,
                 fontSize: 20,
@@ -275,7 +268,7 @@ const Login = ({navigation}) => {
           </View>
         </View>
       </View>
-    </ScrollView>
+    </View>
   );
 };
 
