@@ -4,7 +4,7 @@ import {View, Text} from 'react-native';
 const Notifications = () => {
   return (
     <View>
-      <Text>Screen Under Development</Text>
+      <Text style={{color: 'black'}}>Screen Under Development</Text>
     </View>
   );
 };

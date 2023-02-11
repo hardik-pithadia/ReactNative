@@ -105,6 +105,7 @@ const styles = StyleSheet.create({
     marginTop: 25,
     fontWeight: 'bold',
     fontSize: 20,
+    color: 'black',
   },
 
   subText: {
@@ -112,6 +113,7 @@ const styles = StyleSheet.create({
     marginRight: 25,
     marginTop: 10,
     fontSize: 17,
+    color: 'black',
   },
 });
 

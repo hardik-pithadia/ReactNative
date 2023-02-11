@@ -67,13 +67,11 @@ const RegisterEvent = ({navigation}) => {
           marginLeft: 25,
           marginRight: 25,
           borderRadius: 10,
-        }}
-      >
+        }}>
         <View style={{width: '100%', height: 35, alignItems: 'flex-end'}}>
           <TouchableOpacity
             style={{marginRight: 10, marginTop: 5}}
-            onPress={() => crossButtonClicked()}
-          >
+            onPress={() => crossButtonClicked()}>
             <Image
               source={require('../Images/cross_icon.png')}
               style={{width: 35, height: 35}}
@@ -91,8 +89,7 @@ const RegisterEvent = ({navigation}) => {
             marginTop: 10,
             padding: 10,
             fontSize: 20,
-          }}
-        >
+          }}>
           {txtName}
         </Text>
 
@@ -106,8 +103,7 @@ const RegisterEvent = ({navigation}) => {
             marginRight: 25,
             padding: 10,
             fontSize: 20,
-          }}
-        >
+          }}>
           {txtAge}
         </Text>
       </View>,
@@ -135,15 +131,13 @@ const RegisterEvent = ({navigation}) => {
           backgroundColor: 'white',
           flex: 1,
           flexDirection: 'column',
-        }}
-      >
+        }}>
         <View
           style={{
             alignItems: 'center',
             justifyContent: 'center',
             marginTop: 25,
-          }}
-        >
+          }}>
           <Image
             resizeMode="stretch"
             source={require('../Images/register_event_banner.png')}
@@ -156,8 +150,8 @@ const RegisterEvent = ({navigation}) => {
             marginLeft: 25,
             fontSize: 30,
             fontWeight: '600',
-          }}
-        >
+            color: 'black',
+          }}>
           Sponsors
         </Text>
 
@@ -169,8 +163,7 @@ const RegisterEvent = ({navigation}) => {
             marginRight: 25,
             marginTop: 15,
             borderRadius: 10,
-          }}
-        ></View>
+          }}></View>
 
         <View
           style={{
@@ -181,21 +174,19 @@ const RegisterEvent = ({navigation}) => {
             justifyContent: 'space-between',
             alignItems: 'center',
             flexDirection: 'row',
-          }}
-        >
+          }}>
           <Text
             style={{
               fontSize: 18,
               marginLeft: 5,
               fontWeight: '600',
-            }}
-          >
+              color: 'black',
+            }}>
             No.of Family Members
           </Text>
           <TouchableOpacity
             style={{flexDirection: 'row'}}
-            onPress={() => addNewButtonClicked()}
-          >
+            onPress={() => addNewButtonClicked()}>
             <Image
               style={{width: 25, height: 25, marginRight: 5}}
               source={require('../Images/add_icon.png')}
@@ -206,8 +197,8 @@ const RegisterEvent = ({navigation}) => {
                 marginRight: 15,
                 fontSize: 18,
                 fontWeight: '600',
-              }}
-            >
+                color: 'black',
+              }}>
               Add New
             </Text>
           </TouchableOpacity>
@@ -222,9 +213,8 @@ const RegisterEvent = ({navigation}) => {
             marginRight: 25,
             alignItems: 'center',
             justifyContent: 'center',
-          }}
-        >
-          <Text style={{textAlign: 'center', fontSize: 15}}>
+          }}>
+          <Text style={{textAlign: 'center', fontSize: 15, color: 'black'}}>
             By Continuing, you agree with our Terms & Conditions and Privacy
             Policy
           </Text>
@@ -233,8 +223,7 @@ const RegisterEvent = ({navigation}) => {
         <Modal
           animationType="slide"
           transparent={true}
-          visible={isDialogVisible}
-        >
+          visible={isDialogVisible}>
           <View
             style={{
               flex: 1,
@@ -242,8 +231,7 @@ const RegisterEvent = ({navigation}) => {
               alignItems: 'center',
               backgroundColor: 'white',
               height: 200,
-            }}
-          >
+            }}>
             <View
               style={{
                 width: '80%',
@@ -252,8 +240,7 @@ const RegisterEvent = ({navigation}) => {
                 borderRadius: 10,
                 alignItems: 'center',
                 justifyContent: 'center',
-              }}
-            >
+              }}>
               <Text style={{color: '#D1AA70', fontSize: 20, fontWeight: '700'}}>
                 No.of Family Details for Entry
               </Text>
@@ -305,8 +292,7 @@ const RegisterEvent = ({navigation}) => {
                   alignItems: 'center',
                   justifyContent: 'space-around',
                   marginTop: 25,
-                }}
-              >
+                }}>
                 <TouchableOpacity
                   onPress={() => submitButtonClicked()}
                   style={{
@@ -316,13 +302,11 @@ const RegisterEvent = ({navigation}) => {
                     alignItems: 'center',
                     justifyContent: 'center',
                     borderRadius: 10,
-                  }}
-                >
+                  }}>
                   <Text
                     style={{
                       fontSize: 20,
-                    }}
-                  >
+                    }}>
                     {' '}
                     Submit
                   </Text>
@@ -336,8 +320,7 @@ const RegisterEvent = ({navigation}) => {
                     alignItems: 'center',
                     justifyContent: 'center',
                     borderRadius: 10,
-                  }}
-                >
+                  }}>
                   <Text style={{fontSize: 20}}> Close</Text>
                 </TouchableOpacity>
               </View>
@@ -354,15 +337,13 @@ const RegisterEvent = ({navigation}) => {
             alignItems: 'center',
             justifyContent: 'center',
             borderRadius: 12,
-          }}
-        >
+          }}>
           <Text
             style={{
               fontSize: 18,
               color: 'white',
               fontWeight: '700',
-            }}
-          >
+            }}>
             Pay and Register of Event Now
           </Text>
         </TouchableOpacity>

@@ -104,7 +104,6 @@ const DirectoryList = ({navigation}) => {
           width: 50,
           height: 50,
           borderRadius: 25,
-          backgroundColor: 'pink',
         }}
       />
       <View style={{flexDirection: 'column', marginLeft: 25}}>
@@ -117,7 +116,7 @@ const DirectoryList = ({navigation}) => {
           <Text style={{fontSize: 18, fontWeight: '700', color: '#1B195B'}}>
             {title}
           </Text>
-          <Text style={{marginLeft: 15}}>{speciality}</Text>
+          <Text style={{marginLeft: 15, color: 'black'}}>{speciality}</Text>
         </View>
 
         <Text style={{fontSize: 15, marginTop: 15, color: '#3F60A0'}}>
