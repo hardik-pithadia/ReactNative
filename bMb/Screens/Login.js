@@ -50,7 +50,8 @@ const Login = ({navigation}) => {
     console.log('Password : ' + txtPassword);
 
     if (txtEmail.length > 0 && txtPassword.length > 0) {
-      postLoginDataToServer();
+      // postLoginDataToServer();
+      navigation.navigate('Base');
     } else {
       Alert.alert('Error', 'Please Enter Username & Password');
     }
