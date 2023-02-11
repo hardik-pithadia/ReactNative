@@ -14,6 +14,7 @@ import DirectoryList from './Screens/DirectoryList';
 import Gallery from './Screens/Gallery';
 import ContactUs from './Screens/ContactUs';
 import AboutUs from './Screens/AboutUs';
+import Notifications from './Screens/Notifications';
 
 const Stack = createNativeStackNavigator();
 
@@ -149,6 +150,18 @@ const App = () => {
             headerTitleAlign: 'center',
             headerTintColor: 'black',
             headerTitle: 'About Us',
+          }}
+        />
+
+        <Stack.Screen
+          name="Notifications"
+          component={Notifications}
+          options={{
+            headerBackTitleVisible: false,
+            headerBackVisible: true,
+            headerTitleAlign: 'center',
+            headerTintColor: 'black',
+            headerTitle: 'Notifications',
           }}
         />
       </Stack.Navigator>

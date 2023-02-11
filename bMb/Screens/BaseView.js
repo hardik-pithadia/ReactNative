@@ -6,6 +6,7 @@ import EventsView from './EventsView';
 import WhatsApp from './WhatsApp';
 
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import Notifications from './Notifications';
 
 const sampleTabNavigation = createBottomTabNavigator();
 
@@ -19,8 +20,7 @@ const BaseView = ({navigation}) => {
         activeTintColor: '#3F60A0',
         inactiveTintColor: 'black',
         style: {backgroundColor: 'white'},
-      }}
-    >
+      }}>
       <sampleTabNavigation.Screen
         name="Home"
         options={{
@@ -79,6 +79,21 @@ const BaseView = ({navigation}) => {
           ),
         }}
         component={ProfileView}
+      />
+
+      <sampleTabNavigation.Screen
+        name="Notifications"
+        options={{
+          headerShown: false,
+          tabBarLabel: 'Notifications',
+          tabBarIcon: ({color}) => (
+            <Image
+              style={{width: 25, height: 25, tintColor: color}}
+              source={require('../Images/Notification.png')}
+            />
+          ),
+        }}
+        component={Notifications}
       />
     </sampleTabNavigation.Navigator>
   );
