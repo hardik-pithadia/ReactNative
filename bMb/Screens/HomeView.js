@@ -16,14 +16,14 @@ import {dummyData} from '../Screens/Data';
 
 const HomeView = ({navigation}) => {
   const [items, setItems] = useState([
+    {id: 7, name: require('../Images/demoImage1.png'), title: 'Sponsers'},
     {id: 0, name: require('../Images/demoImage1.png'), title: 'Directory'},
-    {id: 1, name: require('../Images/demoImage1.png'), title: 'Calendar'},
     {id: 2, name: require('../Images/demoImage1.png'), title: 'Events'},
     {id: 3, name: require('../Images/demoImage1.png'), title: 'About Us'},
     {id: 4, name: require('../Images/demoImage1.png'), title: 'Gallery'},
     {id: 5, name: require('../Images/demoImage1.png'), title: 'Join Us'},
     //    {id: 6, name: require('../Images/demoImage1.png'), title: 'Member Feeds'},
-    {id: 7, name: require('../Images/demoImage1.png'), title: 'Sponsers'},
+
     {id: 8, name: require('../Images/demoImage1.png'), title: 'Contact Us'},
   ]);
 
