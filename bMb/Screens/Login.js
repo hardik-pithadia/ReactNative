@@ -4,14 +4,12 @@ import {
   Text,
   Image,
   TextInput,
-  ActivityIndicator,
   TouchableOpacity,
-  ScrollView,
-  Dimensions,
   Alert,
 } from 'react-native';
-
 import PageLoader from '../Utils/loader';
+import {postDataToServer} from '../Utils/WebRequestManager';
+import * as Constants from '../Utils/constants';
 
 const Login = ({navigation}) => {
   const [isLoading, setLoading] = useState(false);
@@ -48,46 +46,79 @@ const Login = ({navigation}) => {
     console.log('signInButtonClicked');
     console.log('Email : ' + txtEmail);
     console.log('Password : ' + txtPassword);
-
+    setLoading(true);
     if (txtEmail.length > 0 && txtPassword.length > 0) {
-      // postLoginDataToServer();
-      navigation.navigate('Base');
+      postLoginDataToServer();
+      // navigation.navigate('Base');
     } else {
       Alert.alert('Error', 'Please Enter Username & Password');
     }
   };
 
   const postLoginDataToServer = async () => {
-    console.log('postLoginDataToServer');
-    setLoading(true);
+    var mobValue = {
+      email: txtEmail.toString(),
+      password: txtPassword.toString(),
+    };
 
-    fetch('http://bmb.bestdoctorsinmumbai.com/api/userlogin.php', {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'text/plain',
-      },
-      body: JSON.stringify({
-        username: txtEmail.toString(),
-        password: txtPassword.toString(),
-      }),
-    })
-      .then(response => response.json())
-      .then(responseData => {
-        console.log('RESULTS HERE:', responseData);
-        console.log('Status : ' + JSON.stringify(responseData['status']));
-        console.log('Message : ' + JSON.stringify(responseData['message']));
+    console.log('-------------------------------------');
+    console.log('Request Object : ' + JSON.stringify(mobValue));
 
-        if (responseData['status'] == 200) {
-          console.log('Login Successfull!');
-          navigation.navigate('Base');
-        }
-        setLoading(false);
-      })
-      .catch(error => {
-        console.error(error);
-        setLoading(false);
-      });
+    var responseData = await postDataToServer(
+      Constants.base_URL + '/doctor/login',
+      JSON.stringify(mobValue),
+    );
+
+    if (responseData.response) {
+      if (responseData.response.status) {
+        console.log('Login Response : ' + JSON.stringify(responseData));
+        navigation.navigate('Base');
+      } else {
+        Alert.alert('Error', responseData.response.message, [
+          {
+            text: 'Ok',
+            style: 'cancel',
+            onPress: () => {
+              setEmail('');
+              setPassword('');
+            },
+          },
+        ]);
+      }
+    }
+
+    setLoading(false);
+
+    //    console.log('postLoginDataToServer');
+    //    setLoading(true);
+    //
+    //    fetch('https://sea-turtle-app-i54w6.ondigitalocean.app/api/doctor/login', {
+    //      method: 'POST',
+    //      headers: {
+    //        Accept: 'application/json',
+    //        'Content-Type': 'text/plain',
+    //      },
+    //      body: JSON.stringify({
+    //        email: 'mohitp.codetown@gmail.com',
+    //        password: '1234567890',
+    //      }),
+    //    })
+    //      .then(response => response.json())
+    //      .then(responseData => {
+    //        console.log('RESULTS HERE:', responseData);
+    //        console.log('Status : ' + JSON.stringify(responseData['status']));
+    //        console.log('Message : ' + JSON.stringify(responseData['message']));
+    //
+    //        if (responseData['status'] == 200) {
+    //          console.log('Login Successfull!');
+    //          navigation.navigate('Base');
+    //        }
+    //        setLoading(false);
+    //      })
+    //      .catch(error => {
+    //        console.error(error);
+    //        setLoading(false);
+    //      });
   };
 
   const registerButtonClicked = () => {
