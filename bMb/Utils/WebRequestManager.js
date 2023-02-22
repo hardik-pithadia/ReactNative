@@ -2,7 +2,8 @@ export const postDataToServer = (url, params, jwtToken = '') => {
   return new Promise(resolve => {
     const header = {
       Accept: 'application/json',
-      'Content-Type': 'text/plain',
+      // 'Content-Type': 'text/plain',
+      'Content-Type': 'application/json',
     };
     console.log('URL : ' + url);
 

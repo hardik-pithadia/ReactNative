@@ -10,6 +10,7 @@ import {
 import PageLoader from '../Utils/loader';
 import {postDataToServer} from '../Utils/WebRequestManager';
 import * as Constants from '../Utils/constants';
+import {getData, storeData} from '../Utils/utility';
 
 const Login = ({navigation}) => {
   const [isLoading, setLoading] = useState(false);
@@ -62,7 +63,7 @@ const Login = ({navigation}) => {
     };
 
     console.log('-------------------------------------');
-    console.log('Request Object : ' + JSON.stringify(mobValue));
+    console.log('Login Request Object : ' + JSON.stringify(mobValue));
 
     var responseData = await postDataToServer(
       Constants.base_URL + '/doctor/login',
@@ -71,7 +72,47 @@ const Login = ({navigation}) => {
 
     if (responseData.response) {
       if (responseData.response.status) {
-        console.log('Login Response : ' + JSON.stringify(responseData));
+        console.log(
+          'Login Response103 : ' + JSON.stringify(responseData.response.data),
+        );
+
+        storeData(Constants.TITLE, responseData.response.data.title);
+        storeData(Constants.FIRST_NAME, responseData.response.data.first_name);
+        storeData(
+          Constants.MIDDLE_NAME,
+          responseData.response.data.middle_name,
+        );
+        storeData(Constants.LAST_NAME, responseData.response.data.last_name);
+        storeData(Constants.EMAIL, responseData.response.data.email);
+        storeData(
+          Constants.CONTACT_NUMBER,
+          responseData.response.data.contact_number,
+        );
+        storeData(
+          Constants.QUALIFICATION,
+          responseData.response.data.qualification,
+        );
+        storeData(Constants.SPECIALITY, responseData.response.data.speciality);
+        storeData(Constants.REG_NUMBER, responseData.response.data.reg_number);
+        storeData(Constants.DOB, responseData.response.data.dob);
+        storeData(
+          Constants.BLOOD_GROUP,
+          responseData.response.data.blood_group,
+        );
+        storeData(Constants.DOC_ID, responseData.response.data.docId);
+        storeData(Constants.ACC_TYPE, responseData.response.data.account_type);
+        storeData(Constants.IMAGE_NAME, responseData.response.data.image);
+        storeData(
+          Constants.DEGREE_CERT,
+          responseData.response.data.degree_certificate,
+        );
+        storeData(
+          Constants.MMC_CERT,
+          responseData.response.data.mmc_certificate,
+        );
+        storeData(Constants.STATE, responseData.response.data.state);
+        storeData(Constants.AUTH_TOKEN, responseData.response.data.auth_token);
+
         navigation.navigate('Base');
       } else {
         Alert.alert('Error', responseData.response.message, [
@@ -88,37 +129,6 @@ const Login = ({navigation}) => {
     }
 
     setLoading(false);
-
-    //    console.log('postLoginDataToServer');
-    //    setLoading(true);
-    //
-    //    fetch('https://sea-turtle-app-i54w6.ondigitalocean.app/api/doctor/login', {
-    //      method: 'POST',
-    //      headers: {
-    //        Accept: 'application/json',
-    //        'Content-Type': 'text/plain',
-    //      },
-    //      body: JSON.stringify({
-    //        email: 'mohitp.codetown@gmail.com',
-    //        password: '1234567890',
-    //      }),
-    //    })
-    //      .then(response => response.json())
-    //      .then(responseData => {
-    //        console.log('RESULTS HERE:', responseData);
-    //        console.log('Status : ' + JSON.stringify(responseData['status']));
-    //        console.log('Message : ' + JSON.stringify(responseData['message']));
-    //
-    //        if (responseData['status'] == 200) {
-    //          console.log('Login Successfull!');
-    //          navigation.navigate('Base');
-    //        }
-    //        setLoading(false);
-    //      })
-    //      .catch(error => {
-    //        console.error(error);
-    //        setLoading(false);
-    //      });
   };
 
   const registerButtonClicked = () => {

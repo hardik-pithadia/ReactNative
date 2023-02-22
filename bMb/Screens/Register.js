@@ -7,187 +7,192 @@ import {
   ScrollView,
   Image,
   StyleSheet,
+  Alert,
 } from 'react-native';
 import {StackActions} from '@react-navigation/native';
 import DatePicker from 'react-native-date-picker';
 import {SelectCountry} from 'react-native-element-dropdown';
+import PageLoader from '../Utils/loader';
+import {postDataToServer} from '../Utils/WebRequestManager';
+import * as Constants from '../Utils/constants';
 
 const statesObj = [
   {
-    value: '1',
+    value: 'Andhra Pradesh',
     lable: 'Andhra Pradesh',
   },
   {
-    value: '2',
+    value: 'Arunachal Pradesh',
     lable: 'Arunachal Pradesh',
   },
   {
-    value: '3',
+    value: 'Assam',
     lable: 'Assam',
   },
   {
-    value: '4',
+    value: 'Bihar',
     lable: 'Bihar',
   },
   {
-    value: '5',
+    value: 'Chhattisgarh',
     lable: 'Chhattisgarh',
   },
   {
-    value: '6',
+    value: 'Goa',
     lable: 'Goa',
   },
   {
-    value: '7',
+    value: 'Gujarat',
     lable: 'Gujarat',
   },
   {
-    value: '8',
+    value: 'Haryana',
     lable: 'Haryana',
   },
   {
-    value: '9',
+    value: 'Himachal Pradesh',
     lable: 'Himachal Pradesh',
   },
   {
-    value: '10',
+    value: 'Jammu and Kashmir',
     lable: 'Jammu and Kashmir',
   },
   {
-    value: '11',
+    value: 'Jharkhand',
     lable: 'Jharkhand',
   },
   {
-    value: '12',
+    value: 'Karnataka',
     lable: 'Karnataka',
   },
   {
-    value: '13',
+    value: 'Madhya Pradesh',
     lable: 'Madhya Pradesh',
   },
   {
-    value: '14',
+    value: 'Maharashtra',
     lable: 'Maharashtra',
   },
   {
-    value: '15',
+    value: 'Manipur',
     lable: 'Manipur',
   },
   {
-    value: '16',
+    value: 'Meghalaya',
     lable: 'Meghalaya',
   },
   {
-    value: '17',
+    value: 'Mizoram',
     lable: 'Mizoram',
   },
   {
-    value: '18',
+    value: 'Nagaland',
     lable: 'Nagaland',
   },
   {
-    value: '19',
+    value: 'Odisha',
     lable: 'Odisha',
   },
   {
-    value: '20',
+    value: 'Punjab',
     lable: 'Punjab',
   },
   {
-    value: '21',
+    value: 'Rajasthan',
     lable: 'Rajasthan',
   },
   {
-    value: '22',
+    value: 'Sikkim',
     lable: 'Sikkim',
   },
   {
-    value: '23',
+    value: 'Tamil Nadu',
     lable: 'Tamil Nadu',
   },
   {
-    value: '24',
+    value: 'Telangana',
     lable: 'Telangana',
   },
   {
-    value: '25',
+    value: 'Tripura',
     lable: 'Tripura',
   },
   {
-    value: '26',
+    value: 'Uttarakhand',
     lable: 'Uttarakhand',
   },
   {
-    value: '27',
+    value: 'West Bengal',
     lable: 'West Bengal',
   },
   {
-    value: '28',
+    value: 'Andaman and Nicobar Islands',
     lable: 'Andaman and Nicobar Islands',
   },
   {
-    value: '29',
+    value: 'Chandigarh',
     lable: 'Chandigarh',
   },
   {
-    value: '30',
+    value: 'Dadra and Nagar Haveli',
     lable: 'Dadra and Nagar Haveli',
   },
   {
-    value: '31',
+    value: 'Daman and Diu',
     lable: 'Daman and Diu',
   },
   {
-    value: '32',
+    value: 'Delhi',
     lable: 'Delhi',
   },
   {
-    value: '33',
+    value: 'Lakshadweep',
     lable: 'Lakshadweep',
   },
   {
-    value: '34',
+    value: 'Puducherry',
     lable: 'Puducherry',
   },
 ];
 
 const bloodGroupObj = [
   {
-    value: '1',
+    value: 'A+',
     lable: 'A+',
   },
   {
-    value: '2',
+    value: 'A-',
     lable: 'A-',
   },
   {
-    value: '3',
+    value: 'B+',
     lable: 'B+',
   },
   {
-    value: '4',
+    value: 'B-',
     lable: 'B-',
   },
   {
-    value: '5',
+    value: 'O+',
     lable: 'O+',
   },
   {
-    value: '6',
+    value: 'O-',
     lable: 'O-',
   },
   {
-    value: '7',
+    value: 'AB+',
     lable: 'AB+',
   },
   {
-    value: '8',
+    value: 'AB-',
     lable: 'AB-',
   },
 ];
 
 const Register = ({route, navigation}) => {
   const [bottomViewArray, setBottomView] = useState([]);
+  const [isLoading, setLoading] = useState(false);
 
   const [date, setDate] = useState(new Date());
   const [open, setOpen] = useState(false);
@@ -198,8 +203,19 @@ const Register = ({route, navigation}) => {
   const [selectedAnniversaryDate, setSelectedAnniversaryDate] =
     useState('Anniversary Date');
 
-  const [state, setStates] = useState('1');
-  const [bloodGroup, setBloodGroup] = useState('1');
+  const [state, setStates] = useState('');
+  const [bloodGroup, setBloodGroup] = useState('');
+
+  const [firstName, setFirstName] = useState('');
+  const [middleName, setMiddleName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [contactNumber, setContactNumber] = useState('');
+  const [qualification, setQualification] = useState('');
+  const [speciality, setSpeciality] = useState('');
+  const [regNumber, setRegNumber] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
 
   var bottomView = [];
 
@@ -212,9 +228,66 @@ const Register = ({route, navigation}) => {
   }, [bottomView.length]);
 
   const sendRequestButtonClicked = () => {
-    console.log('sendRequestButtonClicked');
+    console.log('=======================');
 
-    navigation.navigate('RegisterEvent');
+    //    console.log('First Name : ' + firstName);
+    //    console.log('Middle Name : ' + middleName);
+    //    console.log('Last Name : ' + lastName);
+    //    console.log('Email : ' + email);
+    //    console.log('Contact Number : ' + contactNumber);
+    //    console.log('Qualification : ' + qualification);
+    //    console.log('Speciality : ' + speciality);
+    //    console.log('Reg Number : ' + regNumber);
+    //    console.log('Date Of Birth : ' + selectedDate);
+    //    console.log('Anniversary Date : ' + selectedAnniversaryDate);
+    //    console.log('State : ' + state);
+    //    console.log('Blood Group : ' + bloodGroup);
+    //    console.log('Password : ' + password);
+    //    console.log('Confirm Password : ' + confirmPassword);
+
+    if (firstName.length === 0) {
+      Alert.alert('Error', 'Please Enter First Name');
+    } else if (middleName.length === 0) {
+      Alert.alert('Error', 'Please Enter Middle Name');
+    } else if (lastName.length === 0) {
+      Alert.alert('Error', 'Please Enter Last Name');
+    } else if (email.length === 0) {
+      Alert.alert('Error', 'Please Enter Email');
+    } else if (contactNumber.length === 0) {
+      Alert.alert('Error', 'Please Enter Contact Number');
+    } else if (qualification.length === 0) {
+      Alert.alert('Error', 'Please Enter Qualification');
+    } else if (speciality.length === 0) {
+      Alert.alert('Error', 'Please Enter Speciality');
+    } else if (regNumber.length === 0) {
+      Alert.alert('Error', 'Please Enter Registered Number');
+    } else if (selectedDate === 'Date Of Birth') {
+      Alert.alert('Error', 'Please Select Date Of Birth');
+    } else if (selectedAnniversaryDate === 'Anniversary Date') {
+      Alert.alert('Error', 'Please Select Anniversary Date');
+    } else if (state.length === 0) {
+      Alert.alert('Error', 'Please Select State');
+    } else if (bloodGroup.length === 0) {
+      Alert.alert('Error', 'Please Select Blood Group');
+    } else if (password.length === 0) {
+      Alert.alert('Error', 'Please Enter Password');
+    } else if (confirmPassword.length === 0) {
+      Alert.alert('Error', 'Please Enter Confirm Password');
+    } else {
+      if (password !== confirmPassword) {
+        Alert.alert(
+          'Error',
+          'Please Enter Correct Password & Confirm Password',
+        );
+      } else {
+        //Call API
+        setLoading(true);
+        postRegisterDataToServer();
+      }
+    }
+
+    //    navigation.navigate('RegisterEvent');
+    //    navigation.navigate('Login');
   };
 
   const loginButtonClicked = () => {
@@ -254,9 +327,58 @@ const Register = ({route, navigation}) => {
     setBottomView(bottomView);
   };
 
+  const postRegisterDataToServer = async () => {
+    var mobValue = {
+      first_name: firstName,
+      middle_name: middleName,
+      last_name: lastName,
+      email: email,
+      contact_number: contactNumber,
+      password: confirmPassword,
+      qualification: qualification,
+      speciality: speciality,
+      reg_number: regNumber,
+      dob: selectedDate,
+      blood_group: bloodGroup,
+      state: state,
+      marriage_date: selectedAnniversaryDate,
+    };
+
+    console.log('-------------------------------------');
+    console.log('Register Object : ' + JSON.stringify(mobValue));
+
+    var responseData = await postDataToServer(
+      Constants.base_URL + '/doctor/signup',
+      JSON.stringify(mobValue),
+    );
+
+    console.log('RESPONSE : ' + JSON.stringify(responseData));
+
+    if (responseData.response) {
+      if (responseData.response.status) {
+        console.log('Register Response : ' + JSON.stringify(responseData));
+        //   navigation.navigate('Base');
+      } else {
+        Alert.alert('Error', responseData.response.message, [
+          {
+            text: 'Ok',
+            style: 'cancel',
+            onPress: () => {
+              setEmail('');
+              setPassword('');
+            },
+          },
+        ]);
+      }
+    }
+
+    setLoading(false);
+  };
+
   return (
     <ScrollView contentContainerStyle={{flexGrow: 1}}>
       <View style={{backgroundColor: 'white', flex: 1}}>
+        {isLoading && <PageLoader show={isLoading} />}
         <View
           style={{
             borderColor: 'lightgrey',
@@ -279,6 +401,8 @@ const Register = ({route, navigation}) => {
             placeholderTextColor="grey"
             autoCapitalize="none"
             autoCorrect={false}
+            value={firstName}
+            onChangeText={text => setFirstName(text)}
           />
         </View>
 
@@ -304,6 +428,8 @@ const Register = ({route, navigation}) => {
             placeholderTextColor="grey"
             autoCapitalize="none"
             autoCorrect={false}
+            value={middleName}
+            onChangeText={text => setMiddleName(text)}
           />
         </View>
 
@@ -329,6 +455,8 @@ const Register = ({route, navigation}) => {
             placeholderTextColor="grey"
             autoCapitalize="none"
             autoCorrect={false}
+            value={lastName}
+            onChangeText={text => setLastName(text)}
           />
         </View>
 
@@ -354,6 +482,8 @@ const Register = ({route, navigation}) => {
             placeholderTextColor="grey"
             autoCapitalize="none"
             autoCorrect={false}
+            value={email}
+            onChangeText={text => setEmail(text)}
           />
         </View>
 
@@ -379,6 +509,8 @@ const Register = ({route, navigation}) => {
             placeholderTextColor="grey"
             autoCapitalize="none"
             autoCorrect={false}
+            value={contactNumber}
+            onChangeText={text => setContactNumber(text)}
           />
         </View>
 
@@ -404,7 +536,8 @@ const Register = ({route, navigation}) => {
             placeholderTextColor="grey"
             autoCapitalize="none"
             autoCorrect={false}
-            secureTextEntry={true}
+            value={qualification}
+            onChangeText={text => setQualification(text)}
           />
         </View>
 
@@ -430,7 +563,8 @@ const Register = ({route, navigation}) => {
             placeholderTextColor="grey"
             autoCapitalize="none"
             autoCorrect={false}
-            secureTextEntry={true}
+            value={speciality}
+            onChangeText={text => setSpeciality(text)}
           />
         </View>
 
@@ -456,7 +590,8 @@ const Register = ({route, navigation}) => {
             placeholderTextColor="grey"
             autoCapitalize="none"
             autoCorrect={false}
-            secureTextEntry={true}
+            value={regNumber}
+            onChangeText={text => setRegNumber(text)}
           />
         </View>
 
@@ -639,6 +774,8 @@ const Register = ({route, navigation}) => {
             autoCapitalize="none"
             autoCorrect={false}
             secureTextEntry={true}
+            value={password}
+            onChangeText={text => setPassword(text)}
           />
         </View>
 
@@ -665,6 +802,8 @@ const Register = ({route, navigation}) => {
             autoCapitalize="none"
             autoCorrect={false}
             secureTextEntry={true}
+            value={confirmPassword}
+            onChangeText={text => setConfirmPassword(text)}
           />
         </View>
 
