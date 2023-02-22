@@ -85,7 +85,107 @@ const Register = ({route, navigation}) => {
               justifyContent: 'center',
               color: 'black',
             }}
+            placeholder="First Name"
+            placeholderTextColor="grey"
+            autoCapitalize="none"
+            autoCorrect={false}
+          />
+        </View>
+
+        <View
+          style={{
+            borderColor: 'lightgrey',
+            borderWidth: 1,
+            marginLeft: 25,
+            marginRight: 25,
+            marginTop: 25,
+            borderRadius: 10,
+          }}>
+          <TextInput
+            style={{
+              height: 40,
+              width: '85%',
+              paddingLeft: 10,
+              fontSize: 18,
+              justifyContent: 'center',
+              color: 'black',
+            }}
+            placeholder="Middle Name"
+            placeholderTextColor="grey"
+            autoCapitalize="none"
+            autoCorrect={false}
+          />
+        </View>
+
+        <View
+          style={{
+            borderColor: 'lightgrey',
+            borderWidth: 1,
+            marginLeft: 25,
+            marginRight: 25,
+            marginTop: 25,
+            borderRadius: 10,
+          }}>
+          <TextInput
+            style={{
+              height: 40,
+              width: '85%',
+              paddingLeft: 10,
+              fontSize: 18,
+              justifyContent: 'center',
+              color: 'black',
+            }}
+            placeholder="Last Name"
+            placeholderTextColor="grey"
+            autoCapitalize="none"
+            autoCorrect={false}
+          />
+        </View>
+
+        <View
+          style={{
+            borderColor: 'lightgrey',
+            borderWidth: 1,
+            marginLeft: 25,
+            marginRight: 25,
+            marginTop: 25,
+            borderRadius: 10,
+          }}>
+          <TextInput
+            style={{
+              height: 40,
+              width: '85%',
+              paddingLeft: 10,
+              fontSize: 18,
+              justifyContent: 'center',
+              color: 'black',
+            }}
             placeholder="Email"
+            placeholderTextColor="grey"
+            autoCapitalize="none"
+            autoCorrect={false}
+          />
+        </View>
+
+        <View
+          style={{
+            borderColor: 'lightgrey',
+            borderWidth: 1,
+            marginLeft: 25,
+            marginRight: 25,
+            marginTop: 25,
+            borderRadius: 10,
+          }}>
+          <TextInput
+            style={{
+              height: 40,
+              width: '85%',
+              paddingLeft: 10,
+              fontSize: 18,
+              justifyContent: 'center',
+              color: 'black',
+            }}
+            placeholder="Contact Number"
             placeholderTextColor="grey"
             autoCapitalize="none"
             autoCorrect={false}
@@ -110,10 +210,63 @@ const Register = ({route, navigation}) => {
               justifyContent: 'center',
               color: 'black',
             }}
-            placeholder="Fullname"
+            placeholder="Qualification"
             placeholderTextColor="grey"
             autoCapitalize="none"
             autoCorrect={false}
+            secureTextEntry={true}
+          />
+        </View>
+
+        <View
+          style={{
+            borderColor: 'lightgrey',
+            borderWidth: 1,
+            marginLeft: 25,
+            marginRight: 25,
+            borderRadius: 10,
+            marginTop: 20,
+          }}>
+          <TextInput
+            style={{
+              height: 40,
+              width: '85%',
+              paddingLeft: 10,
+              fontSize: 18,
+              justifyContent: 'center',
+              color: 'black',
+            }}
+            placeholder="Speciality"
+            placeholderTextColor="grey"
+            autoCapitalize="none"
+            autoCorrect={false}
+            secureTextEntry={true}
+          />
+        </View>
+
+        <View
+          style={{
+            borderColor: 'lightgrey',
+            borderWidth: 1,
+            marginLeft: 25,
+            marginRight: 25,
+            borderRadius: 10,
+            marginTop: 20,
+          }}>
+          <TextInput
+            style={{
+              height: 40,
+              width: '85%',
+              paddingLeft: 10,
+              fontSize: 18,
+              justifyContent: 'center',
+              color: 'black',
+            }}
+            placeholder="Reg Number"
+            placeholderTextColor="grey"
+            autoCapitalize="none"
+            autoCorrect={false}
+            secureTextEntry={true}
           />
         </View>
 
