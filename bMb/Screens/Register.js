@@ -5,11 +5,16 @@ import {
   TextInput,
   TouchableOpacity,
   ScrollView,
+  Image,
 } from 'react-native';
 import {StackActions} from '@react-navigation/native';
+import DatePicker from 'react-native-date-picker';
 
 const Register = ({route, navigation}) => {
   const [bottomViewArray, setBottomView] = useState([]);
+  const [date, setDate] = useState(new Date());
+  const [open, setOpen] = useState(false);
+  const [selectedDate, setSelectedDate] = useState('Date Of Birth');
 
   var bottomView = [];
 
@@ -270,6 +275,56 @@ const Register = ({route, navigation}) => {
           />
         </View>
 
+        <View
+          style={{
+            borderColor: 'lightgrey',
+            borderWidth: 1,
+            marginLeft: 25,
+            marginRight: 25,
+            borderRadius: 10,
+            marginTop: 20,
+            height: 40,
+            flexDirection: 'row',
+            alignItems: 'center',
+          }}>
+          <TouchableOpacity
+            style={{
+              flex: 1,
+              height: '100%',
+              justifyContent: 'center',
+            }}
+            onPress={() => setOpen(true)}>
+            <Text style={{paddingLeft: 10, fontSize: 18, color: 'grey'}}>
+              {selectedDate}
+            </Text>
+          </TouchableOpacity>
+          <Image
+            style={{width: 25, height: 25, marginRight: 10}}
+            source={require('../Images/calendarIcon.png')}
+          />
+        </View>
+
+        <DatePicker
+          modal
+          title={'Date Of Birth'}
+          mode="date"
+          open={open}
+          date={date}
+          onConfirm={date => {
+            setOpen(false);
+            setDate(date);
+            setSelectedDate(
+              date.getDate() +
+                '/' +
+                (date.getMonth() + 1) +
+                '/' +
+                date.getFullYear(),
+            );
+          }}
+          onCancel={() => {
+            setOpen(false);
+          }}
+        />
         <View
           style={{
             borderColor: 'lightgrey',
