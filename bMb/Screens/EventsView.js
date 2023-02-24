@@ -153,7 +153,9 @@ const EventsView = ({navigation}) => {
   const handleEventListClick = selectedObj => {
     console.log('handleEventListClick : ' + JSON.stringify(selectedObj));
 
-    //    navigation.navigate('RegisterEvent');
+    navigation.navigate('RegisterEvent', {
+      selectedObj: selectedObj,
+    });
   };
 
   return (

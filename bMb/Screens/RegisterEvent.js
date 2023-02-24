@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   ScrollView,
   View,
@@ -10,7 +10,9 @@ import {
 } from 'react-native';
 import RazorpayCheckout from 'react-native-razorpay';
 
-const RegisterEvent = ({navigation}) => {
+const RegisterEvent = ({route, navigation}) => {
+  var currentObj = route.params.selectedObj;
+
   const [txtName, setName] = useState('');
   const [txtAge, setAge] = useState('');
 
@@ -20,7 +22,9 @@ const RegisterEvent = ({navigation}) => {
 
   var nameArray = [];
 
-  //  useEffect(() => {}, []);
+  useEffect(() => {
+    console.log('Selected Obj : ' + JSON.stringify(currentObj));
+  }, []);
 
   const closeDialog = () => {
     setDialogVisibleValue(false);
@@ -30,12 +34,12 @@ const RegisterEvent = ({navigation}) => {
     console.log('pay Button Clicked');
 
     var options = {
-      description: 'KP World Wide',
-      image: 'https://i.imgur.com/3g7nmJC.png',
+      description: currentObj.organiser,
+      image: currentObj.image,
       currency: 'INR',
       key: 'rzp_test_WXfTPTwgnQufLh', // Your api key
-      amount: '10000',
-      name: 'BMB MediMeet 2022',
+      amount: (parseInt(currentObj.bookingAmount) * 100).toString(),
+      name: currentObj.title,
       prefill: {
         email: 'hardik.pithadia@tejora.com',
         contact: '7666240144',
@@ -138,9 +142,35 @@ const RegisterEvent = ({navigation}) => {
             justifyContent: 'center',
             marginTop: 25,
           }}>
+          <Text style={{fontSize: 20, fontWeight: '700', marginBottom: 20}}>
+            {currentObj.title}
+          </Text>
+          <Text style={{fontSize: 20, fontWeight: '700', marginBottom: 20}}>
+            Registration
+          </Text>
+          <View style={{width: '90%', marginBottom: 10}}>
+            <Text style={{fontSize: 20, marginBottom: 10}}>
+              {currentObj.content}
+            </Text>
+            <Text style={{fontSize: 20, marginBottom: 10}}>
+              {'Organiser : ' + currentObj.organiser}
+            </Text>
+            <Text style={{fontSize: 20, marginBottom: 10}}>
+              {'Date : ' + currentObj.date.split('T')[0]}
+            </Text>
+            <Text style={{fontSize: 20, marginBottom: 15}}>
+              {'Address : ' + currentObj.address}
+            </Text>
+
+            <Text style={{fontSize: 20, color: '#D1AA70', fontWeight: '700'}}>
+              {currentObj.bookingAmount + ' Per Person'}
+            </Text>
+          </View>
           <Image
             resizeMode="stretch"
-            source={require('../Images/register_event_banner.png')}
+            source={{
+              uri: currentObj.image,
+            }}
             style={{width: '90%', height: 200, borderRadius: 10}}
           />
         </View>
