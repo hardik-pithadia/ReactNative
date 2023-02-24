@@ -10,20 +10,27 @@ import {
 import PageLoader from '../Utils/loader';
 import {getDataFromServer} from '../Utils/WebRequestManager';
 import * as Constants from '../Utils/constants';
+import {getData} from '../Utils/utility';
 
 const EventsView = ({navigation}) => {
   const [eventListArray, setEventListArray] = useState([]);
   const [nameListArray, setNameListArray] = useState([]);
   const [isLoading, setLoading] = useState(false);
   const [responseDataObj, setResponseData] = useState([]);
+  const [authToken, setAuthToken] = useState('');
 
   var eventArray = [];
   var nameDetailArray = [];
 
   useEffect(() => {
-    getCardList();
-    getEventResponse();
-  }, [eventArray.length]);
+    getData(Constants.AUTH_TOKEN).then(resultStr => {
+      setAuthToken(resultStr || '');
+    });
+
+    if (authToken.length > 0) {
+      getEventResponse();
+    }
+  }, [eventArray.length, authToken]);
 
   const getEventResponse = async () => {
     setResponseData([]);
@@ -31,6 +38,7 @@ const EventsView = ({navigation}) => {
 
     var responseData = await getDataFromServer(
       Constants.base_URL + '/events/getall',
+      authToken,
     );
 
     console.log('Event Resp : ' + JSON.stringify(responseData));
@@ -40,6 +48,7 @@ const EventsView = ({navigation}) => {
         console.log(
           'Event Response : ' + JSON.stringify(responseData.response.data),
         );
+        getCardList(responseData.response.data);
         //   setResponseData(responseData.response.data);
       } else {
         Alert.alert('Error', responseData.response.message, [
@@ -58,10 +67,11 @@ const EventsView = ({navigation}) => {
     setLoading(false);
   };
 
-  const getCardList = () => {
+  const getCardList = responseArray => {
     console.log('getCardList-101');
+    responseArray.map(currentObj => {
+      console.log('Current Obj : ' + JSON.stringify(currentObj));
 
-    for (let i = 0; i < 20; i++) {
       eventArray.push(
         <View
           style={{
@@ -73,9 +83,14 @@ const EventsView = ({navigation}) => {
           }}>
           <TouchableOpacity
             style={{backgroundColor: 'transparent'}}
-            onPress={() => handleEventListClick()}>
+            onPress={() => handleEventListClick(currentObj._id)}>
             <Image
-              style={{height: 35, width: '60%', marginLeft: -10, marginTop: 15}}
+              style={{
+                height: 35,
+                width: '60%',
+                marginLeft: -10,
+                marginTop: 15,
+              }}
               source={require('../Images/upcoming_event_icon.png')}
             />
 
@@ -88,7 +103,7 @@ const EventsView = ({navigation}) => {
                 marginLeft: 15,
                 marginTop: 10,
               }}>
-              BMB Medimeet 2022
+              {currentObj.title}
             </Text>
 
             <Text
@@ -99,7 +114,7 @@ const EventsView = ({navigation}) => {
                 marginLeft: 15,
                 marginTop: 10,
               }}>
-              Date : 01 June - 2022
+              {'Date : ' + currentObj.date.split('T')[0]}
             </Text>
 
             <Text
@@ -110,7 +125,7 @@ const EventsView = ({navigation}) => {
                 marginLeft: 15,
                 marginTop: 8,
               }}>
-              Address : Borivali West
+              {'Address : ' + currentObj.address}
             </Text>
 
             <Text
@@ -121,20 +136,24 @@ const EventsView = ({navigation}) => {
                 marginLeft: 15,
                 marginTop: 8,
               }}>
-              Organiser : KP World Wide
+              {'Organiser : ' + currentObj.organiser}
             </Text>
           </TouchableOpacity>
         </View>,
       );
-    }
+    });
+
+    //   for (let i = 0; i < responseArray.length; i++) {
+    //
+    //   }
 
     setEventListArray(eventArray);
   };
 
-  const handleEventListClick = () => {
-    console.log('handleEventListClick');
+  const handleEventListClick = idVal => {
+    console.log('handleEventListClick : ' + idVal);
 
-    navigation.navigate('RegisterEvent');
+    //    navigation.navigate('RegisterEvent');
   };
 
   return (

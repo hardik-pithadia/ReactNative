@@ -48,17 +48,17 @@ export const getDataFromServer = (url, jwtToken = '') => {
     };
     console.log('URL : ' + url);
 
-    //    const jwtHeaders = {
-    //      Authorization: 'Bearer ' + jwtToken,
-    //    };
-    //    var finalHeader = Object.assign({}, header);
+    const jwtHeaders = {
+      Authorization: jwtToken,
+    };
+    var finalHeader = Object.assign({}, jwtHeaders, header);
 
-    //    console.log('HEADERS : ' + JSON.stringify(finalHeader));
+    console.log('HEADERS : ' + JSON.stringify(finalHeader));
 
     setTimeout(async () => {
       fetch(url, {
         method: 'GET',
-        headers: header,
+        headers: jwtHeaders,
       })
         .then(response101 => response101.json())
         .then(responseData => {
