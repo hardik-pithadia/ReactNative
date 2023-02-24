@@ -83,7 +83,7 @@ const EventsView = ({navigation}) => {
           }}>
           <TouchableOpacity
             style={{backgroundColor: 'transparent'}}
-            onPress={() => handleEventListClick(currentObj._id)}>
+            onPress={() => handleEventListClick(currentObj)}>
             <Image
               style={{
                 height: 35,
@@ -150,8 +150,8 @@ const EventsView = ({navigation}) => {
     setEventListArray(eventArray);
   };
 
-  const handleEventListClick = idVal => {
-    console.log('handleEventListClick : ' + idVal);
+  const handleEventListClick = selectedObj => {
+    console.log('handleEventListClick : ' + JSON.stringify(selectedObj));
 
     //    navigation.navigate('RegisterEvent');
   };
