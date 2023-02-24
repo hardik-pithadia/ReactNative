@@ -7,12 +7,34 @@ const CarouselItem = ({item}) => {
   return (
     <View style={styles.cardView}>
       <View>
-        <Image style={styles.image} source={{uri: item.url}} />
+        <Image
+          style={styles.image}
+          source={{
+            uri: item.image,
+          }}
+          resizeMode="cover"
+        />
       </View>
 
       <View style={styles.textView}>
         <Text style={styles.itemTitle}>{item.title}</Text>
-        <Text style={styles.itemDescription}>{item.description}</Text>
+        <View style={{flexDirection: 'row'}}>
+          <Text style={styles.itemDescription}>{item.content}</Text>
+
+          <Text
+            style={{
+              color: 'white',
+              fontSize: 15,
+              shadowColor: '#000',
+              shadowOffset: {width: 0.8, height: 0.9},
+              shadowOpacity: 1,
+              shadowRadius: 3,
+              elevation: 5,
+              marginLeft: 20,
+            }}>
+            {item.city !== undefined ? '|   ' + item.city : ''}
+          </Text>
+        </View>
       </View>
     </View>
   );
@@ -63,7 +85,7 @@ const styles = StyleSheet.create({
 
   itemDescription: {
     color: 'white',
-    fontSize: 12,
+    fontSize: 15,
     shadowColor: '#000',
     shadowOffset: {width: 0.8, height: 0.9},
     shadowOpacity: 1,

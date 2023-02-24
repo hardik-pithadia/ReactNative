@@ -44,9 +44,6 @@ const Login = ({navigation}) => {
   };
 
   const signInButtonClicked = () => {
-    console.log('signInButtonClicked');
-    console.log('Email : ' + txtEmail);
-    console.log('Password : ' + txtPassword);
     setLoading(true);
     if (txtEmail.length > 0 && txtPassword.length > 0) {
       postLoginDataToServer();
@@ -139,12 +136,10 @@ const Login = ({navigation}) => {
   };
 
   const setEmailTextValue = txtValue => {
-    console.log('setEmailTextValue : ' + txtValue);
     setEmail(txtValue);
   };
 
   const setPasswordTextValue = txtValue => {
-    console.log('setPasswordTextValue : ' + txtValue);
     setPassword(txtValue);
   };
 

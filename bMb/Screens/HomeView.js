@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   Text,
@@ -13,6 +13,9 @@ import {
 import {FlatGrid} from 'react-native-super-grid';
 import Carousel from './Carousel';
 import {dummyData} from '../Screens/Data';
+import PageLoader from '../Utils/loader';
+import {getDataFromServer} from '../Utils/WebRequestManager';
+import * as Constants from '../Utils/constants';
 
 const HomeView = ({navigation}) => {
   const [items, setItems] = useState([
@@ -26,6 +29,43 @@ const HomeView = ({navigation}) => {
 
     {id: 8, name: require('../Images/demoImage1.png'), title: 'Contact Us'},
   ]);
+
+  const [isLoading, setLoading] = useState(false);
+  const [responseDataObj, setResponseData] = useState([]);
+
+  useEffect(() => {
+    getHomeResponse();
+  }, []);
+
+  const getHomeResponse = async () => {
+    setResponseData([]);
+    setLoading(true);
+    var responseData = await getDataFromServer(
+      Constants.base_URL + '/announcement/getall',
+    );
+
+    if (responseData.response) {
+      if (responseData.response.status) {
+        console.log(
+          'Home Response : ' + JSON.stringify(responseData.response.data),
+        );
+        setResponseData(responseData.response.data);
+      } else {
+        Alert.alert('Error', responseData.response.message, [
+          {
+            text: 'Ok',
+            style: 'cancel',
+            onPress: () => {
+              setEmail('');
+              setPassword('');
+            },
+          },
+        ]);
+      }
+    }
+
+    setLoading(false);
+  };
 
   const whatsAppButtonClicked = () => {
     console.log('whatsApp Button Clicked');
@@ -83,6 +123,7 @@ const HomeView = ({navigation}) => {
   return (
     <SafeAreaView>
       <ScrollView>
+        {isLoading && <PageLoader show={isLoading} />}
         <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
           <Image
             style={{
@@ -122,68 +163,18 @@ const HomeView = ({navigation}) => {
             flexDirection: 'column',
             flex: 1,
           }}>
-          <Carousel data={dummyData} />
-          {/*<ScrollView
-            horizontal={true}
-            style={{
-              height: 175,
-              backgroundColor: '#3F60A0',
-              marginLeft: 25,
-              marginRight: 25,
-              borderRadius: 10,
-            }}>
-            <Image
-              source={require('../Images/demoImage1.png')}
-              style={{
-                height: 175,
-                width: 360,
-                borderRadius: 10,
-              }}
-            />
-
-            <Image
-              source={require('../Images/demoImage1.png')}
-              style={{
-                marginLeft: 15,
-                height: 175,
-                width: 360,
-                borderRadius: 10,
-              }}
-            />
-
-            <Image
-              source={require('../Images/demoImage1.png')}
-              style={{
-                marginLeft: 15,
-                height: 175,
-                width: 360,
-                borderRadius: 10,
-              }}
-            />
-          </ScrollView>*/}
-
           <Text
             style={{
               marginTop: 10,
               marginLeft: 25,
               color: '#1B195B',
-              fontSize: 16,
+              fontSize: 18,
               fontWeight: '600',
+              marginBottom: 10,
             }}>
             Latest Updates
           </Text>
-
-          <Text
-            style={{
-              marginTop: 10,
-              marginLeft: 25,
-              marginRight: 25,
-              color: '#D1AA70',
-              fontSize: 12,
-              fontWeight: '500',
-            }}>
-            BMB Medimeet 2022 | March 2022 | Gujarat
-          </Text>
+          <Carousel data={responseDataObj} />
 
           <View
             style={{
@@ -238,7 +229,7 @@ const HomeView = ({navigation}) => {
             />
           </View>
 
-          <ScrollView
+          {/*<ScrollView
             horizontal={true}
             style={{
               marginBottom: 25,
@@ -299,7 +290,7 @@ const HomeView = ({navigation}) => {
                 borderRadius: 10,
               }}
             />
-          </ScrollView>
+          </ScrollView>*/}
         </View>
       </ScrollView>
     </SafeAreaView>
