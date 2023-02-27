@@ -12,22 +12,19 @@ import {
 } from 'react-native';
 import {FlatGrid} from 'react-native-super-grid';
 import Carousel from './Carousel';
-import {dummyData} from '../Screens/Data';
 import PageLoader from '../Utils/loader';
 import {getDataFromServer} from '../Utils/WebRequestManager';
 import * as Constants from '../Utils/constants';
 
 const HomeView = ({navigation}) => {
   const [items, setItems] = useState([
-    {id: 7, name: require('../Images/demoImage1.png'), title: 'Sponsers'},
-    {id: 0, name: require('../Images/demoImage1.png'), title: 'Directory'},
-    {id: 2, name: require('../Images/demoImage1.png'), title: 'Events'},
-    {id: 3, name: require('../Images/demoImage1.png'), title: 'About Us'},
-    {id: 4, name: require('../Images/demoImage1.png'), title: 'Gallery'},
-    {id: 5, name: require('../Images/demoImage1.png'), title: 'Join Us'},
-    //    {id: 6, name: require('../Images/demoImage1.png'), title: 'Member Feeds'},
-
-    {id: 8, name: require('../Images/demoImage1.png'), title: 'Contact Us'},
+    {id: 1, name: require('../Images/Sponsors.png'), title: ''},
+    {id: 2, name: require('../Images/Directory.png'), title: ''},
+    {id: 3, name: require('../Images/Events.png'), title: ''},
+    {id: 4, name: require('../Images/Aboutus.png'), title: ''},
+    {id: 5, name: require('../Images/Gallery.png'), title: ''},
+    {id: 6, name: require('../Images/JoinBMB.png'), title: ''},
+    {id: 7, name: require('../Images/Contactus.png'), title: ''},
   ]);
 
   const [isLoading, setLoading] = useState(false);
@@ -93,28 +90,26 @@ const HomeView = ({navigation}) => {
   const handleQuickLinksClickEvent = menuItem => {
     console.log('handleImageClickEvent : ' + menuItem);
 
-    if (menuItem == 'Directory') {
-      navigation.navigate('DorectoryList');
+    if (menuItem === 1) {
+      console.log('Sponcers');
+    } else if (menuItem === 2) {
       console.log('Navigate to Directory List');
-    } else if (menuItem == 'Calendar') {
-      console.log('Navigate to Calendar');
-    } else if (menuItem == 'Events') {
+      navigation.navigate('DorectoryList');
+    } else if (menuItem === 3) {
       console.log('Navigate to Events');
       navigation.navigate('Events');
-    } else if (menuItem == 'About Us') {
+    } else if (menuItem === 4) {
       console.log('Navigate to About Us');
       navigation.navigate('AboutUs');
-    } else if (menuItem == 'Gallery') {
-      navigation.navigate('Gallery');
+    } else if (menuItem === 5) {
       console.log('Navigate to Gallery');
-    } else if (menuItem == 'Join Us') {
+      navigation.navigate('Gallery');
+    } else if (menuItem === 6) {
       console.log('Navigate to Join Us');
       navigation.navigate('Register', {
         isHide: true,
       });
-    } else if (menuItem == 'Sponsers') {
-      console.log('Navigate to Sponsers');
-    } else if (menuItem == 'Contact Us') {
+    } else if (menuItem === 7) {
       console.log('Navigate to Contact Us');
       navigation.navigate('ContactUs');
     }
@@ -215,12 +210,12 @@ const HomeView = ({navigation}) => {
                     resizeMode="stretch"
                     style={{
                       borderRadius: 10,
-                      height: 80,
+                      height: 140,
                       overflow: 'hidden',
                     }}>
                     <TouchableOpacity
                       style={{width: '100%', height: '100%'}}
-                      onPress={() => handleQuickLinksClickEvent(item.title)}
+                      onPress={() => handleQuickLinksClickEvent(item.id)}
                     />
                   </ImageBackground>
                   <Text style={{color: '#3F60A0'}}>{item.title}</Text>
