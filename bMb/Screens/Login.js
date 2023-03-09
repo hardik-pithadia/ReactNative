@@ -73,6 +73,7 @@ const Login = ({navigation}) => {
           'Login Response103 : ' + JSON.stringify(responseData.response.data),
         );
 
+        storeData(Constants.IS_LOGIN, '1');
         storeData(Constants.TITLE, responseData.response.data.title);
         storeData(Constants.FIRST_NAME, responseData.response.data.first_name);
         storeData(

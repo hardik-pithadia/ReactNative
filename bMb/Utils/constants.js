@@ -1,5 +1,6 @@
 export const base_URL = 'https://sea-turtle-app-i54w6.ondigitalocean.app/api';
 
+export const IS_LOGIN = 'is_login';
 export const TITLE = 'title';
 export const FIRST_NAME = 'first_name';
 export const MIDDLE_NAME = 'middle_name';

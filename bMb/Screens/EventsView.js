@@ -75,7 +75,7 @@ const EventsView = ({navigation}) => {
       eventArray.push(
         <View
           style={{
-            height: 200,
+            height: 250,
             backgroundColor: '#1B195B',
             width: '90%',
             marginTop: 25,
