@@ -8,9 +8,10 @@ import {
   TouchableOpacity,
   StyleSheet,
   ImageBackground,
+  Alert,
 } from 'react-native';
 import {FlatGrid} from 'react-native-super-grid';
-import {getData} from '../Utils/utility';
+import {getData, removeData} from '../Utils/utility';
 import * as Constants from '../Utils/constants';
 
 const ProfileView = ({navigation}) => {
@@ -55,11 +56,32 @@ const ProfileView = ({navigation}) => {
     console.log('Post Button Clicked');
   };
 
+  const logoutButtonClicked = () => {
+    console.log('Logout Button Clicked');
+
+    Alert.alert('Logout', 'Are you sure? You want to logout?', [
+      {
+        text: 'Ok',
+        style: 'default',
+        onPress: () => {
+          removeData(Constants.IS_LOGIN);
+          navigation.navigate('Login');
+          //navigation.navigate.popToTop();
+          //
+        },
+      },
+      {
+        text: 'Cancel',
+        style: 'cancel',
+      },
+    ]);
+  };
+
   return (
     <SafeAreaView>
       <ScrollView style={{backgroundColor: '#F2F2F2'}}>
         <View>
-          <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+          <View style={{flexDirection: 'row', justifyContent: 'space-evenly'}}>
             <Image
               style={{
                 height: 130,
@@ -91,6 +113,24 @@ const ProfileView = ({navigation}) => {
                 }}
               />
             </View>
+            <TouchableOpacity
+              onPress={() => logoutButtonClicked()}
+              style={{
+                width: 50,
+                height: 50,
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}>
+              <Image
+                style={{
+                  height: 30,
+                  width: 30,
+                }}
+                source={require('../Images/logout_icon.png')}
+                resizeMethod="scale"
+                resizeMode="stretch"
+              />
+            </TouchableOpacity>
           </View>
 
           <View

@@ -46,7 +46,12 @@ const HomeView = ({navigation}) => {
         console.log(
           'Home Response : ' + JSON.stringify(responseData.response.data),
         );
-        setResponseData(responseData.response.data);
+        console.log(
+          'Home Response Total : ' + responseData.response.data.length,
+        );
+        if (responseData.response.data.length > 0) {
+          setResponseData(responseData.response.data);
+        }
       } else {
         Alert.alert('Error', responseData.response.message, [
           {

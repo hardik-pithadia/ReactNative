@@ -12,6 +12,7 @@ function infiniteScroll(dataList) {
   let scrolled = 0;
 
   setInterval(function () {
+    console.log('FLAT LIST : ' + flatList1);
     scrolled++;
 
     if (scrolled < numberOfData) {
@@ -21,10 +22,12 @@ function infiniteScroll(dataList) {
       scrolled = 0;
     }
 
-    flatList1.scrollToOffset({
-      animated: true,
-      offset: scrollValue,
-    });
+    if (flatList1 !== null) {
+      flatList1.scrollToOffset({
+        animated: true,
+        offset: scrollValue,
+      });
+    }
   }, 3000);
 }
 
