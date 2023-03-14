@@ -12,7 +12,7 @@ function infiniteScroll(dataList) {
   let scrolled = 0;
 
   setInterval(function () {
-    console.log('FLAT LIST : ' + flatList1);
+    //    console.log('FLAT LIST : ' + flatList1);
     scrolled++;
 
     if (scrolled < numberOfData) {
