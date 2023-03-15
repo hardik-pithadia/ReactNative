@@ -11,12 +11,21 @@ import PageLoader from '../Utils/loader';
 import {postDataToServer} from '../Utils/WebRequestManager';
 import * as Constants from '../Utils/constants';
 import {getData, storeData} from '../Utils/utility';
+import NetInfo from '@react-native-community/netinfo';
 
 const Login = ({navigation}) => {
   const [isLoading, setLoading] = useState(false);
 
   const [txtEmail, setEmail] = useState('');
   const [txtPassword, setPassword] = useState('');
+
+  useEffect(() => {
+    NetInfo.fetch().then(state => {
+      if (!state.isConnected) {
+        Alert.alert('Network', 'Please Check Internet Connection');
+      }
+    });
+  }, []);
 
   //  useEffect(() => {
   //    //Runs only on the first render

@@ -9,12 +9,14 @@ import {
   SafeAreaView,
   StyleSheet,
   ImageBackground,
+  Alert,
 } from 'react-native';
 import {FlatGrid} from 'react-native-super-grid';
 import Carousel from './Carousel';
 import PageLoader from '../Utils/loader';
 import {getDataFromServer} from '../Utils/WebRequestManager';
 import * as Constants from '../Utils/constants';
+import NetInfo from '@react-native-community/netinfo';
 
 const HomeView = ({navigation}) => {
   const [items, setItems] = useState([
@@ -31,6 +33,11 @@ const HomeView = ({navigation}) => {
   const [responseDataObj, setResponseData] = useState([]);
 
   useEffect(() => {
+    NetInfo.fetch().then(state => {
+      if (!state.isConnected) {
+        Alert.alert('Network', 'Please Check Internet Connection');
+      }
+    });
     getHomeResponse();
   }, []);
 
