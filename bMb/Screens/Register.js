@@ -357,7 +357,7 @@ const Register = ({route, navigation}) => {
     if (responseData.response) {
       if (responseData.response.status) {
         console.log('Register Response : ' + JSON.stringify(responseData));
-        //   navigation.navigate('Base');
+        navigation.navigate('Login');
       } else {
         Alert.alert('Error', responseData.response.message, [
           {
@@ -381,6 +381,18 @@ const Register = ({route, navigation}) => {
         {isLoading && <PageLoader show={isLoading} />}
         <View
           style={{
+            marginLeft: 25,
+            marginRight: 25,
+            marginTop: 20,
+          }}>
+          <Text style={{fontSize: 18, fontWeight: '600', textAlign: 'center'}}>
+            Please help us with quick details mentioned below and Intantly get
+            your profile activated
+          </Text>
+        </View>
+
+        <View
+          style={{
             borderColor: 'lightgrey',
             borderWidth: 1,
             marginLeft: 25,
@@ -390,7 +402,6 @@ const Register = ({route, navigation}) => {
           }}>
           <TextInput
             style={{
-              height: 40,
               width: '85%',
               paddingLeft: 10,
               fontSize: 18,
@@ -412,12 +423,11 @@ const Register = ({route, navigation}) => {
             borderWidth: 1,
             marginLeft: 25,
             marginRight: 25,
-            marginTop: 25,
+            marginTop: 10,
             borderRadius: 10,
           }}>
           <TextInput
             style={{
-              height: 40,
               width: '85%',
               paddingLeft: 10,
               fontSize: 18,
@@ -439,12 +449,11 @@ const Register = ({route, navigation}) => {
             borderWidth: 1,
             marginLeft: 25,
             marginRight: 25,
-            marginTop: 25,
+            marginTop: 10,
             borderRadius: 10,
           }}>
           <TextInput
             style={{
-              height: 40,
               width: '85%',
               paddingLeft: 10,
               fontSize: 18,
@@ -466,12 +475,11 @@ const Register = ({route, navigation}) => {
             borderWidth: 1,
             marginLeft: 25,
             marginRight: 25,
-            marginTop: 25,
+            marginTop: 10,
             borderRadius: 10,
           }}>
           <TextInput
             style={{
-              height: 40,
               width: '85%',
               paddingLeft: 10,
               fontSize: 18,
@@ -493,12 +501,11 @@ const Register = ({route, navigation}) => {
             borderWidth: 1,
             marginLeft: 25,
             marginRight: 25,
-            marginTop: 25,
+            marginTop: 10,
             borderRadius: 10,
           }}>
           <TextInput
             style={{
-              height: 40,
               width: '85%',
               paddingLeft: 10,
               fontSize: 18,
@@ -521,11 +528,10 @@ const Register = ({route, navigation}) => {
             marginLeft: 25,
             marginRight: 25,
             borderRadius: 10,
-            marginTop: 20,
+            marginTop: 10,
           }}>
           <TextInput
             style={{
-              height: 40,
               width: '85%',
               paddingLeft: 10,
               fontSize: 18,
@@ -548,11 +554,10 @@ const Register = ({route, navigation}) => {
             marginLeft: 25,
             marginRight: 25,
             borderRadius: 10,
-            marginTop: 20,
+            marginTop: 10,
           }}>
           <TextInput
             style={{
-              height: 40,
               width: '85%',
               paddingLeft: 10,
               fontSize: 18,
@@ -575,11 +580,10 @@ const Register = ({route, navigation}) => {
             marginLeft: 25,
             marginRight: 25,
             borderRadius: 10,
-            marginTop: 20,
+            marginTop: 10,
           }}>
           <TextInput
             style={{
-              height: 40,
               width: '85%',
               paddingLeft: 10,
               fontSize: 18,
@@ -602,7 +606,7 @@ const Register = ({route, navigation}) => {
             marginLeft: 25,
             marginRight: 25,
             borderRadius: 10,
-            marginTop: 20,
+            marginTop: 10,
             height: 40,
             flexDirection: 'row',
             alignItems: 'center',
@@ -652,7 +656,7 @@ const Register = ({route, navigation}) => {
             marginLeft: 25,
             marginRight: 25,
             borderRadius: 10,
-            marginTop: 20,
+            marginTop: 10,
             height: 40,
             flexDirection: 'row',
             alignItems: 'center',
@@ -702,7 +706,7 @@ const Register = ({route, navigation}) => {
             marginLeft: 25,
             marginRight: 25,
             borderRadius: 10,
-            marginTop: 20,
+            marginTop: 10,
             height: 40,
             flexDirection: 'row',
             alignItems: 'center',
@@ -730,7 +734,7 @@ const Register = ({route, navigation}) => {
             marginLeft: 25,
             marginRight: 25,
             borderRadius: 10,
-            marginTop: 20,
+            marginTop: 10,
             height: 40,
             flexDirection: 'row',
             alignItems: 'center',
@@ -758,11 +762,10 @@ const Register = ({route, navigation}) => {
             marginLeft: 25,
             marginRight: 25,
             borderRadius: 10,
-            marginTop: 20,
+            marginTop: 10,
           }}>
           <TextInput
             style={{
-              height: 40,
               width: '85%',
               paddingLeft: 10,
               fontSize: 18,
@@ -786,11 +789,10 @@ const Register = ({route, navigation}) => {
             marginLeft: 25,
             marginRight: 25,
             borderRadius: 10,
-            marginTop: 20,
+            marginTop: 10,
           }}>
           <TextInput
             style={{
-              height: 40,
               width: '85%',
               paddingLeft: 10,
               fontSize: 18,
@@ -858,10 +860,12 @@ const styles = StyleSheet.create({
   },
   placeholderStyle: {
     fontSize: 16,
+    color: 'grey',
   },
   selectedTextStyle: {
     fontSize: 16,
     marginLeft: 8,
+    color: 'black',
   },
   iconStyle: {
     width: 20,
