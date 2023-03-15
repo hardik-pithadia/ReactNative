@@ -53,7 +53,6 @@ const Login = ({navigation}) => {
   };
 
   const signInButtonClicked = () => {
-    setLoading(true);
     if (txtEmail.length > 0 && txtPassword.length > 0) {
       postLoginDataToServer();
       // navigation.navigate('Base');
@@ -63,6 +62,7 @@ const Login = ({navigation}) => {
   };
 
   const postLoginDataToServer = async () => {
+    setLoading(true);
     var mobValue = {
       email: txtEmail.toString(),
       password: txtPassword.toString(),
@@ -121,6 +121,7 @@ const Login = ({navigation}) => {
         storeData(Constants.AUTH_TOKEN, responseData.response.data.auth_token);
 
         navigation.navigate('Base');
+        setLoading(false);
       } else {
         Alert.alert('Error', responseData.response.message, [
           {

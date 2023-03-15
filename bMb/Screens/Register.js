@@ -15,6 +15,7 @@ import {SelectCountry} from 'react-native-element-dropdown';
 import PageLoader from '../Utils/loader';
 import {postDataToServer} from '../Utils/WebRequestManager';
 import * as Constants from '../Utils/constants';
+import RazorpayCheckout from 'react-native-razorpay';
 
 const statesObj = [
   {
@@ -290,6 +291,37 @@ const Register = ({route, navigation}) => {
     //    navigation.navigate('Login');
   };
 
+  const paymentResponse = () => {
+    console.log('pay Button Clicked');
+
+    var options = {
+      description: 'BMB',
+      image:
+        'https://t3.ftcdn.net/jpg/04/86/50/10/360_F_486501071_QtYYAMQimmsr8898Tze3Jm7gdNIbPp3o.jpg',
+      currency: 'INR',
+      key: 'rzp_test_WXfTPTwgnQufLh', // Your api key
+      // amount: (parseInt(currentObj.bookingAmount) * 100).toString(),
+      amount: '100.00',
+      name: firstName,
+      prefill: {
+        email: 'hardik.pithadia@tejora.com',
+        contact: '7666240144',
+        name: 'Razorpay Software',
+      },
+      theme: {color: '#3F60A0'},
+    };
+    RazorpayCheckout.open(options)
+      .then(data => {
+        // handle success
+        alert(`Success: ${data.razorpay_payment_id}`);
+        navigation.navigate('RegisterEventSuccess');
+      })
+      .catch(error => {
+        // handle failure
+        alert(`Error: ${error.code} | ${error.description}`);
+      });
+  };
+
   const loginButtonClicked = () => {
     console.log('loginButtonClicked');
 
@@ -357,7 +389,8 @@ const Register = ({route, navigation}) => {
     if (responseData.response) {
       if (responseData.response.status) {
         console.log('Register Response : ' + JSON.stringify(responseData));
-        navigation.navigate('Login');
+        //   navigation.navigate('RegisterEvent');
+        paymentResponse();
       } else {
         Alert.alert('Error', responseData.response.message, [
           {
