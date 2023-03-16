@@ -221,6 +221,10 @@ PODS:
     - glog
   - react-native-date-picker (4.2.9):
     - React-Core
+  - react-native-image-base64 (0.1.4):
+    - React
+  - react-native-image-picker (5.3.1):
+    - React-Core
   - react-native-netinfo (9.3.7):
     - React-Core
   - react-native-razorpay (2.2.9):
@@ -328,6 +332,8 @@ DEPENDENCIES:
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - React-logger (from `../node_modules/react-native/ReactCommon/logger`)
   - react-native-date-picker (from `../node_modules/react-native-date-picker`)
+  - react-native-image-base64 (from `../node_modules/react-native-image-base64`)
+  - react-native-image-picker (from `../node_modules/react-native-image-picker`)
   - "react-native-netinfo (from `../node_modules/@react-native-community/netinfo`)"
   - react-native-razorpay (from `../node_modules/react-native-razorpay`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
@@ -392,6 +398,10 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/logger"
   react-native-date-picker:
     :path: "../node_modules/react-native-date-picker"
+  react-native-image-base64:
+    :path: "../node_modules/react-native-image-base64"
+  react-native-image-picker:
+    :path: "../node_modules/react-native-image-picker"
   react-native-netinfo:
     :path: "../node_modules/@react-native-community/netinfo"
   react-native-razorpay:
@@ -453,6 +463,8 @@ SPEC CHECKSUMS:
   React-jsinspector: c5989c77cb89ae6a69561095a61cce56a44ae8e8
   React-logger: a0833912d93b36b791b7a521672d8ee89107aff1
   react-native-date-picker: c063a8967058c58a02d7d0e1d655f0453576fb0d
+  react-native-image-base64: 2ff9ac788639c87a91361ab6652cc95e871b1e54
+  react-native-image-picker: ec9b713e248760bfa0f879f0715391de4651a7cb
   react-native-netinfo: 2517ad504b3d303e90d7a431b0fcaef76d207983
   react-native-razorpay: 6d613f3464a509e3a4bb5b9ca43b70013b3d96d4
   react-native-safe-area-context: ebf8c413eb8b5f7c392a036a315eb7b46b96845f

@@ -16,6 +16,8 @@ import PageLoader from '../Utils/loader';
 import {postDataToServer} from '../Utils/WebRequestManager';
 import * as Constants from '../Utils/constants';
 import RazorpayCheckout from 'react-native-razorpay';
+import * as ImagePicker from 'react-native-image-picker';
+import ImgToBase64 from 'react-native-image-base64';
 
 const statesObj = [
   {
@@ -218,6 +220,20 @@ const Register = ({route, navigation}) => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
+  const [profilePicImage, setProfilePicImage] = useState(
+    'https://static.vecteezy.com/system/resources/thumbnails/009/734/564/small/default-avatar-profile-icon-of-social-media-user-vector.jpg',
+  );
+  const [degreeCertImage, setDegreeCertImage] = useState(
+    'https://cutewallpaper.org/24/image-placeholder-png/croppedplaceholderpng-%E2%80%93-osa-grappling.png',
+  );
+  const [mmcCertImage, setMMCCertImage] = useState(
+    'https://cutewallpaper.org/24/image-placeholder-png/croppedplaceholderpng-%E2%80%93-osa-grappling.png',
+  );
+
+  const [profilePicImageBase64, setProfilePicImageBase64] = useState('');
+  const [degreeCertImageBase64, setDegreeCertImageBase64] = useState('');
+  const [mmcCertImageBase64, setMMCCertImageBase64] = useState('');
+
   var bottomView = [];
 
   useEffect(() => {
@@ -406,6 +422,115 @@ const Register = ({route, navigation}) => {
     }
 
     setLoading(false);
+  };
+
+  const openCameraForPhoto = imageType => {
+    console.log('openCameraForPhoto');
+
+    let options = {
+      title: 'Select Image',
+      mediaType: 'image',
+      maxWidth: 300,
+      maxHeight: 300,
+      quality: 1,
+    };
+
+    ImagePicker.launchCamera(options, response => {
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+      } else if (response.error) {
+        console.log('ImagePicker Error: ', response.error);
+      } else if (response.customButton) {
+        console.log('User tapped custom button: ', response.customButton);
+        alert(response.customButton);
+      } else {
+        console.log('Response = ', response.assets[0].uri);
+
+        if (imageType === 'profile') {
+          setProfilePicImage(response.assets[0].uri);
+
+          ImgToBase64.getBase64String(response.assets[0].uri)
+            .then(base64String => setProfilePicImageBase64(base64String))
+            .catch(err => console.log('Image Base64 Error : ' + err));
+        } else if (imageType === 'degree') {
+          setDegreeCertImage(response.assets[0].uri);
+
+          ImgToBase64.getBase64String(response.assets[0].uri)
+            .then(base64String => setDegreeCertImageBase64(base64String))
+            .catch(err => console.log('Image Base64 Error : ' + err));
+        } else if (imageType === 'mmc') {
+          setMMCCertImage(response.assets[0].uri);
+
+          ImgToBase64.getBase64String(response.assets[0].uri)
+            .then(base64String => setMMCCertImageBase64(base64String))
+            .catch(err => console.log('Image Base64 Error : ' + err));
+        }
+      }
+    });
+  };
+
+  const selectPhotoLibraryForPhoto = imageType => {
+    console.log('selectPhotoLibraryForPhoto');
+
+    let options = {
+      title: 'Select Image',
+      mediaType: 'image',
+      maxWidth: 300,
+      maxHeight: 300,
+      quality: 1,
+    };
+
+    ImagePicker.launchImageLibrary(options, response => {
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+      } else if (response.error) {
+        console.log('ImagePicker Error: ', response.error);
+      } else if (response.customButton) {
+        console.log('User tapped custom button: ', response.customButton);
+        alert(response.customButton);
+      } else {
+        console.log('Response = ', response.assets[0].uri);
+
+        if (imageType === 'profile') {
+          setProfilePicImage(response.assets[0].uri);
+
+          ImgToBase64.getBase64String(response.assets[0].uri)
+            .then(base64String => setProfilePicImageBase64(base64String))
+            .catch(err => console.log('Image Base64 Error : ' + err));
+        } else if (imageType === 'degree') {
+          setDegreeCertImage(response.assets[0].uri);
+
+          ImgToBase64.getBase64String(response.assets[0].uri)
+            .then(base64String => setDegreeCertImageBase64(base64String))
+            .catch(err => console.log('Image Base64 Error : ' + err));
+        } else if (imageType === 'mmc') {
+          setMMCCertImage(response.assets[0].uri);
+
+          ImgToBase64.getBase64String(response.assets[0].uri)
+            .then(base64String => setMMCCertImageBase64(base64String))
+            .catch(err => console.log('Image Base64 Error : ' + err));
+        }
+      }
+    });
+  };
+
+  const attachButtonClicked = imageType => {
+    Alert.alert('Select Media', '', [
+      {
+        text: 'Open Camera For Photo',
+        style: 'default',
+        onPress: () => {
+          openCameraForPhoto(imageType);
+        },
+      },
+      {
+        text: 'Select Photo from Photo Library',
+        style: 'default',
+        onPress: () => {
+          selectPhotoLibraryForPhoto(imageType);
+        },
+      },
+    ]);
   };
 
   return (
@@ -840,6 +965,126 @@ const Register = ({route, navigation}) => {
             value={confirmPassword}
             onChangeText={text => setConfirmPassword(text)}
           />
+        </View>
+
+        <View
+          style={{
+            marginLeft: 25,
+            marginRight: 25,
+            borderRadius: 10,
+            marginTop: 10,
+            height: 100,
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-evenly',
+          }}>
+          <Text
+            style={{
+              alignItems: 'center',
+              justifyContent: 'center',
+              textAlign: 'center',
+              fontWeight: '900',
+              width: 100,
+            }}>
+            Profile Photo
+          </Text>
+          <Image
+            resizeMode="contain"
+            source={{
+              uri: profilePicImage,
+            }}
+            style={{
+              width: 100,
+              height: 90,
+              backgroundColor: 'lightgray',
+              borderRadius: 10,
+            }}
+          />
+          <TouchableOpacity
+            onPress={() => attachButtonClicked('profile')}
+            style={{backgroundColor: 'lightgray', borderRadius: 8}}>
+            <Text style={{padding: 10}}>Upload File</Text>
+          </TouchableOpacity>
+        </View>
+
+        <View
+          style={{
+            marginLeft: 25,
+            marginRight: 25,
+            borderRadius: 10,
+            marginTop: 10,
+            height: 100,
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-evenly',
+          }}>
+          <Text
+            style={{
+              alignItems: 'center',
+              justifyContent: 'center',
+              textAlign: 'center',
+              fontWeight: '900',
+              width: 100,
+            }}>
+            Degree Certificate
+          </Text>
+          <Image
+            resizeMode="contain"
+            source={{
+              uri: degreeCertImage,
+            }}
+            style={{
+              width: 100,
+              height: 90,
+              backgroundColor: 'lightgray',
+              borderRadius: 10,
+            }}
+          />
+          <TouchableOpacity
+            onPress={() => attachButtonClicked('degree')}
+            style={{backgroundColor: 'lightgray', borderRadius: 8}}>
+            <Text style={{padding: 10}}>Upload File</Text>
+          </TouchableOpacity>
+        </View>
+
+        <View
+          style={{
+            marginLeft: 25,
+            marginRight: 25,
+            borderRadius: 10,
+            marginTop: 10,
+            height: 100,
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-evenly',
+          }}>
+          <Text
+            style={{
+              alignItems: 'center',
+              justifyContent: 'center',
+              textAlign: 'center',
+              fontWeight: '900',
+              width: 100,
+            }}>
+            MMC Certificate
+          </Text>
+          <Image
+            resizeMode="contain"
+            source={{
+              uri: mmcCertImage,
+            }}
+            style={{
+              width: 100,
+              height: 90,
+              backgroundColor: 'lightgray',
+              borderRadius: 10,
+            }}
+          />
+          <TouchableOpacity
+            onPress={() => attachButtonClicked('mmc')}
+            style={{backgroundColor: 'lightgray', borderRadius: 8}}>
+            <Text style={{padding: 10}}>Upload File</Text>
+          </TouchableOpacity>
         </View>
 
         <Text
