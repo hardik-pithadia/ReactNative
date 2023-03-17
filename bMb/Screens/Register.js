@@ -469,6 +469,58 @@ const Register = ({route, navigation}) => {
     });
   };
 
+  const updateProfile = async (imageURL, fileTypeVal, fileNameVal) => {
+    const formData = new FormData();
+
+    formData.append('file', {
+      uri: imageURL,
+      type: fileTypeVal,
+      name: fileNameVal,
+    });
+    let res = await apiPostWithTokenAndImage(formData);
+    console.log('RES101 : ' + JSON.stringify(res));
+
+    if (res.status === true) {
+      Alert.alert('Success', res.message);
+    } else {
+      Alert.alert('Error', res.message);
+    }
+  };
+
+  const apiPostWithTokenAndImage = async inputParam => {
+    let URL =
+      'https://sea-turtle-app-i54w6.ondigitalocean.app/api/imageUpload/profile';
+
+    console.log('URL:' + URL);
+
+    let param = inputParam;
+
+    let headers = {
+      'Content-Type': 'multipart/form-data',
+      Accept: 'application/json',
+    };
+
+    let obj = {
+      method: 'POST',
+      headers: headers,
+      body: param,
+    };
+
+    return fetch(URL, obj) // put your API URL here
+      .then(resp => {
+        let json = null;
+        json = resp.json();
+        if (resp.ok) {
+          return json;
+        }
+        return json.then(err => {
+          console.log('error :', err);
+          throw err;
+        });
+      })
+      .then(json => json);
+  };
+
   const selectPhotoLibraryForPhoto = imageType => {
     console.log('selectPhotoLibraryForPhoto');
 
@@ -489,14 +541,41 @@ const Register = ({route, navigation}) => {
         console.log('User tapped custom button: ', response.customButton);
         alert(response.customButton);
       } else {
-        console.log('Response = ', response.assets[0].uri);
+        console.log('Response = ', response);
 
         if (imageType === 'profile') {
           setProfilePicImage(response.assets[0].uri);
 
-          ImgToBase64.getBase64String(response.assets[0].uri)
-            .then(base64String => setProfilePicImageBase64(base64String))
-            .catch(err => console.log('Image Base64 Error : ' + err));
+          updateProfile(
+            response.assets[0].uri,
+            response.assets[0].type,
+            response.assets[0].fileName,
+          );
+
+          //          var myHeaders = new Headers();
+          //          myHeaders.append('Accept', 'application/json');
+          //
+          //          var formdata = new FormData();
+          //          formdata.append('file', response.assets[0].uri, 'appstore101.png');
+          //
+          //          var requestOptions = {
+          //            method: 'POST',
+          //            headers: myHeaders,
+          //            body: formdata,
+          //            //  redirect: 'follow',
+          //          };
+          //
+          //          fetch(
+          //            'https://sea-turtle-app-i54w6.ondigitalocean.app/api/imageUpload/profile',
+          //            requestOptions,
+          //          )
+          //            .then(response => response.text())
+          //            .then(result => console.log('FILE Upload Response : ' + result))
+          //            .catch(error => console.log('error', error));
+
+          //ImgToBase64.getBase64String(response.assets[0].uri)
+          //  .then(base64String => setProfilePicImageBase64(base64String))
+          //  .catch(err => console.log('Image Base64 Error : ' + err));
         } else if (imageType === 'degree') {
           setDegreeCertImage(response.assets[0].uri);
 
