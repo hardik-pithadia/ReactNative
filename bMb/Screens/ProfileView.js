@@ -15,9 +15,48 @@ import {getData, removeData} from '../Utils/utility';
 import * as Constants from '../Utils/constants';
 
 const ProfileView = ({navigation}) => {
+  const [profileImage, setProfileImage] = useState(
+    'https://static.vecteezy.com/system/resources/thumbnails/009/734/564/small/default-avatar-profile-icon-of-social-media-user-vector.jpg',
+  );
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLirstName] = useState('');
+  const [accountType, setAccountType] = useState('');
+  const [qualification, setQualification] = useState('');
+  const [speciality, setSpeciality] = useState('');
+  const [contact_number, setContactNumber] = useState('');
+  const [email, setEmail] = useState('');
+
   useEffect(() => {
-    getData(Constants.TITLE).then(resultStr => {
-      console.log('TITLE : ' + resultStr);
+    getData(Constants.IMAGE_NAME).then(resultStr => {
+      setProfileImage(resultStr || '');
+    });
+
+    getData(Constants.FIRST_NAME).then(resultStr => {
+      setFirstName(resultStr || '');
+    });
+
+    getData(Constants.LAST_NAME).then(resultStr => {
+      setLirstName(resultStr || '');
+    });
+
+    getData(Constants.ACC_TYPE).then(resultStr => {
+      setAccountType(resultStr || '');
+    });
+
+    getData(Constants.QUALIFICATION).then(resultStr => {
+      setQualification(resultStr || '');
+    });
+
+    getData(Constants.SPECIALITY).then(resultStr => {
+      setSpeciality(resultStr || '');
+    });
+
+    getData(Constants.CONTACT_NUMBER).then(resultStr => {
+      setContactNumber(resultStr || '');
+    });
+
+    getData(Constants.EMAIL).then(resultStr => {
+      setEmail(resultStr || '');
     });
   }, []);
 
@@ -25,15 +64,15 @@ const ProfileView = ({navigation}) => {
     {id: 0, name: require('../Images/demoImage1.png')},
     {id: 1, name: require('../Images/demoImage1.png')},
     {id: 2, name: require('../Images/demoImage1.png')},
-    {id: 3, name: require('../Images/demoImage1.png')},
-    {id: 4, name: require('../Images/demoImage1.png')},
-    {id: 5, name: require('../Images/demoImage1.png')},
-    {id: 6, name: require('../Images/demoImage1.png')},
-    {id: 7, name: require('../Images/demoImage1.png')},
-    {id: 8, name: require('../Images/demoImage1.png')},
-    {id: 9, name: require('../Images/demoImage1.png')},
-    {id: 10, name: require('../Images/demoImage1.png')},
-    {id: 11, name: require('../Images/demoImage1.png')},
+    //    {id: 3, name: require('../Images/demoImage1.png')},
+    //    {id: 4, name: require('../Images/demoImage1.png')},
+    //    {id: 5, name: require('../Images/demoImage1.png')},
+    //    {id: 6, name: require('../Images/demoImage1.png')},
+    //    {id: 7, name: require('../Images/demoImage1.png')},
+    //    {id: 8, name: require('../Images/demoImage1.png')},
+    //    {id: 9, name: require('../Images/demoImage1.png')},
+    //    {id: 10, name: require('../Images/demoImage1.png')},
+    //    {id: 11, name: require('../Images/demoImage1.png')},
   ]);
 
   const profileImageButtonClicked = () => {
@@ -143,10 +182,11 @@ const ProfileView = ({navigation}) => {
             <View style={{width: '50%', height: 100}}>
               <Text
                 style={{
-                  fontSize: 23.0,
+                  fontSize: 16.0,
                   color: 'black',
+                  fontWeight: 'bold',
                 }}>
-                Dr. Hardik Pithadia
+                {'Dr. ' + firstName + ' ' + lastName}
               </Text>
 
               <Text
@@ -155,11 +195,7 @@ const ProfileView = ({navigation}) => {
                   top: 5.0,
                   color: 'black',
                 }}>
-                @hardik-pithadia
-              </Text>
-
-              <Text style={{top: 20.0, color: 'black'}}>
-                Hello, I'm Dr. Hardik Pithadia, Welcome To My Profile
+                {accountType}
               </Text>
             </View>
 
@@ -168,7 +204,6 @@ const ProfileView = ({navigation}) => {
                 height: 100,
                 width: 100,
                 alignItems: 'flex-end',
-                // backgroundColor: 'pink',
               }}>
               <Image
                 style={{
@@ -181,8 +216,8 @@ const ProfileView = ({navigation}) => {
                   alignItems: 'center',
                   justifyContent: 'center',
                 }}
-                resizeMode="center"
-                source={require('../Images/ProfileIcon.png')}
+                resizeMode="cover"
+                source={{uri: profileImage}}
               />
               <TouchableOpacity
                 onPress={() => profileImageButtonClicked()}
@@ -209,7 +244,7 @@ const ProfileView = ({navigation}) => {
             </View>
           </View>
 
-          <View
+          {/*<View
             style={{
               backgroundColor: 'white',
               height: 125.0,
@@ -280,15 +315,26 @@ const ProfileView = ({navigation}) => {
             <Text style={{fontSize: 15, color: 'lightgray', marginLeft: 25}}>
               What do you want to tell everyone?
             </Text>
-          </View>
+          </View>*/}
 
           <View
-            style={{
-              marginTop: 15,
-              marginLeft: 25,
-              marginRight: 25,
-              marginBottom: 25,
-            }}>
+            style={
+              {
+                //    marginTop: 15,
+                //    marginLeft: 10,
+                //    marginRight: 10,
+                //    backgroundColor: 'pink',
+              }
+            }>
+            <Text
+              style={{
+                fontSize: 18,
+                fontWeight: 'bold',
+                marginLeft: 20,
+                color: 'black',
+              }}>
+              Assigned Certificates
+            </Text>
             <FlatGrid
               itemDimension={80}
               data={items}
@@ -311,6 +357,40 @@ const ProfileView = ({navigation}) => {
               )}
             />
           </View>
+
+          <View
+            style={{
+              marginHorizontal: 20,
+            }}>
+            <Text
+              style={{
+                fontSize: 18,
+                fontWeight: 'bold',
+                color: 'black',
+              }}>
+              Details
+            </Text>
+
+            <View style={{flexDirection: 'row', marginTop: 20}}>
+              <Text style={styles.detailTitle}>Qualification : </Text>
+              <Text style={{color: 'gray'}}>{qualification}</Text>
+            </View>
+
+            <View style={{flexDirection: 'row', marginTop: 10}}>
+              <Text style={styles.detailTitle}>Speciality : </Text>
+              <Text style={{color: 'gray'}}>{speciality}</Text>
+            </View>
+
+            <View style={{flexDirection: 'row', marginTop: 10}}>
+              <Text style={styles.detailTitle}>Contact No : </Text>
+              <Text style={{color: 'gray'}}>{contact_number}</Text>
+            </View>
+
+            <View style={{flexDirection: 'row', marginTop: 10}}>
+              <Text style={styles.detailTitle}>Email : </Text>
+              <Text style={{color: 'gray'}}>{email}</Text>
+            </View>
+          </View>
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -319,8 +399,7 @@ const ProfileView = ({navigation}) => {
 
 const styles = StyleSheet.create({
   gridView: {
-    marginTop: 10,
-    marginBottom: 20,
+    marginTop: 5,
   },
   itemContainer: {
     justifyContent: 'flex-end',
@@ -337,6 +416,11 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     fontSize: 12,
     color: '#fff',
+  },
+  detailTitle: {
+    fontSize: 14,
+    fontWeight: '700',
+    color: 'black',
   },
 });
 
