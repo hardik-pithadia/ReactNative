@@ -17,7 +17,7 @@ import {postDataToServer} from '../Utils/WebRequestManager';
 import * as Constants from '../Utils/constants';
 import RazorpayCheckout from 'react-native-razorpay';
 import * as ImagePicker from 'react-native-image-picker';
-import ImgToBase64 from 'react-native-image-base64';
+import {format} from 'date-fns';
 
 const statesObj = [
   {
@@ -230,10 +230,6 @@ const Register = ({route, navigation}) => {
     'https://cutewallpaper.org/24/image-placeholder-png/croppedplaceholderpng-%E2%80%93-osa-grappling.png',
   );
 
-  const [profilePicImageBase64, setProfilePicImageBase64] = useState('');
-  const [degreeCertImageBase64, setDegreeCertImageBase64] = useState('');
-  const [mmcCertImageBase64, setMMCCertImageBase64] = useState('');
-
   var bottomView = [];
 
   useEffect(() => {
@@ -297,8 +293,6 @@ const Register = ({route, navigation}) => {
           'Please Enter Correct Password & Confirm Password',
         );
       } else {
-        //Call API
-        setLoading(true);
         postRegisterDataToServer();
       }
     }
@@ -376,6 +370,8 @@ const Register = ({route, navigation}) => {
   };
 
   const postRegisterDataToServer = async () => {
+    setLoading(true);
+
     var mobValue = {
       first_name: firstName,
       middle_name: middleName,
@@ -389,6 +385,9 @@ const Register = ({route, navigation}) => {
       dob: selectedDate,
       blood_group: bloodGroup,
       state: state,
+      image: profilePicImage,
+      degree_certificate: degreeCertImage,
+      mmc_certificate: mmcCertImage,
       marriage_date: selectedAnniversaryDate,
     };
 
@@ -400,12 +399,10 @@ const Register = ({route, navigation}) => {
       JSON.stringify(mobValue),
     );
 
-    console.log('RESPONSE : ' + JSON.stringify(responseData));
+    console.log('Register Response : ' + JSON.stringify(responseData));
 
     if (responseData.response) {
       if (responseData.response.status) {
-        console.log('Register Response : ' + JSON.stringify(responseData));
-        //   navigation.navigate('RegisterEvent');
         paymentResponse();
       } else {
         Alert.alert('Error', responseData.response.message, [
@@ -424,52 +421,8 @@ const Register = ({route, navigation}) => {
     setLoading(false);
   };
 
-  const openCameraForPhoto = imageType => {
-    console.log('openCameraForPhoto');
-
-    let options = {
-      title: 'Select Image',
-      mediaType: 'image',
-      maxWidth: 300,
-      maxHeight: 300,
-      quality: 1,
-    };
-
-    ImagePicker.launchCamera(options, response => {
-      if (response.didCancel) {
-        console.log('User cancelled image picker');
-      } else if (response.error) {
-        console.log('ImagePicker Error: ', response.error);
-      } else if (response.customButton) {
-        console.log('User tapped custom button: ', response.customButton);
-        alert(response.customButton);
-      } else {
-        console.log('Response = ', response.assets[0].uri);
-
-        if (imageType === 'profile') {
-          setProfilePicImage(response.assets[0].uri);
-
-          ImgToBase64.getBase64String(response.assets[0].uri)
-            .then(base64String => setProfilePicImageBase64(base64String))
-            .catch(err => console.log('Image Base64 Error : ' + err));
-        } else if (imageType === 'degree') {
-          setDegreeCertImage(response.assets[0].uri);
-
-          ImgToBase64.getBase64String(response.assets[0].uri)
-            .then(base64String => setDegreeCertImageBase64(base64String))
-            .catch(err => console.log('Image Base64 Error : ' + err));
-        } else if (imageType === 'mmc') {
-          setMMCCertImage(response.assets[0].uri);
-
-          ImgToBase64.getBase64String(response.assets[0].uri)
-            .then(base64String => setMMCCertImageBase64(base64String))
-            .catch(err => console.log('Image Base64 Error : ' + err));
-        }
-      }
-    });
-  };
-
-  const updateProfile = async (imageURL, fileTypeVal, fileNameVal) => {
+  const updateImage = async (imageURL, fileTypeVal, fileNameVal, urlType) => {
+    setLoading(true);
     const formData = new FormData();
 
     formData.append('file', {
@@ -477,19 +430,36 @@ const Register = ({route, navigation}) => {
       type: fileTypeVal,
       name: fileNameVal,
     });
-    let res = await apiPostWithTokenAndImage(formData);
-    console.log('RES101 : ' + JSON.stringify(res));
+    let res = await uploadImageToServer(formData, urlType);
+
+    console.log('File Upload Response : ' + JSON.stringify(res));
 
     if (res.status === true) {
+      if (urlType === 'profile') {
+        setProfilePicImage(res.data.Location);
+      } else if (urlType === 'degree') {
+        setDegreeCertImage(res.data.Location);
+      } else if (urlType === 'mmc') {
+        setMMCCertImage(res.data.Location);
+      }
       Alert.alert('Success', res.message);
     } else {
       Alert.alert('Error', res.message);
     }
+
+    setLoading(false);
   };
 
-  const apiPostWithTokenAndImage = async inputParam => {
-    let URL =
-      'https://sea-turtle-app-i54w6.ondigitalocean.app/api/imageUpload/profile';
+  const uploadImageToServer = async (inputParam, urlType) => {
+    var imageURLValue = '';
+
+    if (urlType === 'profile') {
+      imageURLValue = 'profile';
+    } else if (urlType === 'degree' || urlType === 'mmc') {
+      imageURLValue = 'certificate';
+    }
+
+    let URL = Constants.base_URL + '/imageUpload/' + imageURLValue;
 
     console.log('URL:' + URL);
 
@@ -521,6 +491,54 @@ const Register = ({route, navigation}) => {
       .then(json => json);
   };
 
+  const openCameraForPhoto = imageType => {
+    console.log('openCameraForPhoto');
+
+    let options = {
+      title: 'Select Image',
+      mediaType: 'image',
+      maxWidth: 300,
+      maxHeight: 300,
+      quality: 1,
+    };
+
+    ImagePicker.launchCamera(options, response => {
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+      } else if (response.error) {
+        console.log('ImagePicker Error: ', response.error);
+      } else if (response.customButton) {
+        console.log('User tapped custom button: ', response.customButton);
+        alert(response.customButton);
+      } else {
+        console.log('Response = ', response.assets[0].uri);
+
+        if (imageType === 'profile') {
+          updateImage(
+            response.assets[0].uri,
+            response.assets[0].type,
+            response.assets[0].fileName,
+            'profile',
+          );
+        } else if (imageType === 'degree') {
+          updateImage(
+            response.assets[0].uri,
+            response.assets[0].type,
+            response.assets[0].fileName,
+            'degree',
+          );
+        } else if (imageType === 'mmc') {
+          updateImage(
+            response.assets[0].uri,
+            response.assets[0].type,
+            response.assets[0].fileName,
+            'mmc',
+          );
+        }
+      }
+    });
+  };
+
   const selectPhotoLibraryForPhoto = imageType => {
     console.log('selectPhotoLibraryForPhoto');
 
@@ -544,50 +562,26 @@ const Register = ({route, navigation}) => {
         console.log('Response = ', response);
 
         if (imageType === 'profile') {
-          setProfilePicImage(response.assets[0].uri);
-
-          updateProfile(
+          updateImage(
             response.assets[0].uri,
             response.assets[0].type,
             response.assets[0].fileName,
+            'profile',
           );
-
-          //          var myHeaders = new Headers();
-          //          myHeaders.append('Accept', 'application/json');
-          //
-          //          var formdata = new FormData();
-          //          formdata.append('file', response.assets[0].uri, 'appstore101.png');
-          //
-          //          var requestOptions = {
-          //            method: 'POST',
-          //            headers: myHeaders,
-          //            body: formdata,
-          //            //  redirect: 'follow',
-          //          };
-          //
-          //          fetch(
-          //            'https://sea-turtle-app-i54w6.ondigitalocean.app/api/imageUpload/profile',
-          //            requestOptions,
-          //          )
-          //            .then(response => response.text())
-          //            .then(result => console.log('FILE Upload Response : ' + result))
-          //            .catch(error => console.log('error', error));
-
-          //ImgToBase64.getBase64String(response.assets[0].uri)
-          //  .then(base64String => setProfilePicImageBase64(base64String))
-          //  .catch(err => console.log('Image Base64 Error : ' + err));
         } else if (imageType === 'degree') {
-          setDegreeCertImage(response.assets[0].uri);
-
-          ImgToBase64.getBase64String(response.assets[0].uri)
-            .then(base64String => setDegreeCertImageBase64(base64String))
-            .catch(err => console.log('Image Base64 Error : ' + err));
+          updateImage(
+            response.assets[0].uri,
+            response.assets[0].type,
+            response.assets[0].fileName,
+            'degree',
+          );
         } else if (imageType === 'mmc') {
-          setMMCCertImage(response.assets[0].uri);
-
-          ImgToBase64.getBase64String(response.assets[0].uri)
-            .then(base64String => setMMCCertImageBase64(base64String))
-            .catch(err => console.log('Image Base64 Error : ' + err));
+          updateImage(
+            response.assets[0].uri,
+            response.assets[0].type,
+            response.assets[0].fileName,
+            'mmc',
+          );
         }
       }
     });
@@ -872,13 +866,7 @@ const Register = ({route, navigation}) => {
             onConfirm={date => {
               setOpen(false);
               setDate(date);
-              setSelectedDate(
-                date.getDate() +
-                  '/' +
-                  (date.getMonth() + 1) +
-                  '/' +
-                  date.getFullYear(),
-              );
+              setSelectedDate(format(date, 'yyyy-MM-dd'));
             }}
             onCancel={() => {
               setOpen(false);
@@ -922,13 +910,7 @@ const Register = ({route, navigation}) => {
             onConfirm={date => {
               setAnniversaryDateOpen(false);
               setAnniversaryDate(date);
-              setSelectedAnniversaryDate(
-                date.getDate() +
-                  '/' +
-                  (date.getMonth() + 1) +
-                  '/' +
-                  date.getFullYear(),
-              );
+              setSelectedAnniversaryDate(format(date, 'yyyy-MM-dd'));
             }}
             onCancel={() => {
               setAnniversaryDateOpen(false);

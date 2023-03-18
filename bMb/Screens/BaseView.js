@@ -16,7 +16,7 @@ const BaseView = ({navigation}) => {
       shifting="true"
       initialRouteName="Home"
       activeColor="#fff"
-      tabBarOptions={{
+      screenOptions={{
         activeTintColor: '#3F60A0',
         inactiveTintColor: 'black',
         style: {backgroundColor: 'white'},
