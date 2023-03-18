@@ -55,7 +55,6 @@ const Login = ({navigation}) => {
   const signInButtonClicked = () => {
     if (txtEmail.length > 0 && txtPassword.length > 0) {
       postLoginDataToServer();
-      // navigation.navigate('Base');
     } else {
       Alert.alert('Error', 'Please Enter Username & Password');
     }
