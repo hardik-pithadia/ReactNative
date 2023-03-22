@@ -31,14 +31,16 @@ const RegisterEvent = ({route, navigation}) => {
   };
 
   const payButtonClicked = () => {
-    console.log('pay Button Clicked');
+    console.log('pay Button Clicked : ' + arrayList.length);
 
     var options = {
       description: currentObj.organiser,
       image: currentObj.image,
       currency: 'INR',
       key: 'rzp_test_WXfTPTwgnQufLh', // Your api key
-      amount: (parseInt(currentObj.bookingAmount) * 100).toString(),
+      amount: (
+        parseInt(currentObj.bookingAmount * arrayList.length) * 100
+      ).toString(),
       name: currentObj.title,
       prefill: {
         email: 'hardik.pithadia@tejora.com',
@@ -142,27 +144,44 @@ const RegisterEvent = ({route, navigation}) => {
             justifyContent: 'center',
             marginTop: 25,
           }}>
-          <Text style={{fontSize: 20, fontWeight: '700', marginBottom: 20}}>
+          <Text
+            style={{
+              fontSize: 20,
+              fontWeight: '700',
+              marginBottom: 20,
+              color: 'black',
+            }}>
             {currentObj.title}
           </Text>
-          <Text style={{fontSize: 20, fontWeight: '700', marginBottom: 20}}>
+          <Text
+            style={{
+              fontSize: 20,
+              fontWeight: '700',
+              marginBottom: 20,
+              color: 'black',
+            }}>
             Registration
           </Text>
           <View style={{width: '90%', marginBottom: 10}}>
-            <Text style={{fontSize: 20, marginBottom: 10}}>
+            <Text style={{fontSize: 20, marginBottom: 10, color: 'black'}}>
               {currentObj.content}
             </Text>
-            <Text style={{fontSize: 20, marginBottom: 10}}>
+            <Text style={{fontSize: 20, marginBottom: 10, color: 'black'}}>
               {'Organiser : ' + currentObj.organiser}
             </Text>
-            <Text style={{fontSize: 20, marginBottom: 10}}>
+            <Text style={{fontSize: 20, marginBottom: 10, color: 'black'}}>
               {'Date : ' + currentObj.date.split('T')[0]}
             </Text>
-            <Text style={{fontSize: 20, marginBottom: 15}}>
+            <Text style={{fontSize: 20, marginBottom: 15, color: 'black'}}>
               {'Address : ' + currentObj.address}
             </Text>
 
-            <Text style={{fontSize: 20, color: '#D1AA70', fontWeight: '700'}}>
+            <Text
+              style={{
+                fontSize: 20,
+                color: '#D1AA70',
+                fontWeight: '700',
+              }}>
               {currentObj.bookingAmount + ' Per Person'}
             </Text>
           </View>
