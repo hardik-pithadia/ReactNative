@@ -50,6 +50,7 @@ const Login = ({navigation}) => {
 
   const forgotPasswordButtonClicked = () => {
     console.log('forgotPasswordButtonClicked');
+    navigation.navigate('ForgotPassword');
   };
 
   const signInButtonClicked = () => {

@@ -17,6 +17,7 @@ import AboutUs from './Screens/AboutUs';
 import Notifications from './Screens/Notifications';
 import {getData} from './Utils/utility';
 import * as Constants from './Utils/constants';
+import ForgotPassword from './Screens/ForgotPassword';
 
 const Stack = createNativeStackNavigator();
 
@@ -60,6 +61,19 @@ const App = () => {
               headerTitle: 'Join Us',
             }}
           />
+
+          <Stack.Screen
+            name="ForgotPassword"
+            component={ForgotPassword}
+            options={{
+              headerBackTitleVisible: false,
+              headerBackVisible: true,
+              headerTitleAlign: 'center',
+              headerTintColor: 'black',
+              headerTitle: 'Join Us',
+            }}
+          />
+
           <Stack.Screen
             name="Home"
             component={HomeView}
@@ -206,6 +220,17 @@ const App = () => {
               headerTitleAlign: 'center',
               headerTintColor: 'black',
               headerTitle: 'Join Us',
+            }}
+          />
+          <Stack.Screen
+            name="ForgotPassword"
+            component={ForgotPassword}
+            options={{
+              headerBackTitleVisible: false,
+              headerBackVisible: true,
+              headerTitleAlign: 'center',
+              headerTintColor: 'black',
+              headerTitle: 'Forgot Password',
             }}
           />
           <Stack.Screen
