@@ -18,6 +18,8 @@ import Notifications from './Screens/Notifications';
 import {getData} from './Utils/utility';
 import * as Constants from './Utils/constants';
 import ForgotPassword from './Screens/ForgotPassword';
+import OTPView from './Screens/OTPView';
+import VerifyOTPView from './Screens/VerifyOTPView';
 
 const Stack = createNativeStackNavigator();
 
@@ -200,6 +202,21 @@ const App = () => {
               headerTitle: 'Notifications',
             }}
           />
+          <Stack.Screen
+            name="OTPView"
+            component={OTPView}
+            options={{
+              headerShown: false,
+            }}
+          />
+
+          <Stack.Screen
+            name="VerifyOTPView"
+            component={VerifyOTPView}
+            options={{
+              headerShown: false,
+            }}
+          />
         </Stack.Navigator>
       )}
 
@@ -357,6 +374,22 @@ const App = () => {
               headerTitleAlign: 'center',
               headerTintColor: 'black',
               headerTitle: 'Notifications',
+            }}
+          />
+
+          <Stack.Screen
+            name="OTPView"
+            component={OTPView}
+            options={{
+              headerShown: false,
+            }}
+          />
+
+          <Stack.Screen
+            name="VerifyOTPView"
+            component={VerifyOTPView}
+            options={{
+              headerShown: false,
             }}
           />
         </Stack.Navigator>
