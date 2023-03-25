@@ -15,6 +15,7 @@ const RegisterEvent = ({route, navigation}) => {
 
   const [txtName, setName] = useState('');
   const [txtAge, setAge] = useState('');
+  const [memberCount, setMemberCount] = useState(0);
 
   const [arrayList, setArrayList] = useState([]);
 
@@ -67,6 +68,7 @@ const RegisterEvent = ({route, navigation}) => {
 
   const submitButtonClicked = () => {
     console.log('submitButtonClicked');
+    setMemberCount(memberCount + 1);
 
     nameArray.push(
       <View
@@ -80,8 +82,9 @@ const RegisterEvent = ({route, navigation}) => {
         }}>
         <View style={{width: '100%', height: 35, alignItems: 'flex-end'}}>
           <TouchableOpacity
+            key={memberCount}
             style={{marginRight: 10, marginTop: 5}}
-            onPress={() => crossButtonClicked()}>
+            onPress={() => crossButtonClicked(memberCount)}>
             <Image
               source={require('../Images/cross_icon.png')}
               style={{width: 35, height: 35}}
@@ -130,8 +133,15 @@ const RegisterEvent = ({route, navigation}) => {
     setDialogVisibleValue(true);
   };
 
-  const crossButtonClicked = () => {
-    console.log('crossButtonClicked');
+  const crossButtonClicked = id => {
+    console.log('crossButtonClicked : ' + JSON.stringify(id));
+
+    console.log('Total Record : ' + JSON.stringify(arrayList));
+
+    //    var tempArray = arrayList;
+    //    var index = tempArray.indexOf(id);
+    //
+    //    console.log('INDEX : ' + index);
   };
 
   return (
