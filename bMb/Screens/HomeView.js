@@ -14,7 +14,7 @@ import {
 } from 'react-native';
 import {FlatGrid} from 'react-native-super-grid';
 //import Carousel from './Carousel';
-import Carousel from 'react-native-auto-carousel';
+import {Carousel} from 'react-native-auto-carousel';
 import PageLoader from '../Utils/loader';
 import {getDataFromServer} from '../Utils/WebRequestManager';
 import * as Constants from '../Utils/constants';
@@ -183,13 +183,11 @@ const HomeView = ({navigation}) => {
             }}>
             Latest Updates
           </Text>
-          {/*<Carousel data={responseDataObj} />*/}
           <View
             style={{
               height: 200,
               marginLeft: 20,
               marginRight: 20,
-              backgroundColor: 'pink',
             }}>
             <Carousel
               autoPlayTime={3000}
