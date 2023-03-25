@@ -276,8 +276,6 @@ const Register = ({route, navigation}) => {
       Alert.alert('Error', 'Please Enter Registered Number');
     } else if (selectedDate === 'Date Of Birth') {
       Alert.alert('Error', 'Please Select Date Of Birth');
-    } else if (selectedAnniversaryDate === 'Anniversary Date') {
-      Alert.alert('Error', 'Please Select Anniversary Date');
     } else if (state.length === 0) {
       Alert.alert('Error', 'Please Select State');
     } else if (bloodGroup.length === 0) {
