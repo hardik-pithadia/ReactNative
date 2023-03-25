@@ -13,7 +13,9 @@ import * as Constants from '../Utils/constants';
 import NetInfo from '@react-native-community/netinfo';
 import OTPTextView from 'react-native-otp-textinput';
 
-const VerifyOTPView = ({navigation}) => {
+const VerifyOTPView = ({route, navigation}) => {
+  var enteredOTP = route.params.otp;
+
   const [isLoading, setLoading] = useState(false);
 
   const [txtEmail, setEmail] = useState('');
@@ -30,37 +32,38 @@ const VerifyOTPView = ({navigation}) => {
     navigation.navigate('Login');
   };
 
-  const postForgotPasswordDataToServer = async () => {
+  const verifyOTPResponse = async selectedOTP => {
     setLoading(true);
     var mobValue = {
-      email: txtEmail.toString(),
+      // email: txtEmail.toString(),
+      contact_number: 'hardik@gmail.com',
+      otp: selectedOTP,
     };
 
     console.log('-------------------------------------');
-    console.log('Forgot Password Request Object : ' + JSON.stringify(mobValue));
+    console.log('Verify Request Object : ' + JSON.stringify(mobValue));
 
     var responseData = await postDataToServer(
-      Constants.base_URL + '/doctor/forget_password',
+      Constants.base_URL + '/doctor/verify_otp?type=forget',
       JSON.stringify(mobValue),
     );
 
     if (responseData.response) {
       if (responseData.response.status) {
         console.log(
-          'Forgot Password Response : ' +
-            JSON.stringify(responseData.response.data),
+          'Verify OTP Response : ' + JSON.stringify(responseData.response.data),
         );
 
-        Alert.alert('Success', responseData.response.message, [
-          {
-            text: 'Ok',
-            style: 'cancel',
-            onPress: () => {
-              navigation.navigate('Base');
-            },
-          },
-        ]);
-        //   navigation.navigate.pop();
+        //   Alert.alert('Success', responseData.response.message, [
+        //     {
+        //       text: 'Ok',
+        //       style: 'cancel',
+        //       onPress: () => {
+        //         navigation.navigate('Base');
+        //       },
+        //     },
+        //   ]);
+
         setLoading(false);
       } else {
         Alert.alert('Error', responseData.response.message, [
@@ -138,7 +141,17 @@ const VerifyOTPView = ({navigation}) => {
                   if (text.length === 4) {
                     Keyboard.dismiss();
                     console.log('Final OTP : ' + text);
-                    navigation.navigate('Login');
+
+                    if (enteredOTP === text) {
+                      verifyOTPResponse(text);
+                    } else {
+                      Alert.alert('Error', 'Please Entere Correct OTP', [
+                        {
+                          text: 'Ok',
+                          style: 'cancel',
+                        },
+                      ]);
+                    }
                   }
                 }}
                 inputCount={4}

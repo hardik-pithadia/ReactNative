@@ -132,11 +132,9 @@ const OTPView = ({navigation}) => {
               style={{
                 marginTop: 30,
                 borderColor: 'white',
-                // borderBottomWidth: 1,
                 alignItems: 'flex-start',
                 padding: 5,
                 flexDirection: 'row',
-
                 alignItems: 'center',
                 justifyContent: 'center',
               }}>
@@ -148,7 +146,7 @@ const OTPView = ({navigation}) => {
                   if (text.length === 4) {
                     Keyboard.dismiss();
                     console.log('Final OTP : ' + text);
-                    navigation.navigate('VerifyOTPView');
+                    navigation.navigate('VerifyOTPView', {otp: text});
                   }
                 }}
                 inputCount={4}
