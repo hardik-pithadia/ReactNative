@@ -1,7 +1,15 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, Text, FlatList, Image} from 'react-native';
+import PageLoader from '../Utils/loader';
+import {getDataFromServer} from '../Utils/WebRequestManager';
+import * as Constants from '../Utils/constants';
+import NetInfo from '@react-native-community/netinfo';
+import {getData} from '../Utils/utility';
 
 const DirectoryList = ({navigation}) => {
+  const [isLoading, setLoading] = useState(false);
+  const [responseDataObj, setResponseData] = useState([]);
+  const [authToken, setAuthToken] = useState('');
   const DATA = [
     {
       id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
@@ -77,20 +85,70 @@ const DirectoryList = ({navigation}) => {
     },
   ];
 
+  useEffect(() => {
+    getData(Constants.AUTH_TOKEN).then(resultStr => {
+      setAuthToken(resultStr || '');
+    });
+
+    if (authToken.length > 0) {
+      getAllDoctorList();
+    }
+  }, [authToken]);
+
+  useEffect(() => {
+    NetInfo.fetch().then(state => {
+      if (!state.isConnected) {
+        Alert.alert('Network', 'Please Check Internet Connection');
+      }
+    });
+  }, []);
+
+  const getAllDoctorList = async () => {
+    setResponseData([]);
+    setLoading(true);
+
+    var responseData = await getDataFromServer(
+      Constants.base_URL + '/doctor/getall',
+      authToken,
+    );
+
+    if (responseData.response) {
+      if (responseData.response.status) {
+        console.log(
+          'Directory Response : ' + JSON.stringify(responseData.response.data),
+        );
+
+        if (responseData.response.data.length > 0) {
+          setResponseData(responseData.response.data);
+        }
+      } else {
+        Alert.alert('Error', responseData.response.message, [
+          {
+            text: 'Ok',
+            style: 'cancel',
+          },
+        ]);
+      }
+    }
+
+    setLoading(false);
+  };
+
   const renderItem = ({item}) => (
     <Item
       title={item.title}
-      mobile={item.mobile}
+      mobile={item.contact_number}
       speciality={item.speciality}
       email={item.email}
-      address={item.address}
+      state={item.state}
+      imageName={item.image}
     />
   );
 
-  const Item = ({title, mobile, speciality, email, address}) => (
+  const Item = ({title, mobile, speciality, email, state, imageName}) => (
     <View
       style={{
-        backgroundColor: 'lightgray',
+        backgroundColor: '#1B195B',
         padding: 5,
         marginVertical: 8,
         marginHorizontal: 16,
@@ -99,31 +157,41 @@ const DirectoryList = ({navigation}) => {
         flexDirection: 'row',
       }}>
       <Image
-        source={require('../Images/ProfileIcon.png')}
+        source={{uri: imageName}}
         style={{
           width: 50,
           height: 50,
           borderRadius: 25,
         }}
       />
-      <View style={{flexDirection: 'column', marginLeft: 25}}>
+      <View style={{flexDirection: 'column', marginLeft: 15}}>
         <View
           style={{
-            flex: 1,
+            //  flex: 1,
             flexDirection: 'row',
             alignItems: 'center',
           }}>
-          <Text style={{fontSize: 18, fontWeight: '700', color: '#1B195B'}}>
+          <Text
+            style={{
+              fontSize: 18,
+              fontWeight: '700',
+              color: '#D1AA70',
+              numberOfLines: 10,
+              flexWrap: 'wrap',
+              width: '75%',
+            }}>
             {title}
           </Text>
-          <Text style={{marginLeft: 15, color: 'black'}}>{speciality}</Text>
+          <Text style={{marginLeft: 15, color: 'white', width: 40}}>
+            {speciality}
+          </Text>
         </View>
 
-        <Text style={{fontSize: 15, marginTop: 15, color: '#3F60A0'}}>
+        <Text style={{fontSize: 15, marginTop: 15, color: 'white'}}>
           {mobile}
         </Text>
 
-        <Text style={{fontSize: 15, marginTop: 5, color: '#3F60A0'}}>
+        <Text style={{fontSize: 15, marginTop: 5, color: 'white'}}>
           {email}
         </Text>
 
@@ -131,10 +199,10 @@ const DirectoryList = ({navigation}) => {
           style={{
             fontSize: 15,
             marginTop: 5,
-            color: '#3F60A0',
+            color: 'white',
             paddingRight: 40,
           }}>
-          {address}
+          {state}
         </Text>
       </View>
     </View>
@@ -142,8 +210,9 @@ const DirectoryList = ({navigation}) => {
 
   return (
     <View style={{backgroundColor: 'white', flex: 1}}>
+      {isLoading && <PageLoader show={isLoading} />}
       <FlatList
-        data={DATA}
+        data={responseDataObj}
         renderItem={renderItem}
         keyExtractor={item => item.id}
       />
