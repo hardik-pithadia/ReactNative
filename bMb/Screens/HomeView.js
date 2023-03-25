@@ -10,9 +10,11 @@ import {
   StyleSheet,
   ImageBackground,
   Alert,
+  Dimensions,
 } from 'react-native';
 import {FlatGrid} from 'react-native-super-grid';
-import Carousel from './Carousel';
+//import Carousel from './Carousel';
+import Carousel from 'react-native-auto-carousel';
 import PageLoader from '../Utils/loader';
 import {getDataFromServer} from '../Utils/WebRequestManager';
 import * as Constants from '../Utils/constants';
@@ -181,7 +183,31 @@ const HomeView = ({navigation}) => {
             }}>
             Latest Updates
           </Text>
-          <Carousel data={responseDataObj} />
+          {/*<Carousel data={responseDataObj} />*/}
+          <View
+            style={{
+              height: 200,
+              marginLeft: 20,
+              marginRight: 20,
+              backgroundColor: 'pink',
+            }}>
+            <Carousel
+              autoPlayTime={3000}
+              autoPlay={true}
+              data={responseDataObj}
+              renderItem={item => (
+                <Image
+                  resizeMode="cover"
+                  key={item._id}
+                  source={{uri: item.image}}
+                  style={{
+                    height: 200,
+                    width: Dimensions.get('window').width,
+                  }}
+                />
+              )}
+            />
+          </View>
 
           <View
             style={{

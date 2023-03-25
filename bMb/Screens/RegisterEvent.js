@@ -37,7 +37,8 @@ const RegisterEvent = ({route, navigation}) => {
       description: currentObj.organiser,
       image: currentObj.image,
       currency: 'INR',
-      key: 'rzp_test_WXfTPTwgnQufLh', // Your api key
+      // key: 'rzp_test_WXfTPTwgnQufLh', // Your api key
+      key: 'rzp_test_QFN6160kezfj4v', // Your api key
       amount: (
         parseInt(currentObj.bookingAmount * arrayList.length) * 100
       ).toString(),

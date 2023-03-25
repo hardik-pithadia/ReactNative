@@ -309,7 +309,8 @@ const Register = ({route, navigation}) => {
       image:
         'https://t3.ftcdn.net/jpg/04/86/50/10/360_F_486501071_QtYYAMQimmsr8898Tze3Jm7gdNIbPp3o.jpg',
       currency: 'INR',
-      key: 'rzp_test_WXfTPTwgnQufLh', // Your api key
+      // key: 'rzp_test_WXfTPTwgnQufLh', // Your api key
+      key: 'rzp_test_QFN6160kezfj4v', // Your api key
       // amount: (parseInt(currentObj.bookingAmount) * 100).toString(),
       amount: '100.00',
       name: firstName,
