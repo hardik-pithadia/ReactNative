@@ -68,11 +68,7 @@ const App = () => {
             name="ForgotPassword"
             component={ForgotPassword}
             options={{
-              headerBackTitleVisible: false,
-              headerBackVisible: true,
-              headerTitleAlign: 'center',
-              headerTintColor: 'black',
-              headerTitle: 'Join Us',
+              headerShown: false,
             }}
           />
 
@@ -239,17 +235,7 @@ const App = () => {
               headerTitle: 'Join Us',
             }}
           />
-          <Stack.Screen
-            name="ForgotPassword"
-            component={ForgotPassword}
-            options={{
-              headerBackTitleVisible: false,
-              headerBackVisible: true,
-              headerTitleAlign: 'center',
-              headerTintColor: 'black',
-              headerTitle: 'Forgot Password',
-            }}
-          />
+
           <Stack.Screen
             name="Home"
             component={HomeView}
@@ -374,6 +360,14 @@ const App = () => {
               headerTitleAlign: 'center',
               headerTintColor: 'black',
               headerTitle: 'Notifications',
+            }}
+          />
+
+          <Stack.Screen
+            name="ForgotPassword"
+            component={ForgotPassword}
+            options={{
+              headerShown: false,
             }}
           />
 

@@ -64,7 +64,7 @@ const Login = ({navigation}) => {
   const postLoginDataToServer = async () => {
     setLoading(true);
     var mobValue = {
-      email: txtEmail.toString(),
+      username: txtEmail.toString(),
       password: txtPassword.toString(),
     };
 

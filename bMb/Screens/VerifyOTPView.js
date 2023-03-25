@@ -14,11 +14,10 @@ import NetInfo from '@react-native-community/netinfo';
 import OTPTextView from 'react-native-otp-textinput';
 
 const VerifyOTPView = ({route, navigation}) => {
+  var enteredEmail = route.params.email;
   var enteredOTP = route.params.otp;
 
   const [isLoading, setLoading] = useState(false);
-
-  const [txtEmail, setEmail] = useState('');
 
   useEffect(() => {
     NetInfo.fetch().then(state => {
@@ -35,13 +34,12 @@ const VerifyOTPView = ({route, navigation}) => {
   const verifyOTPResponse = async selectedOTP => {
     setLoading(true);
     var mobValue = {
-      // email: txtEmail.toString(),
-      contact_number: 'hardik@gmail.com',
+      username: enteredEmail,
       otp: selectedOTP,
     };
 
     console.log('-------------------------------------');
-    console.log('Verify Request Object : ' + JSON.stringify(mobValue));
+    console.log('Verify OTP Request Object : ' + JSON.stringify(mobValue));
 
     var responseData = await postDataToServer(
       Constants.base_URL + '/doctor/verify_otp?type=forget',
@@ -54,15 +52,15 @@ const VerifyOTPView = ({route, navigation}) => {
           'Verify OTP Response : ' + JSON.stringify(responseData.response.data),
         );
 
-        //   Alert.alert('Success', responseData.response.message, [
-        //     {
-        //       text: 'Ok',
-        //       style: 'cancel',
-        //       onPress: () => {
-        //         navigation.navigate('Base');
-        //       },
-        //     },
-        //   ]);
+        Alert.alert('Success', responseData.response.message, [
+          {
+            text: 'Ok',
+            style: 'cancel',
+            onPress: () => {
+              navigation.navigate('Login');
+            },
+          },
+        ]);
 
         setLoading(false);
       } else {

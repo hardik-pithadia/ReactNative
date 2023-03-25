@@ -7,16 +7,11 @@ import {
   Alert,
   Keyboard,
 } from 'react-native';
-import PageLoader from '../Utils/loader';
-import {postDataToServer} from '../Utils/WebRequestManager';
-import * as Constants from '../Utils/constants';
 import NetInfo from '@react-native-community/netinfo';
 import OTPTextView from 'react-native-otp-textinput';
 
-const OTPView = ({navigation}) => {
-  const [isLoading, setLoading] = useState(false);
-
-  const [txtEmail, setEmail] = useState('');
+const OTPView = ({route, navigation}) => {
+  var enteredEmail = route.params.email;
 
   useEffect(() => {
     NetInfo.fetch().then(state => {
@@ -30,65 +25,8 @@ const OTPView = ({navigation}) => {
     navigation.navigate('Login');
   };
 
-  const submitButtonClicked = () => {
-    Keyboard.dismiss();
-    if (txtEmail.length > 0) {
-      postForgotPasswordDataToServer();
-      console.log('CALL API.. : ' + txtEmail);
-    } else {
-      Alert.alert('Error', 'Please Enter Username');
-    }
-  };
-
-  const postForgotPasswordDataToServer = async () => {
-    setLoading(true);
-    var mobValue = {
-      email: txtEmail.toString(),
-    };
-
-    console.log('-------------------------------------');
-    console.log('Forgot Password Request Object : ' + JSON.stringify(mobValue));
-
-    var responseData = await postDataToServer(
-      Constants.base_URL + '/doctor/forget_password',
-      JSON.stringify(mobValue),
-    );
-
-    if (responseData.response) {
-      if (responseData.response.status) {
-        console.log(
-          'Forgot Password Response : ' +
-            JSON.stringify(responseData.response.data),
-        );
-
-        Alert.alert('Success', responseData.response.message, [
-          {
-            text: 'Ok',
-            style: 'cancel',
-            onPress: () => {
-              navigation.navigate('Base');
-            },
-          },
-        ]);
-        //   navigation.navigate.pop();
-        setLoading(false);
-      } else {
-        Alert.alert('Error', responseData.response.message, [
-          {
-            text: 'Ok',
-            style: 'cancel',
-            onPress: () => {},
-          },
-        ]);
-      }
-    }
-
-    setLoading(false);
-  };
-
   return (
     <View style={{flex: 1, backgroundColor: '#1B195B'}}>
-      {isLoading && <PageLoader show={isLoading} />}
       <View>
         <TouchableOpacity onPress={() => backButtonClicked()}>
           <Image
@@ -146,7 +84,10 @@ const OTPView = ({navigation}) => {
                   if (text.length === 4) {
                     Keyboard.dismiss();
                     console.log('Final OTP : ' + text);
-                    navigation.navigate('VerifyOTPView', {otp: text});
+                    navigation.navigate('VerifyOTPView', {
+                      email: enteredEmail,
+                      otp: text,
+                    });
                   }
                 }}
                 inputCount={4}

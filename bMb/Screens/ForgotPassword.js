@@ -41,7 +41,7 @@ const ForgotPassword = ({navigation}) => {
   const postForgotPasswordDataToServer = async () => {
     setLoading(true);
     var mobValue = {
-      email: txtEmail.toString(),
+      username: txtEmail.toString(),
     };
 
     console.log('-------------------------------------');
@@ -65,7 +65,9 @@ const ForgotPassword = ({navigation}) => {
             style: 'cancel',
             onPress: () => {
               //    setEmail('');
-              navigation.navigate('OTPView');
+              navigation.navigate('OTPView', {
+                email: txtEmail,
+              });
             },
           },
         ]);
@@ -91,81 +93,107 @@ const ForgotPassword = ({navigation}) => {
     setEmail(txtValue);
   };
 
+  const backButtonClicked = () => {
+    navigation.navigate('Login');
+  };
+
   return (
     <View style={{flex: 1, backgroundColor: '#1B195B'}}>
       {isLoading && <PageLoader show={isLoading} />}
-      <View
-        style={{
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}>
-        <Image
-          source={require('../Images/logo.png')}
-          style={{
-            width: 175,
-            height: 175,
-            marginTop: 30,
-          }}
-        />
+
+      <View>
+        <TouchableOpacity onPress={() => backButtonClicked()}>
+          <Image
+            source={require('../Images/leftArrow.png')}
+            style={{
+              width: 40,
+              height: 40,
+              marginTop: 30,
+            }}
+          />
+        </TouchableOpacity>
         <View
           style={{
-            width: '85%',
-            top: 30,
+            alignItems: 'center',
+            justifyContent: 'center',
           }}>
-          <View
+          <Image
+            source={require('../Images/logo.png')}
             style={{
+              width: 175,
+              height: 175,
               marginTop: 30,
-              borderColor: 'white',
-              borderBottomWidth: 1,
-              alignItems: 'flex-start',
-              padding: 5,
-              flexDirection: 'row',
+            }}
+          />
+          <Text
+            style={{
+              color: 'white',
+              fontSize: 22,
+              fontWeight: 'bold',
+              marginTop: 20,
             }}>
-            <Image
-              source={require('../Images/envelope.png')}
-              style={{
-                width: 25,
-                height: 25,
-                marginTop: 8,
-              }}
-            />
-            <TextInput
-              style={{
-                width: '85%',
-                marginLeft: 20,
-                fontSize: 20,
-                justifyContent: 'center',
-                color: 'white',
-                padding: 5,
-              }}
-              placeholder="Email"
-              placeholderTextColor="white"
-              autoCapitalize="none"
-              autoCorrect={false}
-              value={txtEmail}
-              onChangeText={text => setEmailTextValue(text)}
-            />
-          </View>
-
+            Forgot Password
+          </Text>
           <View
             style={{
-              top: 50,
-              height: 40,
-              alignItems: 'center',
-              justifyContent: 'center',
+              width: '85%',
+              top: 30,
             }}>
-            <TouchableOpacity
-              onPress={() => submitButtonClicked()}
+            <View
               style={{
-                backgroundColor: '#D1AA70',
-                height: 40,
-                justifyContent: 'center',
-                alignItems: 'center',
-                width: 130,
-                borderRadius: 20,
+                marginTop: 30,
+                borderColor: 'white',
+                borderBottomWidth: 1,
+                alignItems: 'flex-start',
+                padding: 5,
+                flexDirection: 'row',
               }}>
-              <Text style={{color: 'white', fontSize: 15}}>SUBMIT</Text>
-            </TouchableOpacity>
+              <Image
+                source={require('../Images/envelope.png')}
+                style={{
+                  width: 25,
+                  height: 25,
+                  marginTop: 8,
+                }}
+              />
+              <TextInput
+                style={{
+                  width: '85%',
+                  marginLeft: 20,
+                  fontSize: 20,
+                  justifyContent: 'center',
+                  color: 'white',
+                  padding: 5,
+                }}
+                placeholder="Email"
+                placeholderTextColor="white"
+                autoCapitalize="none"
+                autoCorrect={false}
+                value={txtEmail}
+                onChangeText={text => setEmailTextValue(text)}
+              />
+            </View>
+
+            <View
+              style={{
+                top: 50,
+                height: 40,
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}>
+              <TouchableOpacity
+                onPress={() => submitButtonClicked()}
+                style={{
+                  backgroundColor: '#D1AA70',
+                  height: 40,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  width: 130,
+                  borderRadius: 20,
+                }}>
+                <Text style={{color: 'white', fontSize: 15}}>SUBMIT</Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
       </View>
