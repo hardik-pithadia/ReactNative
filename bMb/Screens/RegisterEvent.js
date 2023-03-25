@@ -31,7 +31,12 @@ const RegisterEvent = ({route, navigation}) => {
   };
 
   const payButtonClicked = () => {
-    console.log('pay Button Clicked : ' + arrayList.length);
+    var bookingAmt = currentObj.bookingAmount;
+    if (arrayList.length === 0) {
+      bookingAmt = parseInt(bookingAmt) * 100;
+    } else {
+      bookingAmt = parseInt(bookingAmt + bookingAmt * arrayList.length) * 100;
+    }
 
     var options = {
       description: currentObj.organiser,
@@ -39,9 +44,7 @@ const RegisterEvent = ({route, navigation}) => {
       currency: 'INR',
       // key: 'rzp_test_WXfTPTwgnQufLh', // Your api key
       key: 'rzp_test_QFN6160kezfj4v', // Your api key
-      amount: (
-        parseInt(currentObj.bookingAmount * arrayList.length) * 100
-      ).toString(),
+      amount: bookingAmt.toString(),
       name: currentObj.title,
       prefill: {
         email: 'hardik.pithadia@tejora.com',
