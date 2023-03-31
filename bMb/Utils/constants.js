@@ -19,3 +19,4 @@ export const DEGREE_CERT = 'degree_certificate';
 export const MMC_CERT = 'mmc_certificate';
 export const STATE = 'state';
 export const AUTH_TOKEN = 'auth_token';
+export const SPONSORS = 'sponsors';

@@ -7,6 +7,7 @@ import {
   Modal,
   TouchableOpacity,
   TextInput,
+  FlatList,
 } from 'react-native';
 import RazorpayCheckout from 'react-native-razorpay';
 
@@ -15,7 +16,7 @@ const RegisterEvent = ({route, navigation}) => {
 
   const [txtName, setName] = useState('');
   const [txtAge, setAge] = useState('');
-  const [memberCount, setMemberCount] = useState(0);
+  const [memberCount, setMemberCount] = useState();
 
   const [arrayList, setArrayList] = useState([]);
 
@@ -23,9 +24,9 @@ const RegisterEvent = ({route, navigation}) => {
 
   var nameArray = [];
 
-  useEffect(() => {
-    console.log('Selected Obj : ' + JSON.stringify(currentObj));
-  }, []);
+  //  useEffect(() => {
+  //    console.log('Selected Obj : ' + JSON.stringify(currentObj));
+  //  }, []);
 
   const closeDialog = () => {
     setDialogVisibleValue(false);
@@ -67,60 +68,11 @@ const RegisterEvent = ({route, navigation}) => {
   };
 
   const submitButtonClicked = () => {
-    console.log('submitButtonClicked');
-    setMemberCount(memberCount + 1);
-
-    nameArray.push(
-      <View
-        style={{
-          backgroundColor: 'lightgray',
-          height: 170,
-          marginTop: 25,
-          marginLeft: 25,
-          marginRight: 25,
-          borderRadius: 10,
-        }}>
-        <View style={{width: '100%', height: 35, alignItems: 'flex-end'}}>
-          <TouchableOpacity
-            key={memberCount}
-            style={{marginRight: 10, marginTop: 5}}
-            onPress={() => crossButtonClicked(memberCount)}>
-            <Image
-              source={require('../Images/cross_icon.png')}
-              style={{width: 35, height: 35}}
-            />
-          </TouchableOpacity>
-        </View>
-
-        <Text
-          style={{
-            borderColor: 'gray',
-            borderWidth: 1,
-            borderRadius: 10,
-            marginLeft: 25,
-            marginRight: 25,
-            marginTop: 10,
-            padding: 10,
-            fontSize: 20,
-          }}>
-          {txtName}
-        </Text>
-
-        <Text
-          style={{
-            borderColor: 'gray',
-            borderWidth: 1,
-            borderRadius: 10,
-            marginTop: 10,
-            marginLeft: 25,
-            marginRight: 25,
-            padding: 10,
-            fontSize: 20,
-          }}>
-          {txtAge}
-        </Text>
-      </View>,
-    );
+    nameArray.push({
+      id: (Math.floor(Math.random() * 100) + 1).toString(),
+      name: txtName,
+      age: txtAge,
+    });
 
     setArrayList([...arrayList, nameArray]);
 
@@ -134,15 +86,108 @@ const RegisterEvent = ({route, navigation}) => {
   };
 
   const crossButtonClicked = id => {
-    console.log('crossButtonClicked : ' + JSON.stringify(id));
-
-    console.log('Total Record : ' + JSON.stringify(arrayList));
-
-    //    var tempArray = arrayList;
-    //    var index = tempArray.indexOf(id);
-    //
-    //    console.log('INDEX : ' + index);
+    var data = arrayList.filter(item => item[0].id !== id);
+    console.log('Final Array : ', JSON.stringify(data));
+    setArrayList(data);
   };
+
+  const renderItem = ({item}) => (
+    <Item id={item[0].id} name={item[0].name} age={item[0].age} />
+  );
+
+  const Item = ({id, name, age}) => (
+    <View
+      style={{
+        backgroundColor: '#1B195B',
+        padding: 5,
+        marginVertical: 8,
+        marginTop: 5,
+        borderRadius: 10,
+        flexDirection: 'row',
+        height: 80,
+        justifyContent: 'space-between',
+      }}>
+      <View
+        style={{
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          paddingLeft: 15,
+        }}>
+        <Text
+          style={{
+            color: 'white',
+            fontSize: 16,
+            fontWeight: '800',
+            width: 100,
+            alignItems: 'flex-start',
+            justifyContent: 'center',
+          }}>
+          Name
+        </Text>
+        <Text
+          style={{
+            fontSize: 18,
+            color: 'white',
+            numberOfLines: 10,
+            flexWrap: 'wrap',
+            alignItems: 'flex-start',
+            justifyContent: 'center',
+            width: 100,
+            marginTop: 10,
+          }}>
+          {name}
+        </Text>
+      </View>
+
+      <View
+        style={{
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}>
+        <Text
+          style={{
+            color: 'white',
+            fontSize: 16,
+            fontWeight: '800',
+            width: 100,
+            alignItems: 'flex-start',
+            justifyContent: 'center',
+          }}>
+          Age
+        </Text>
+        <Text
+          style={{
+            fontSize: 18,
+            color: 'white',
+            numberOfLines: 10,
+            flexWrap: 'wrap',
+            alignItems: 'flex-start',
+            justifyContent: 'center',
+            width: 100,
+            marginTop: 10,
+          }}>
+          {age}
+        </Text>
+      </View>
+
+      <TouchableOpacity
+        key={id}
+        onPress={() => crossButtonClicked(id)}
+        style={{
+          width: 50,
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}>
+        <Image
+          resizeMode="stretch"
+          source={require('../Images/whiteCrossIcon.png')}
+          style={{width: 25, height: 25}}
+        />
+      </TouchableOpacity>
+    </View>
+  );
 
   return (
     <ScrollView contentContainerStyle={{flexGrow: 1}}>
@@ -267,7 +312,15 @@ const RegisterEvent = ({route, navigation}) => {
           </TouchableOpacity>
         </View>
 
-        {arrayList}
+        {arrayList.length > 0 && (
+          <View style={{marginLeft: 25, marginRight: 25}}>
+            <FlatList
+              data={arrayList}
+              renderItem={renderItem}
+              keyExtractor={item => item[0].id}
+            />
+          </View>
+        )}
         <View
           style={{
             height: 50,

@@ -19,6 +19,7 @@ import PageLoader from '../Utils/loader';
 import {getDataFromServer} from '../Utils/WebRequestManager';
 import * as Constants from '../Utils/constants';
 import NetInfo from '@react-native-community/netinfo';
+import {getData, storeData} from '../Utils/utility';
 
 const HomeView = ({navigation}) => {
   const [items, setItems] = useState([
@@ -33,6 +34,7 @@ const HomeView = ({navigation}) => {
 
   const [isLoading, setLoading] = useState(false);
   const [responseDataObj, setResponseData] = useState([]);
+  const [sponsorsResponseDataObj, setSponsorsResponseDataObj] = useState([]);
 
   useEffect(() => {
     NetInfo.fetch().then(state => {
@@ -46,8 +48,11 @@ const HomeView = ({navigation}) => {
   const getHomeResponse = async () => {
     setResponseData([]);
     setLoading(true);
+    //    var responseData = await getDataFromServer(
+    //      Constants.base_URL + '/announcement/getall',
+    //    );
     var responseData = await getDataFromServer(
-      Constants.base_URL + '/announcement/getall',
+      Constants.base_URL + '/dashboard',
     );
 
     if (responseData.response) {
@@ -55,11 +60,20 @@ const HomeView = ({navigation}) => {
         console.log(
           'Home Response : ' + JSON.stringify(responseData.response.data),
         );
-        console.log(
-          'Home Response Total : ' + responseData.response.data.length,
-        );
-        if (responseData.response.data.length > 0) {
-          setResponseData(responseData.response.data);
+
+        if (responseData.response.data.announcements.length > 0) {
+          setResponseData(responseData.response.data.announcements);
+        }
+
+        if (responseData.response.data.sponsors.length > 0) {
+          console.log(
+            'SPONSORS : ',
+            JSON.stringify(responseData.response.data.sponsors),
+          );
+          storeData(
+            Constants.SPONSORS,
+            JSON.stringify(responseData.response.data.sponsors),
+          );
         }
       } else {
         Alert.alert('Error', responseData.response.message, [
