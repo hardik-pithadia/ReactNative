@@ -62,7 +62,6 @@ export const getDataFromServer = (url, jwtToken = '') => {
       })
         .then(response101 => response101.json())
         .then(responseData => {
-          console.log('RESPONSE : ' + JSON.stringify(responseData));
           resolve({
             success: true,
             response: responseData,

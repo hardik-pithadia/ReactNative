@@ -1,15 +1,21 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   Text,
   ScrollView,
   StyleSheet,
-  TouchableOpacity,
   ImageBackground,
+  Dimensions,
+  Image,
 } from 'react-native';
 import {FlatGrid} from 'react-native-super-grid';
+import {getData} from '../Utils/utility';
+import {Carousel} from 'react-native-auto-carousel';
+import * as Constants from '../Utils/constants';
 
 const AboutUs = ({navigation}) => {
+  const [sponsorsResponseDataObj, setSponsorsResponseDataObj] = useState([]);
+
   const items = [
     {id: 0, name: require('../Images/Image101.jpeg')},
     {id: 1, name: require('../Images/Image102.jpeg')},
@@ -24,6 +30,13 @@ const AboutUs = ({navigation}) => {
     {id: 10, name: require('../Images/Image111.jpeg')},
     {id: 11, name: require('../Images/Image112.jpeg')},
   ];
+
+  useEffect(() => {
+    getData(Constants.SPONSORS).then(resultStr => {
+      setSponsorsResponseDataObj(JSON.parse(resultStr));
+    });
+  }, []);
+
   return (
     <ScrollView style={{backgroundColor: 'white', flex: 1}}>
       <Text style={styles.header}>About Us</Text>
@@ -83,6 +96,33 @@ const AboutUs = ({navigation}) => {
           )}
         />
       </View>
+      {sponsorsResponseDataObj.length > 0 && (
+        <View
+          style={{
+            height: 80,
+            marginLeft: 20,
+            marginRight: 20,
+            marginBottom: 50,
+            marginTop: 20,
+          }}>
+          <Carousel
+            autoPlayTime={3000}
+            autoPlay={true}
+            data={sponsorsResponseDataObj}
+            renderItem={item => (
+              <Image
+                resizeMode="cover"
+                key={item._id}
+                source={{uri: item.image}}
+                style={{
+                  height: 150,
+                  width: Dimensions.get('window').width,
+                }}
+              />
+            )}
+          />
+        </View>
+      )}
     </ScrollView>
   );
 };

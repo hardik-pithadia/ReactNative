@@ -13,7 +13,6 @@ import {
   Dimensions,
 } from 'react-native';
 import {FlatGrid} from 'react-native-super-grid';
-//import Carousel from './Carousel';
 import {Carousel} from 'react-native-auto-carousel';
 import PageLoader from '../Utils/loader';
 import {getDataFromServer} from '../Utils/WebRequestManager';
@@ -47,10 +46,14 @@ const HomeView = ({navigation}) => {
 
   const getHomeResponse = async () => {
     setResponseData([]);
+    setSponsorsResponseDataObj([]);
+
     setLoading(true);
+
     //    var responseData = await getDataFromServer(
     //      Constants.base_URL + '/announcement/getall',
     //    );
+
     var responseData = await getDataFromServer(
       Constants.base_URL + '/dashboard',
     );
@@ -63,13 +66,21 @@ const HomeView = ({navigation}) => {
 
         if (responseData.response.data.announcements.length > 0) {
           setResponseData(responseData.response.data.announcements);
+          setSponsorsResponseDataObj(responseData.response.data.announcements);
+
+          storeData(
+            Constants.SPONSORS,
+            JSON.stringify(responseData.response.data.announcements),
+          );
         }
 
         if (responseData.response.data.sponsors.length > 0) {
           console.log(
-            'SPONSORS : ',
+            'SPONSORS101 : ',
             JSON.stringify(responseData.response.data.sponsors),
           );
+          setSponsorsResponseDataObj(responseData.response.data.sponsors);
+
           storeData(
             Constants.SPONSORS,
             JSON.stringify(responseData.response.data.sponsors),
@@ -197,29 +208,32 @@ const HomeView = ({navigation}) => {
             }}>
             Latest Updates
           </Text>
-          <View
-            style={{
-              height: 200,
-              marginLeft: 20,
-              marginRight: 20,
-            }}>
-            <Carousel
-              autoPlayTime={3000}
-              autoPlay={true}
-              data={responseDataObj}
-              renderItem={item => (
-                <Image
-                  resizeMode="cover"
-                  key={item._id}
-                  source={{uri: item.image}}
-                  style={{
-                    height: 200,
-                    width: Dimensions.get('window').width,
-                  }}
-                />
-              )}
-            />
-          </View>
+
+          {responseDataObj.length > 0 && (
+            <View
+              style={{
+                height: 200,
+                marginLeft: 20,
+                marginRight: 20,
+              }}>
+              <Carousel
+                autoPlayTime={3000}
+                autoPlay={true}
+                data={responseDataObj}
+                renderItem={item => (
+                  <Image
+                    resizeMode="cover"
+                    key={item._id}
+                    source={{uri: item.image}}
+                    style={{
+                      height: 200,
+                      width: Dimensions.get('window').width,
+                    }}
+                  />
+                )}
+              />
+            </View>
+          )}
 
           <View
             style={{
@@ -281,7 +295,36 @@ const HomeView = ({navigation}) => {
               }}>
               Sponsors
             </Text>
-            <ScrollView
+
+            {sponsorsResponseDataObj.length > 0 && (
+              <View
+                style={{
+                  height: 150,
+                  marginLeft: 20,
+                  marginRight: 20,
+                  marginBottom: 50,
+                  marginTop: 20,
+                }}>
+                <Carousel
+                  autoPlayTime={3000}
+                  autoPlay={true}
+                  data={sponsorsResponseDataObj}
+                  renderItem={item => (
+                    <Image
+                      resizeMode="cover"
+                      key={item._id}
+                      source={{uri: item.image}}
+                      style={{
+                        height: 150,
+                        width: Dimensions.get('window').width,
+                      }}
+                    />
+                  )}
+                />
+              </View>
+            )}
+
+            {/*<ScrollView
               horizontal={true}
               style={{
                 marginBottom: 25,
@@ -341,7 +384,7 @@ const HomeView = ({navigation}) => {
                   borderRadius: 10,
                 }}
               />
-            </ScrollView>
+            </ScrollView>*/}
           </View>
         </View>
       </ScrollView>

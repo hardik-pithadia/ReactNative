@@ -9,10 +9,12 @@ import {
   StyleSheet,
   ImageBackground,
   Alert,
+  Dimensions,
 } from 'react-native';
 import {FlatGrid} from 'react-native-super-grid';
 import {getData, removeData} from '../Utils/utility';
 import * as Constants from '../Utils/constants';
+import {Carousel} from 'react-native-auto-carousel';
 
 const ProfileView = ({navigation}) => {
   const [profileImage, setProfileImage] = useState(
@@ -25,10 +27,15 @@ const ProfileView = ({navigation}) => {
   const [speciality, setSpeciality] = useState('');
   const [contact_number, setContactNumber] = useState('');
   const [email, setEmail] = useState('');
+  const [sponsorsResponseDataObj, setSponsorsResponseDataObj] = useState([]);
 
   useEffect(() => {
     getData(Constants.IMAGE_NAME).then(resultStr => {
       setProfileImage(resultStr || '');
+    });
+
+    getData(Constants.SPONSORS).then(resultStr => {
+      setSponsorsResponseDataObj(JSON.parse(resultStr));
     });
 
     getData(Constants.FIRST_NAME).then(resultStr => {
@@ -393,6 +400,34 @@ const ProfileView = ({navigation}) => {
           </View>
         </View>
       </ScrollView>
+
+      {sponsorsResponseDataObj.length > 0 && (
+        <View
+          style={{
+            height: 80,
+            marginLeft: 20,
+            marginRight: 20,
+            marginBottom: 50,
+            marginTop: 20,
+          }}>
+          <Carousel
+            autoPlayTime={3000}
+            autoPlay={true}
+            data={sponsorsResponseDataObj}
+            renderItem={item => (
+              <Image
+                resizeMode="cover"
+                key={item._id}
+                source={{uri: item.image}}
+                style={{
+                  height: 150,
+                  width: Dimensions.get('window').width,
+                }}
+              />
+            )}
+          />
+        </View>
+      )}
     </SafeAreaView>
   );
 };

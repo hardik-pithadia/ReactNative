@@ -1,15 +1,18 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, FlatList, Image} from 'react-native';
+import {View, Text, FlatList, Image, Dimensions} from 'react-native';
 import PageLoader from '../Utils/loader';
 import {getDataFromServer} from '../Utils/WebRequestManager';
-import * as Constants from '../Utils/constants';
 import NetInfo from '@react-native-community/netinfo';
+import * as Constants from '../Utils/constants';
 import {getData} from '../Utils/utility';
+import {Carousel} from 'react-native-auto-carousel';
 
 const DirectoryList = ({navigation}) => {
   const [isLoading, setLoading] = useState(false);
   const [responseDataObj, setResponseData] = useState([]);
   const [authToken, setAuthToken] = useState('');
+  const [sponsorsResponseDataObj, setSponsorsResponseDataObj] = useState([]);
+
   const DATA = [
     {
       id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
@@ -90,6 +93,10 @@ const DirectoryList = ({navigation}) => {
       setAuthToken(resultStr || '');
     });
 
+    getData(Constants.SPONSORS).then(resultStr => {
+      setSponsorsResponseDataObj(JSON.parse(resultStr));
+    });
+
     if (authToken.length > 0) {
       getAllDoctorList();
     }
@@ -114,9 +121,9 @@ const DirectoryList = ({navigation}) => {
 
     if (responseData.response) {
       if (responseData.response.status) {
-        console.log(
-          'Directory Response : ' + JSON.stringify(responseData.response.data),
-        );
+        //   console.log(
+        //     'Directory Response : ' + JSON.stringify(responseData.response.data),
+        //   );
 
         if (responseData.response.data.length > 0) {
           setResponseData(responseData.response.data);
@@ -216,6 +223,34 @@ const DirectoryList = ({navigation}) => {
         renderItem={renderItem}
         keyExtractor={item => item.id}
       />
+
+      {sponsorsResponseDataObj.length > 0 && (
+        <View
+          style={{
+            height: 80,
+            marginLeft: 20,
+            marginRight: 20,
+            marginBottom: 50,
+            marginTop: 20,
+          }}>
+          <Carousel
+            autoPlayTime={3000}
+            autoPlay={true}
+            data={sponsorsResponseDataObj}
+            renderItem={item => (
+              <Image
+                resizeMode="cover"
+                key={item._id}
+                source={{uri: item.image}}
+                style={{
+                  height: 150,
+                  width: Dimensions.get('window').width,
+                }}
+              />
+            )}
+          />
+        </View>
+      )}
     </View>
   );
 };

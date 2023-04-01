@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   Text,
@@ -8,10 +8,23 @@ import {
   StyleSheet,
   Linking,
   Alert,
+  Dimensions,
+  Image,
 } from 'react-native';
 import {Colors} from 'react-native-paper';
+import * as Constants from '../Utils/constants';
+import {getData} from '../Utils/utility';
+import {Carousel} from 'react-native-auto-carousel';
 
 const ContactUs = ({navigation}) => {
+  const [sponsorsResponseDataObj, setSponsorsResponseDataObj] = useState([]);
+
+  useEffect(() => {
+    getData(Constants.SPONSORS).then(resultStr => {
+      setSponsorsResponseDataObj(JSON.parse(resultStr));
+    });
+  }, []);
+
   const phoneNumberButtonClicked = phone => {
     console.log('Phone Number Button Clicked : ' + phone);
 
@@ -89,6 +102,34 @@ const ContactUs = ({navigation}) => {
           www.bmbmumbai.org
         </Text>
       </TouchableOpacity>
+
+      {sponsorsResponseDataObj.length > 0 && (
+        <View
+          style={{
+            height: 80,
+            marginLeft: 20,
+            marginRight: 20,
+            //  marginBottom: 50,
+            marginTop: 175,
+          }}>
+          <Carousel
+            autoPlayTime={3000}
+            autoPlay={true}
+            data={sponsorsResponseDataObj}
+            renderItem={item => (
+              <Image
+                resizeMode="cover"
+                key={item._id}
+                source={{uri: item.image}}
+                style={{
+                  height: 150,
+                  width: Dimensions.get('window').width,
+                }}
+              />
+            )}
+          />
+        </View>
+      )}
     </ScrollView>
   );
 };

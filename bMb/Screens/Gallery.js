@@ -1,14 +1,21 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   Text,
   StyleSheet,
   ImageBackground,
   TouchableOpacity,
+  Dimensions,
+  Image,
 } from 'react-native';
 import {FlatGrid} from 'react-native-super-grid';
+import * as Constants from '../Utils/constants';
+import {getData} from '../Utils/utility';
+import {Carousel} from 'react-native-auto-carousel';
 
 const Gallery = () => {
+  const [sponsorsResponseDataObj, setSponsorsResponseDataObj] = useState([]);
+
   const [items, setItems] = useState([
     {id: 0, name: require('../Images/Gallery101.jpeg'), title: 'Directory'},
     {id: 1, name: require('../Images/Gallery102.jpeg'), title: 'Calendar'},
@@ -32,13 +39,20 @@ const Gallery = () => {
     {id: 19, name: require('../Images/Gallery120.jpeg'), title: 'Calendar'},
     {id: 20, name: require('../Images/Gallery121.jpeg'), title: 'Events'},
   ]);
+
+  useEffect(() => {
+    getData(Constants.SPONSORS).then(resultStr => {
+      setSponsorsResponseDataObj(JSON.parse(resultStr));
+    });
+  }, []);
+
   return (
     <View
       style={{
         marginTop: 15,
         marginLeft: 15,
         marginRight: 15,
-        marginBottom: 25,
+        marginBottom: 125,
       }}>
       <FlatGrid
         itemDimension={120}
@@ -63,6 +77,33 @@ const Gallery = () => {
           </View>
         )}
       />
+      {sponsorsResponseDataObj.length > 0 && (
+        <View
+          style={{
+            height: 80,
+            marginLeft: 20,
+            marginRight: 20,
+            //  marginBottom: 50,
+            marginTop: 20,
+          }}>
+          <Carousel
+            autoPlayTime={3000}
+            autoPlay={true}
+            data={sponsorsResponseDataObj}
+            renderItem={item => (
+              <Image
+                resizeMode="cover"
+                key={item._id}
+                source={{uri: item.image}}
+                style={{
+                  height: 150,
+                  width: Dimensions.get('window').width,
+                }}
+              />
+            )}
+          />
+        </View>
+      )}
     </View>
   );
 };

@@ -6,11 +6,14 @@ import {
   Image,
   SafeAreaView,
   TouchableOpacity,
+  Dimensions,
+  FlatList,
 } from 'react-native';
 import PageLoader from '../Utils/loader';
 import {getDataFromServer} from '../Utils/WebRequestManager';
 import * as Constants from '../Utils/constants';
 import {getData} from '../Utils/utility';
+import {Carousel} from 'react-native-auto-carousel';
 
 const EventsView = ({navigation}) => {
   const [eventListArray, setEventListArray] = useState([]);
@@ -18,6 +21,7 @@ const EventsView = ({navigation}) => {
   const [isLoading, setLoading] = useState(false);
   const [responseDataObj, setResponseData] = useState([]);
   const [authToken, setAuthToken] = useState('');
+  const [sponsorsResponseDataObj, setSponsorsResponseDataObj] = useState([]);
 
   var eventArray = [];
   var nameDetailArray = [];
@@ -25,6 +29,10 @@ const EventsView = ({navigation}) => {
   useEffect(() => {
     getData(Constants.AUTH_TOKEN).then(resultStr => {
       setAuthToken(resultStr || '');
+    });
+
+    getData(Constants.SPONSORS).then(resultStr => {
+      setSponsorsResponseDataObj(JSON.parse(resultStr));
     });
 
     if (authToken.length > 0) {
@@ -70,8 +78,6 @@ const EventsView = ({navigation}) => {
   const getCardList = responseArray => {
     console.log('getCardList-101');
     responseArray.map(currentObj => {
-      console.log('Current Obj : ' + JSON.stringify(currentObj));
-
       eventArray.push(
         <View
           style={{
@@ -143,10 +149,6 @@ const EventsView = ({navigation}) => {
       );
     });
 
-    //   for (let i = 0; i < responseArray.length; i++) {
-    //
-    //   }
-
     setEventListArray(eventArray);
   };
 
@@ -169,6 +171,34 @@ const EventsView = ({navigation}) => {
             justifyContent: 'center',
           }}>
           {eventListArray}
+
+          {sponsorsResponseDataObj.length > 0 && (
+            <View
+              style={{
+                height: 80,
+                marginLeft: 20,
+                marginRight: 20,
+                marginBottom: 50,
+                marginTop: 20,
+              }}>
+              <Carousel
+                autoPlayTime={3000}
+                autoPlay={true}
+                data={sponsorsResponseDataObj}
+                renderItem={item => (
+                  <Image
+                    resizeMode="cover"
+                    key={item._id}
+                    source={{uri: item.image}}
+                    style={{
+                      height: 150,
+                      width: Dimensions.get('window').width,
+                    }}
+                  />
+                )}
+              />
+            </View>
+          )}
         </View>
       </ScrollView>
     </SafeAreaView>
