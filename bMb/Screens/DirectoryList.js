@@ -175,8 +175,8 @@ const DirectoryList = ({navigation}) => {
         <View
           style={{
             //  flex: 1,
-            flexDirection: 'row',
-            alignItems: 'center',
+            flexDirection: 'column',
+            //  alignItems: 'center',
           }}>
           <Text
             style={{
@@ -189,7 +189,7 @@ const DirectoryList = ({navigation}) => {
             }}>
             {title}
           </Text>
-          <Text style={{marginLeft: 15, color: 'white', width: 40}}>
+          <Text style={{color: 'white', width: '90%', fontWeight: 'bold'}}>
             {speciality}
           </Text>
         </View>

@@ -72,11 +72,11 @@ const ProfileView = ({navigation}) => {
     });
 
     getData(Constants.ID).then(resultStr => {
-      console.log('ID VALUE 101 : ' + resultStr || '');
       setIdValue(resultStr || '');
     });
 
     getData(Constants.AUTH_TOKEN).then(resultStr => {
+      console.log('TOKEN : ' + resultStr || '');
       setAuthToken(resultStr || '');
     });
 

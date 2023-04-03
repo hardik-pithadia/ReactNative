@@ -37,9 +37,6 @@ const HomeView = ({navigation}) => {
   const [sponsorsResponseDataObj, setSponsorsResponseDataObj] = useState([]);
 
   useEffect(() => {
-    var dateVal = '2023-03-22T15:36:06.174Z';
-    console.log('SPLIT DATE VAL : ' + JSON.stringify(dateVal.split('T')[0]));
-
     NetInfo.fetch().then(state => {
       if (!state.isConnected) {
         Alert.alert('Network', 'Please Check Internet Connection');
@@ -334,13 +331,19 @@ const HomeView = ({navigation}) => {
                   autoPlayTime={3000}
                   autoPlay={true}
                   data={sponsorsResponseDataObj}
+                  dotStyle={{
+                    width: 10,
+                    height: 10,
+                    borderRadius: 5,
+                    backgroundColor: '#000',
+                  }}
                   renderItem={item => (
                     <Image
                       resizeMode="cover"
                       key={item._id}
                       source={{uri: item.image}}
                       style={{
-                        height: 150,
+                        height: '85%',
                         width: Dimensions.get('window').width,
                       }}
                     />

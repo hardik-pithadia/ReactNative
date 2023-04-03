@@ -65,6 +65,29 @@ const ContactUs = ({navigation}) => {
       .catch(err => console.log(err));
   };
 
+  const whatsAppButtonClicked = () => {
+    console.log('whatsApp Button Clicked');
+
+    let msg = 'Thank You for contacting BMB, Let us know your query.';
+    let mobile = 9819189167;
+    if (mobile) {
+      if (msg) {
+        let url = 'whatsapp://send?text=' + msg + '&phone=91' + mobile;
+        Linking.openURL(url)
+          .then(data => {
+            console.log('WhatsApp Opened successfully ' + data);
+          })
+          .catch(() => {
+            alert('Make sure WhatsApp installed on your device');
+          });
+      } else {
+        alert('Please enter message to send');
+      }
+    } else {
+      alert('Please enter mobile no');
+    }
+  };
+
   return (
     <ScrollView style={styles.mainContainer}>
       <Text style={styles.headerText}>Address</Text>
@@ -84,6 +107,24 @@ const ContactUs = ({navigation}) => {
         onPress={() => phoneNumberButtonClicked('+912228984887')}>
         <Text style={{color: 'blue', fontWeight: '700'}}>+91-22-28984887</Text>
       </TouchableOpacity>
+
+      <View
+        style={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          marginLeft: 25,
+          marginTop: 25,
+        }}>
+        <Image
+          style={{width: 25, height: 25}}
+          source={require('../Images/whatsApp.png')}
+        />
+        <TouchableOpacity
+          style={{marginLeft: 10}}
+          onPress={() => whatsAppButtonClicked()}>
+          <Text style={{color: 'blue', fontWeight: '700'}}>9819189167</Text>
+        </TouchableOpacity>
+      </View>
 
       <Text style={styles.headerText}>Email</Text>
       <TouchableOpacity
@@ -110,19 +151,26 @@ const ContactUs = ({navigation}) => {
             marginLeft: 20,
             marginRight: 20,
             //  marginBottom: 50,
-            marginTop: 175,
+            marginTop: 140,
+            marginBottom: 20,
           }}>
           <Carousel
             autoPlayTime={3000}
             autoPlay={true}
             data={sponsorsResponseDataObj}
+            dotStyle={{
+              width: 10,
+              height: 10,
+              borderRadius: 5,
+              backgroundColor: '#000',
+            }}
             renderItem={item => (
               <Image
                 resizeMode="cover"
                 key={item._id}
                 source={{uri: item.image}}
                 style={{
-                  height: 150,
+                  height: '85%',
                   width: Dimensions.get('window').width,
                 }}
               />
