@@ -615,8 +615,14 @@ const Register = ({route, navigation}) => {
             marginRight: 25,
             marginTop: 20,
           }}>
-          <Text style={{fontSize: 18, fontWeight: '600', textAlign: 'center'}}>
-            Please help us with quick details mentioned below and Intantly get
+          <Text
+            style={{
+              fontSize: 18,
+              fontWeight: '600',
+              textAlign: 'center',
+              color: 'black',
+            }}>
+            Please help us with quick details mentioned below and Instantly get
             your profile activated
           </Text>
         </View>
@@ -1045,6 +1051,7 @@ const Register = ({route, navigation}) => {
               textAlign: 'center',
               fontWeight: '900',
               width: 100,
+              color: 'black',
             }}>
             Profile Photo
           </Text>
@@ -1085,6 +1092,7 @@ const Register = ({route, navigation}) => {
               textAlign: 'center',
               fontWeight: '900',
               width: 100,
+              color: 'black',
             }}>
             Degree Certificate
           </Text>
@@ -1125,6 +1133,7 @@ const Register = ({route, navigation}) => {
               textAlign: 'center',
               fontWeight: '900',
               width: 100,
+              color: 'black',
             }}>
             MMC Certificate
           </Text>

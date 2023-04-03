@@ -119,6 +119,7 @@ const Login = ({navigation}) => {
         );
         storeData(Constants.STATE, responseData.response.data.state);
         storeData(Constants.AUTH_TOKEN, responseData.response.data.auth_token);
+        storeData(Constants.ID, responseData.response.data._id);
 
         navigation.navigate('Base');
         setLoading(false);

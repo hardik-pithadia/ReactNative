@@ -11,6 +11,7 @@ import {
   ImageBackground,
   Alert,
   Dimensions,
+  ImageBackgroundBase,
 } from 'react-native';
 import {FlatGrid} from 'react-native-super-grid';
 import {Carousel} from 'react-native-auto-carousel';
@@ -36,6 +37,9 @@ const HomeView = ({navigation}) => {
   const [sponsorsResponseDataObj, setSponsorsResponseDataObj] = useState([]);
 
   useEffect(() => {
+    var dateVal = '2023-03-22T15:36:06.174Z';
+    console.log('SPLIT DATE VAL : ' + JSON.stringify(dateVal.split('T')[0]));
+
     NetInfo.fetch().then(state => {
       if (!state.isConnected) {
         Alert.alert('Network', 'Please Check Internet Connection');
@@ -66,12 +70,6 @@ const HomeView = ({navigation}) => {
 
         if (responseData.response.data.announcements.length > 0) {
           setResponseData(responseData.response.data.announcements);
-          setSponsorsResponseDataObj(responseData.response.data.announcements);
-
-          storeData(
-            Constants.SPONSORS,
-            JSON.stringify(responseData.response.data.announcements),
-          );
         }
 
         if (responseData.response.data.sponsors.length > 0) {
@@ -220,16 +218,43 @@ const HomeView = ({navigation}) => {
                 autoPlayTime={3000}
                 autoPlay={true}
                 data={responseDataObj}
+                dotStyle={{
+                  width: 10,
+                  height: 10,
+                  borderRadius: 5,
+                  backgroundColor: '#000',
+                }}
                 renderItem={item => (
-                  <Image
-                    resizeMode="cover"
-                    key={item._id}
-                    source={{uri: item.image}}
-                    style={{
-                      height: 200,
-                      width: Dimensions.get('window').width,
-                    }}
-                  />
+                  <View>
+                    <Image
+                      resizeMode="cover"
+                      key={item._id}
+                      source={{uri: item.image}}
+                      style={{
+                        height: '80%',
+                        width: Dimensions.get('window').width,
+                      }}
+                    />
+                    <View style={{flexDirection: 'row'}}>
+                      <Text
+                        style={{
+                          fontSize: 16,
+                          fontWeight: '900',
+                          marginBottom: 40,
+                        }}>
+                        {item.title}
+                      </Text>
+                      <Text> | </Text>
+                      <Text
+                        style={{
+                          fontSize: 16,
+                          fontWeight: '500',
+                          marginBottom: 40,
+                        }}>
+                        {item.created_at.split('T')[0]}
+                      </Text>
+                    </View>
+                  </View>
                 )}
               />
             </View>

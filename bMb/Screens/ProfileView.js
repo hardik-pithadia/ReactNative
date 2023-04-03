@@ -15,8 +15,11 @@ import {FlatGrid} from 'react-native-super-grid';
 import {getData, removeData} from '../Utils/utility';
 import * as Constants from '../Utils/constants';
 import {Carousel} from 'react-native-auto-carousel';
+import PageLoader from '../Utils/loader';
+import {getDataFromServer} from '../Utils/WebRequestManager';
 
 const ProfileView = ({navigation}) => {
+  const [isLoading, setLoading] = useState(false);
   const [profileImage, setProfileImage] = useState(
     'https://static.vecteezy.com/system/resources/thumbnails/009/734/564/small/default-avatar-profile-icon-of-social-media-user-vector.jpg',
   );
@@ -27,7 +30,9 @@ const ProfileView = ({navigation}) => {
   const [speciality, setSpeciality] = useState('');
   const [contact_number, setContactNumber] = useState('');
   const [email, setEmail] = useState('');
+  const [idValue, setIdValue] = useState('');
   const [sponsorsResponseDataObj, setSponsorsResponseDataObj] = useState([]);
+  const [authToken, setAuthToken] = useState('');
 
   useEffect(() => {
     getData(Constants.IMAGE_NAME).then(resultStr => {
@@ -65,7 +70,31 @@ const ProfileView = ({navigation}) => {
     getData(Constants.EMAIL).then(resultStr => {
       setEmail(resultStr || '');
     });
-  }, []);
+
+    getData(Constants.ID).then(resultStr => {
+      console.log('ID VALUE 101 : ' + resultStr || '');
+      setIdValue(resultStr || '');
+    });
+
+    getData(Constants.AUTH_TOKEN).then(resultStr => {
+      setAuthToken(resultStr || '');
+    });
+
+    if (idValue.length > 0 && authToken.length > 0) {
+      getAllDoctorResponse();
+    }
+  }, [idValue, authToken]);
+
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      if (idValue.length > 0 && authToken.length > 0) {
+        getAllDoctorResponse();
+      }
+    });
+
+    // Return the function to unsubscribe from the event so it gets removed on unmount
+    return unsubscribe;
+  }, [navigation]);
 
   const [items, setItems] = useState([
     {id: 0, name: require('../Images/demoImage1.png')},
@@ -81,6 +110,37 @@ const ProfileView = ({navigation}) => {
     //    {id: 10, name: require('../Images/demoImage1.png')},
     //    {id: 11, name: require('../Images/demoImage1.png')},
   ]);
+
+  const getAllDoctorResponse = async () => {
+    setLoading(true);
+
+    var responseData = await getDataFromServer(
+      Constants.base_URL + '/doctor/getdoctor/' + idValue,
+      authToken,
+    );
+
+    if (responseData.response) {
+      if (responseData.response.status) {
+        console.log(
+          'Profile Response Response : ' +
+            JSON.stringify(responseData.response.data),
+        );
+
+        if (responseData.response.data.length > 0) {
+          //setResponseData(responseData.response.data);
+        }
+      } else {
+        Alert.alert('Error', responseData.response.message, [
+          {
+            text: 'Ok',
+            style: 'cancel',
+          },
+        ]);
+      }
+    }
+
+    setLoading(false);
+  };
 
   const profileImageButtonClicked = () => {
     console.log('profileImage Button Clicked');
@@ -125,6 +185,7 @@ const ProfileView = ({navigation}) => {
 
   return (
     <SafeAreaView>
+      {isLoading && <PageLoader show={isLoading} />}
       <ScrollView style={{backgroundColor: '#F2F2F2'}}>
         <View>
           <View style={{flexDirection: 'row', justifyContent: 'space-evenly'}}>

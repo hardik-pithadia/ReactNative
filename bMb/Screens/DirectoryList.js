@@ -121,9 +121,9 @@ const DirectoryList = ({navigation}) => {
 
     if (responseData.response) {
       if (responseData.response.status) {
-        //   console.log(
-        //     'Directory Response : ' + JSON.stringify(responseData.response.data),
-        //   );
+        console.log(
+          'Directory Response : ' + JSON.stringify(responseData.response.data),
+        );
 
         if (responseData.response.data.length > 0) {
           setResponseData(responseData.response.data);
