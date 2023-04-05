@@ -76,6 +76,8 @@ const Login = ({navigation}) => {
       JSON.stringify(mobValue),
     );
 
+    console.log('Login Response : ', JSON.stringify(responseData));
+
     if (responseData.response) {
       if (responseData.response.status) {
         console.log(

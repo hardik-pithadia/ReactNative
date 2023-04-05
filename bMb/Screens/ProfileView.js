@@ -33,6 +33,8 @@ const ProfileView = ({navigation}) => {
   const [idValue, setIdValue] = useState('');
   const [sponsorsResponseDataObj, setSponsorsResponseDataObj] = useState([]);
   const [authToken, setAuthToken] = useState('');
+  const [profileImagePath, setProfileImagePath] = useState('');
+  const [certificates, setCertificates] = useState([]);
 
   useEffect(() => {
     getData(Constants.IMAGE_NAME).then(resultStr => {
@@ -97,18 +99,8 @@ const ProfileView = ({navigation}) => {
   }, [navigation]);
 
   const [items, setItems] = useState([
-    {id: 0, name: require('../Images/demoImage1.png')},
-    {id: 1, name: require('../Images/demoImage1.png')},
-    {id: 2, name: require('../Images/demoImage1.png')},
-    //    {id: 3, name: require('../Images/demoImage1.png')},
-    //    {id: 4, name: require('../Images/demoImage1.png')},
-    //    {id: 5, name: require('../Images/demoImage1.png')},
-    //    {id: 6, name: require('../Images/demoImage1.png')},
-    //    {id: 7, name: require('../Images/demoImage1.png')},
-    //    {id: 8, name: require('../Images/demoImage1.png')},
-    //    {id: 9, name: require('../Images/demoImage1.png')},
-    //    {id: 10, name: require('../Images/demoImage1.png')},
-    //    {id: 11, name: require('../Images/demoImage1.png')},
+    {id: 0, name: require('../Images/Certificate1.jpg')},
+    {id: 1, name: require('../Images/Certificate2.jpg')},
   ]);
 
   const getAllDoctorResponse = async () => {
@@ -122,12 +114,23 @@ const ProfileView = ({navigation}) => {
     if (responseData.response) {
       if (responseData.response.status) {
         console.log(
-          'Profile Response Response : ' +
+          'Profile Response Response101 : ' +
             JSON.stringify(responseData.response.data),
         );
 
-        if (responseData.response.data.length > 0) {
-          //setResponseData(responseData.response.data);
+        if (responseData.response.data !== undefined) {
+          setFirstName(responseData.response.data.first_name);
+          setLirstName(responseData.response.data.last_name);
+          setAccountType(responseData.response.data.account_type);
+          setQualification(responseData.response.data.qualification);
+          setSpeciality(responseData.response.data.speciality);
+          setContactNumber(responseData.response.data.contact_number);
+          setEmail(responseData.response.data.email);
+          setProfileImagePath(responseData.response.data.image);
+          setCertificates([
+            responseData.response.data.degree_certificate,
+            responseData.response.data.mmc_certificate,
+          ]);
         }
       } else {
         Alert.alert('Error', responseData.response.message, [
@@ -285,7 +288,7 @@ const ProfileView = ({navigation}) => {
                   justifyContent: 'center',
                 }}
                 resizeMode="cover"
-                source={{uri: profileImage}}
+                source={{uri: profileImagePath}}
               />
               <TouchableOpacity
                 onPress={() => profileImageButtonClicked()}
@@ -405,23 +408,23 @@ const ProfileView = ({navigation}) => {
             </Text>
             <FlatGrid
               itemDimension={80}
-              data={items}
+              data={certificates}
               style={styles.gridView}
               spacing={15}
               renderItem={({item}) => (
-                <ImageBackground
-                  source={item.name}
-                  resizeMode="stretch"
+                <Image
+                  source={{uri: item}}
+                  resizeMode="cover"
                   style={{
                     borderRadius: 10,
                     height: 80,
                     overflow: 'hidden',
                   }}>
-                  <TouchableOpacity
+                  {/*<TouchableOpacity
                     style={{width: '100%', height: '100%'}}
                     onPress={() => handleImageClickEvent(item.id)}
-                  />
-                </ImageBackground>
+                  />*/}
+                </Image>
               )}
             />
           </View>

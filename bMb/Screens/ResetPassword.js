@@ -14,11 +14,12 @@ import * as Constants from '../Utils/constants';
 import {getData, storeData} from '../Utils/utility';
 import NetInfo from '@react-native-community/netinfo';
 
-const ResetPassword = ({navigation}) => {
-  const [isLoading, setLoading] = useState(false);
+const ResetPassword = ({route, navigation}) => {
+  var enteredEmail = route.params.email;
 
-  const [txtEmail, setEmail] = useState('');
-  const [txtPassword, setPassword] = useState('');
+  const [isLoading, setLoading] = useState(false);
+  const [txtNewPassword, setNewPassword] = useState('');
+  const [txtConfirmPassword, setConfirmPassword] = useState('');
 
   useEffect(() => {
     NetInfo.fetch().then(state => {
@@ -30,32 +31,40 @@ const ResetPassword = ({navigation}) => {
 
   const submitButtonClicked = () => {
     Keyboard.dismiss();
-    if (txtEmail.length > 0) {
-      postForgotPasswordDataToServer();
-      console.log('CALL API.. : ' + txtEmail);
+
+    if (txtNewPassword.length === 0) {
+      Alert.alert('Error', 'Please Enter New Password');
+    } else if (txtConfirmPassword.length === 0) {
+      Alert.alert('Error', 'Please Enter Confirm Password');
     } else {
-      Alert.alert('Error', 'Please Enter Username');
+      if (txtNewPassword !== txtConfirmPassword) {
+        Alert.alert('Error', 'New Password & Confirm Password Must be Same');
+      } else {
+        resetPasswordResponse();
+      }
     }
   };
 
-  const postForgotPasswordDataToServer = async () => {
+  const resetPasswordResponse = async () => {
     setLoading(true);
+
     var mobValue = {
-      username: txtEmail.toString(),
+      username: enteredEmail,
+      password: txtConfirmPassword,
     };
 
     console.log('-------------------------------------');
-    console.log('Forgot Password Request Object : ' + JSON.stringify(mobValue));
+    console.log('Reset Password Request Object : ' + JSON.stringify(mobValue));
 
     var responseData = await postDataToServer(
-      Constants.base_URL + '/doctor/forget_password',
+      Constants.base_URL + '/doctor/reset_password',
       JSON.stringify(mobValue),
     );
 
     if (responseData.response) {
       if (responseData.response.status) {
         console.log(
-          'Forgot Password Response : ' +
+          'Reset Password Response : ' +
             JSON.stringify(responseData.response.data),
         );
 
@@ -64,14 +73,10 @@ const ResetPassword = ({navigation}) => {
             text: 'Ok',
             style: 'cancel',
             onPress: () => {
-              //    setEmail('');
-              navigation.navigate('OTPView', {
-                email: txtEmail,
-              });
+              navigation.navigate('Login');
             },
           },
         ]);
-        //   navigation.navigate.pop();
         setLoading(false);
       } else {
         Alert.alert('Error', responseData.response.message, [
@@ -79,7 +84,8 @@ const ResetPassword = ({navigation}) => {
             text: 'Ok',
             style: 'cancel',
             onPress: () => {
-              setEmail('');
+              setNewPassword('');
+              setConfirmPassword('');
             },
           },
         ]);
@@ -87,10 +93,6 @@ const ResetPassword = ({navigation}) => {
     }
 
     setLoading(false);
-  };
-
-  const setEmailTextValue = txtValue => {
-    setEmail(txtValue);
   };
 
   const backButtonClicked = () => {
@@ -132,7 +134,7 @@ const ResetPassword = ({navigation}) => {
               fontWeight: 'bold',
               marginTop: 20,
             }}>
-            Forgot Password
+            Reset Password
           </Text>
           <View
             style={{
@@ -149,7 +151,7 @@ const ResetPassword = ({navigation}) => {
                 flexDirection: 'row',
               }}>
               <Image
-                source={require('../Images/envelope.png')}
+                source={require('../Images/password.png')}
                 style={{
                   width: 25,
                   height: 25,
@@ -165,12 +167,49 @@ const ResetPassword = ({navigation}) => {
                   color: 'white',
                   padding: 5,
                 }}
-                placeholder="Email"
+                placeholder="New Password"
                 placeholderTextColor="white"
                 autoCapitalize="none"
                 autoCorrect={false}
-                value={txtEmail}
-                onChangeText={text => setEmailTextValue(text)}
+                value={txtNewPassword}
+                secureTextEntry={true}
+                onChangeText={text => setNewPassword(text)}
+              />
+            </View>
+
+            <View
+              style={{
+                marginTop: 30,
+                borderColor: 'white',
+                borderBottomWidth: 1,
+                alignItems: 'flex-start',
+                padding: 5,
+                flexDirection: 'row',
+              }}>
+              <Image
+                source={require('../Images/password.png')}
+                style={{
+                  width: 25,
+                  height: 25,
+                  marginTop: 8,
+                }}
+              />
+              <TextInput
+                style={{
+                  width: '85%',
+                  marginLeft: 20,
+                  fontSize: 20,
+                  justifyContent: 'center',
+                  color: 'white',
+                  padding: 5,
+                }}
+                placeholder="Confirm Password"
+                placeholderTextColor="white"
+                autoCapitalize="none"
+                autoCorrect={false}
+                secureTextEntry={true}
+                value={txtConfirmPassword}
+                onChangeText={text => setConfirmPassword(text)}
               />
             </View>
 

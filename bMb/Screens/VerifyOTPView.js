@@ -57,7 +57,7 @@ const VerifyOTPView = ({route, navigation}) => {
             text: 'Ok',
             style: 'cancel',
             onPress: () => {
-              navigation.navigate('Login');
+              navigation.navigate('ResetPassword', {email: enteredEmail});
             },
           },
         ]);
