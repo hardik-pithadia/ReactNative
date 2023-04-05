@@ -20,6 +20,7 @@ import * as Constants from './Utils/constants';
 import ForgotPassword from './Screens/ForgotPassword';
 import OTPView from './Screens/OTPView';
 import VerifyOTPView from './Screens/VerifyOTPView';
+import ResetPassword from './Screens/ResetPassword';
 
 const Stack = createNativeStackNavigator();
 
@@ -213,6 +214,14 @@ const App = () => {
               headerShown: false,
             }}
           />
+
+          <Stack.Screen
+            name="ResetPassword"
+            component={ResetPassword}
+            options={{
+              headerShown: false,
+            }}
+          />
         </Stack.Navigator>
       )}
 
@@ -382,6 +391,14 @@ const App = () => {
           <Stack.Screen
             name="VerifyOTPView"
             component={VerifyOTPView}
+            options={{
+              headerShown: false,
+            }}
+          />
+
+          <Stack.Screen
+            name="ResetPassword"
+            component={ResetPassword}
             options={{
               headerShown: false,
             }}

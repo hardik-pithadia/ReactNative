@@ -475,13 +475,19 @@ const ProfileView = ({navigation}) => {
             autoPlayTime={3000}
             autoPlay={true}
             data={sponsorsResponseDataObj}
+            dotStyle={{
+              width: 10,
+              height: 10,
+              borderRadius: 5,
+              backgroundColor: '#000',
+            }}
             renderItem={item => (
               <Image
                 resizeMode="cover"
                 key={item._id}
                 source={{uri: item.image}}
                 style={{
-                  height: 150,
+                  height: '85%',
                   width: Dimensions.get('window').width,
                 }}
               />
