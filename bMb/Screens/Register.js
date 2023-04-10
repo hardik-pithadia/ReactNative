@@ -214,6 +214,7 @@ const Register = ({route, navigation}) => {
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [contactNumber, setContactNumber] = useState('');
+  const [address, setAddress] = useState('');
   const [qualification, setQualification] = useState('');
   const [speciality, setSpeciality] = useState('');
   const [regNumber, setRegNumber] = useState('');
@@ -268,6 +269,8 @@ const Register = ({route, navigation}) => {
       Alert.alert('Error', 'Please Enter Email');
     } else if (contactNumber.length === 0) {
       Alert.alert('Error', 'Please Enter Contact Number');
+    } else if (address.length === 0) {
+      Alert.alert('Error', 'Please Enter Address');
     } else if (qualification.length === 0) {
       Alert.alert('Error', 'Please Enter Qualification');
     } else if (speciality.length === 0) {
@@ -377,6 +380,7 @@ const Register = ({route, navigation}) => {
       last_name: lastName,
       email: email,
       contact_number: contactNumber,
+      address: address,
       password: confirmPassword,
       qualification: qualification,
       speciality: speciality,
@@ -435,11 +439,12 @@ const Register = ({route, navigation}) => {
 
     if (res.status === true) {
       if (urlType === 'profile') {
-        setProfilePicImage(res.data.Location);
+        console.log('Profile Image Set : ', res.data[0].Location);
+        setProfilePicImage(res.data[0].Location);
       } else if (urlType === 'degree') {
-        setDegreeCertImage(res.data.Location);
+        setDegreeCertImage(res.data[0].Location);
       } else if (urlType === 'mmc') {
-        setMMCCertImage(res.data.Location);
+        setMMCCertImage(res.data[0].Location);
       }
       Alert.alert('Success', res.message);
     } else {
@@ -754,6 +759,35 @@ const Register = ({route, navigation}) => {
             autoCorrect={false}
             value={contactNumber}
             onChangeText={text => setContactNumber(text)}
+          />
+        </View>
+
+        <View
+          style={{
+            borderColor: 'lightgrey',
+            borderWidth: 1,
+            marginLeft: 25,
+            marginRight: 25,
+            marginTop: 10,
+            borderRadius: 10,
+          }}>
+          <TextInput
+            style={{
+              width: '85%',
+              paddingLeft: 10,
+              fontSize: 18,
+              justifyContent: 'flex-start',
+              alignItems: 'flex-start',
+              color: 'black',
+            }}
+            placeholder="Address"
+            placeholderTextColor="grey"
+            autoCapitalize="none"
+            autoCorrect={false}
+            value={address}
+            multiline={true}
+            numberOfLines={5}
+            onChangeText={text => setAddress(text)}
           />
         </View>
 

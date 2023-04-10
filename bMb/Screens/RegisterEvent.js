@@ -8,8 +8,14 @@ import {
   TouchableOpacity,
   TextInput,
   FlatList,
+  Dimensions,
 } from 'react-native';
 import RazorpayCheckout from 'react-native-razorpay';
+import PageLoader from '../Utils/loader';
+import {getDataFromServer} from '../Utils/WebRequestManager';
+import * as Constants from '../Utils/constants';
+import {getData} from '../Utils/utility';
+import {Carousel} from 'react-native-auto-carousel';
 
 const RegisterEvent = ({route, navigation}) => {
   var currentObj = route.params.selectedObj;
@@ -22,11 +28,16 @@ const RegisterEvent = ({route, navigation}) => {
 
   const [isDialogVisible, setDialogVisibleValue] = useState(false);
 
+  const [isLoading, setLoading] = useState(false);
+  const [sponsorsResponseDataObj, setSponsorsResponseDataObj] = useState([]);
+
   var nameArray = [];
 
-  //  useEffect(() => {
-  //    console.log('Selected Obj : ' + JSON.stringify(currentObj));
-  //  }, []);
+  useEffect(() => {
+    getData(Constants.SPONSORS).then(resultStr => {
+      setSponsorsResponseDataObj(JSON.parse(resultStr));
+    });
+  }, []);
 
   const closeDialog = () => {
     setDialogVisibleValue(false);
@@ -191,6 +202,7 @@ const RegisterEvent = ({route, navigation}) => {
 
   return (
     <ScrollView contentContainerStyle={{flexGrow: 1}}>
+      {isLoading && <PageLoader show={isLoading} />}
       <View
         style={{
           backgroundColor: 'white',
@@ -266,12 +278,41 @@ const RegisterEvent = ({route, navigation}) => {
         <View
           style={{
             height: 150,
-            backgroundColor: 'lightgray',
             marginLeft: 25,
             marginRight: 25,
             marginTop: 15,
             borderRadius: 10,
-          }}></View>
+          }}>
+          {sponsorsResponseDataObj.length > 0 && (
+            <View
+              style={{
+                height: 150,
+              }}>
+              <Carousel
+                autoPlayTime={3000}
+                autoPlay={true}
+                data={sponsorsResponseDataObj}
+                dotStyle={{
+                  width: 10,
+                  height: 10,
+                  borderRadius: 5,
+                  backgroundColor: '#000',
+                }}
+                renderItem={item => (
+                  <Image
+                    resizeMode="cover"
+                    key={item._id}
+                    source={{uri: item.image}}
+                    style={{
+                      height: 150,
+                      width: Dimensions.get('window').width,
+                    }}
+                  />
+                )}
+              />
+            </View>
+          )}
+        </View>
 
         <View
           style={{

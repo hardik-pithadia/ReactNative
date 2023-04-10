@@ -21,6 +21,7 @@ import ForgotPassword from './Screens/ForgotPassword';
 import OTPView from './Screens/OTPView';
 import VerifyOTPView from './Screens/VerifyOTPView';
 import ResetPassword from './Screens/ResetPassword';
+import SponsorsList from './Screens/SponsorsList';
 
 const Stack = createNativeStackNavigator();
 
@@ -222,6 +223,18 @@ const App = () => {
               headerShown: false,
             }}
           />
+
+          <Stack.Screen
+            name="SponsorsList"
+            component={SponsorsList}
+            options={{
+              headerBackTitleVisible: false,
+              headerBackVisible: true,
+              headerTitleAlign: 'center',
+              headerTintColor: 'black',
+              headerTitle: 'Sponsors',
+            }}
+          />
         </Stack.Navigator>
       )}
 
@@ -401,6 +414,18 @@ const App = () => {
             component={ResetPassword}
             options={{
               headerShown: false,
+            }}
+          />
+
+          <Stack.Screen
+            name="SponsorsList"
+            component={SponsorsList}
+            options={{
+              headerBackTitleVisible: false,
+              headerBackVisible: true,
+              headerTitleAlign: 'center',
+              headerTintColor: 'black',
+              headerTitle: 'Sponsors',
             }}
           />
         </Stack.Navigator>

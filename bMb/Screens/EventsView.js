@@ -7,7 +7,6 @@ import {
   SafeAreaView,
   TouchableOpacity,
   Dimensions,
-  FlatList,
 } from 'react-native';
 import PageLoader from '../Utils/loader';
 import {getDataFromServer} from '../Utils/WebRequestManager';

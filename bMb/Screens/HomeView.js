@@ -125,7 +125,8 @@ const HomeView = ({navigation}) => {
     console.log('handleImageClickEvent : ' + menuItem);
 
     if (menuItem === 1) {
-      console.log('Sponcers');
+      console.log('SponsorsList');
+      navigation.navigate('SponsorsList');
     } else if (menuItem === 2) {
       console.log('Navigate to Directory List');
       navigation.navigate('DorectoryList');
@@ -238,15 +239,17 @@ const HomeView = ({navigation}) => {
                           fontSize: 16,
                           fontWeight: '900',
                           marginBottom: 40,
+                          color: 'black',
                         }}>
                         {item.title}
                       </Text>
-                      <Text> | </Text>
+                      <Text style={{color: 'black'}}> | </Text>
                       <Text
                         style={{
                           fontSize: 16,
                           fontWeight: '500',
                           marginBottom: 40,
+                          color: 'black',
                         }}>
                         {item.created_at.split('T')[0]}
                       </Text>
