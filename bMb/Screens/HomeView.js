@@ -11,7 +11,6 @@ import {
   ImageBackground,
   Alert,
   Dimensions,
-  ImageBackgroundBase,
 } from 'react-native';
 import {FlatGrid} from 'react-native-super-grid';
 import {Carousel} from 'react-native-auto-carousel';
@@ -19,7 +18,7 @@ import PageLoader from '../Utils/loader';
 import {getDataFromServer} from '../Utils/WebRequestManager';
 import * as Constants from '../Utils/constants';
 import NetInfo from '@react-native-community/netinfo';
-import {getData, storeData} from '../Utils/utility';
+import {storeData} from '../Utils/utility';
 
 const HomeView = ({navigation}) => {
   const [items, setItems] = useState([
