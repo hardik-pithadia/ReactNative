@@ -82,14 +82,14 @@ const Gallery = () => {
     },
   };
 
-  //  useEffect(() => {
-  //    responseObj.response.data.map(currentObj => {
-  //      var tempDict = {title: currentObj.name, data: currentObj.files};
-  //      tempObj.push(tempDict);
-  //    });
-  //    setResponseDataObject(tempObj);
-  //    console.log('Final Object101 : ', JSON.stringify(tempObj));
-  //  }, [responseDataObject.length]);
+  //    useEffect(() => {
+  //      responseObj.response.data.map(currentObj => {
+  //        var tempDict = {title: currentObj.name, data: currentObj.files};
+  //        tempObj.push(tempDict);
+  //      });
+  //      setResponseDataObject(tempObj);
+  //      console.log('Final Object101 : ', JSON.stringify(tempObj));
+  //    }, [responseDataObject.length]);
 
   useEffect(() => {
     getData(Constants.SPONSORS).then(resultStr => {
@@ -105,13 +105,13 @@ const Gallery = () => {
   }, []);
 
   const getGalleryResponse = async () => {
-    setResponseData([]);
-
     setLoading(true);
 
     var responseData = await getDataFromServer(
       Constants.base_URL + '/gallery/getall',
     );
+
+    console.log('Gallery DATA : ', JSON.stringify(responseData));
 
     if (responseData.response) {
       if (responseData.response.status) {
@@ -121,8 +121,13 @@ const Gallery = () => {
 
         responseData.response.data.map(currentObj => {
           console.log('Current Obj : ', JSON.stringify(currentObj));
+
+          var tempDict = {title: currentObj.name, data: currentObj.files};
+          tempObj.push(tempDict);
         });
 
+        setResponseDataObject(tempObj);
+        console.log('Final Object101 : ', JSON.stringify(tempObj));
         //   setResponseData(responseData.response.data);
       } else {
         Alert.alert('Error', responseData.response.message, [
