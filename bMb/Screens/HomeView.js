@@ -341,7 +341,7 @@ const HomeView = ({navigation}) => {
                   }}
                   renderItem={item => (
                     <Image
-                      resizeMode="cover"
+                      resizeMode="contain"
                       key={item._id}
                       source={{uri: item.image}}
                       style={{

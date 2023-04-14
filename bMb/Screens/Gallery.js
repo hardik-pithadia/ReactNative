@@ -44,8 +44,6 @@ const Gallery = ({route, navigation}) => {
       Constants.base_URL + '/gallery/getall',
     );
 
-    console.log('Gallery DATA : ', JSON.stringify(responseData));
-
     if (responseData.response) {
       if (responseData.response.status) {
         console.log(
@@ -53,15 +51,11 @@ const Gallery = ({route, navigation}) => {
         );
 
         responseData.response.data.map(currentObj => {
-          console.log('Current Obj : ', JSON.stringify(currentObj));
-
           var tempDict = {title: currentObj.name, data: currentObj.files};
           tempObj.push(tempDict);
         });
 
         setResponseDataObject(tempObj);
-        console.log('Final Object101 : ', JSON.stringify(tempObj));
-        //   setResponseData(responseData.response.data);
       } else {
         Alert.alert('Error', responseData.response.message, [
           {
@@ -80,7 +74,6 @@ const Gallery = ({route, navigation}) => {
   };
 
   const imageButtonClicked = imageId => {
-    console.log('Image Button Clicked : ', imageId);
     navigation.navigate('GalleryImage', {imageName: imageId});
   };
 
@@ -130,7 +123,8 @@ const Gallery = ({route, navigation}) => {
             }}
             renderItem={item => (
               <Image
-                resizeMode="cover"
+                // resizeMode="cover"
+                resizeMode="contain"
                 key={item._id}
                 source={{uri: item.image}}
                 style={{
