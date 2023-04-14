@@ -22,6 +22,7 @@ import OTPView from './Screens/OTPView';
 import VerifyOTPView from './Screens/VerifyOTPView';
 import ResetPassword from './Screens/ResetPassword';
 import SponsorsList from './Screens/SponsorsList';
+import GalleryImage from './Screens/GalleryImage';
 
 const Stack = createNativeStackNavigator();
 
@@ -156,6 +157,18 @@ const App = () => {
           <Stack.Screen
             name="Gallery"
             component={Gallery}
+            options={{
+              headerBackTitleVisible: false,
+              headerBackVisible: true,
+              headerTitleAlign: 'center',
+              headerTintColor: 'black',
+              headerTitle: 'Gallery',
+            }}
+          />
+
+          <Stack.Screen
+            name="GalleryImage"
+            component={GalleryImage}
             options={{
               headerBackTitleVisible: false,
               headerBackVisible: true,
@@ -340,6 +353,18 @@ const App = () => {
           <Stack.Screen
             name="Gallery"
             component={Gallery}
+            options={{
+              headerBackTitleVisible: false,
+              headerBackVisible: true,
+              headerTitleAlign: 'center',
+              headerTintColor: 'black',
+              headerTitle: 'Gallery',
+            }}
+          />
+
+          <Stack.Screen
+            name="GalleryImage"
+            component={GalleryImage}
             options={{
               headerBackTitleVisible: false,
               headerBackVisible: true,

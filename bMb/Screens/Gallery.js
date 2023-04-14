@@ -16,7 +16,7 @@ import PageLoader from '../Utils/loader';
 import {getDataFromServer} from '../Utils/WebRequestManager';
 import NetInfo from '@react-native-community/netinfo';
 
-const Gallery = () => {
+const Gallery = ({route, navigation}) => {
   const [sponsorsResponseDataObj, setSponsorsResponseDataObj] = useState([]);
   const [responseDataObject, setResponseDataObject] = useState([]);
 
@@ -81,6 +81,7 @@ const Gallery = () => {
 
   const imageButtonClicked = imageId => {
     console.log('Image Button Clicked : ', imageId);
+    navigation.navigate('GalleryImage', {imageName: imageId});
   };
 
   return (
