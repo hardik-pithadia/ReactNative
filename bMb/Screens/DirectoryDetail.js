@@ -18,6 +18,7 @@ const DirectoryDetail = ({route, navigation}) => {
   const [sponsorsResponseDataObj, setSponsorsResponseDataObj] = useState([]);
 
   useEffect(() => {
+    console.log('HARDIK Selected Object : ', JSON.stringify(selectedObject));
     getData(Constants.SPONSORS).then(resultStr => {
       setSponsorsResponseDataObj(JSON.parse(resultStr));
     });
