@@ -163,7 +163,7 @@ const App = () => {
               headerBackVisible: true,
               headerTitleAlign: 'center',
               headerTintColor: 'black',
-              headerTitle: 'Dr Details',
+              headerTitle: 'Details',
             }}
           />
 
@@ -371,7 +371,7 @@ const App = () => {
               headerBackVisible: true,
               headerTitleAlign: 'center',
               headerTintColor: 'black',
-              headerTitle: 'Dr Details',
+              headerTitle: 'Details',
             }}
           />
 

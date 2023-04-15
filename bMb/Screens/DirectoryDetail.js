@@ -1,21 +1,37 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Text,
   SafeAreaView,
   ScrollView,
   Image,
-  TouchableOpacity,
+  Dimensions,
 } from 'react-native';
+import {getDataFromServer} from '../Utils/WebRequestManager';
+import NetInfo from '@react-native-community/netinfo';
+import * as Constants from '../Utils/constants';
+import {getData} from '../Utils/utility';
+import {Carousel} from 'react-native-auto-carousel';
 
 const DirectoryDetail = ({route, navigation}) => {
   var selectedObject = route.params.selectedObject;
+  const [sponsorsResponseDataObj, setSponsorsResponseDataObj] = useState([]);
+
+  useEffect(() => {
+    getData(Constants.SPONSORS).then(resultStr => {
+      setSponsorsResponseDataObj(JSON.parse(resultStr));
+    });
+  }, []);
 
   return (
     <SafeAreaView>
       <ScrollView style={{backgroundColor: '#F2F2F2'}}>
         <View>
-          <View style={{flexDirection: 'row', justifyContent: 'space-evenly'}}>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+            }}>
             <Image
               style={{
                 height: 130,
@@ -30,7 +46,7 @@ const DirectoryDetail = ({route, navigation}) => {
                 margin: '10%',
                 width: 175.0,
                 alignItems: 'flex-end',
-                justifyContent: 'space-between',
+                justifyContent: 'space-evenly',
               }}>
               <Text
                 style={{
@@ -49,38 +65,24 @@ const DirectoryDetail = ({route, navigation}) => {
             </View>
           </View>
 
-          {/*<View
+          <View
             style={{
-              height: 125,
+              height: 100,
               flexDirection: 'row',
               alignItems: 'center',
-              justifyContent: 'space-evenly',
+              backgroundColor: 'white',
+              marginHorizontal: 10,
+              marginVertical: 25,
+              borderRadius: 10,
             }}>
-            <View style={{width: '50%', height: 100}}>
-              <Text
-                style={{
-                  fontSize: 16.0,
-                  color: 'black',
-                  fontWeight: 'bold',
-                }}>
-                {'Dr. ' + firstName + ' ' + lastName}
-              </Text>
-
-              <Text
-                style={{
-                  textAlign: 'left',
-                  top: 5.0,
-                  color: 'black',
-                }}>
-                {accountType}
-              </Text>
-            </View>
-
             <View
               style={{
                 height: 100,
                 width: 100,
                 alignItems: 'flex-end',
+                alignItems: 'center',
+                justifyContent: 'center',
+                marginRight: 10,
               }}>
               <Image
                 style={{
@@ -93,99 +95,178 @@ const DirectoryDetail = ({route, navigation}) => {
                   alignItems: 'center',
                   justifyContent: 'center',
                 }}
-                resizeMode="cover"
-                source={{uri: profileImagePath}}
+                resizeMode="contain"
+                source={{uri: selectedObject.image}}
               />
-              <TouchableOpacity
-                onPress={() => profileImageButtonClicked()}
-                style={{
-                  backgroundColor: '#3F60A0',
-                  width: 30.0,
-                  height: 30.0,
-                  top: -20,
-                  borderRadius: 15,
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  right: 5,
-                }}>
-                <Image
-                  source={require('../Images/camera_icon.png')}
-                  style={{
-                    width: 20.0,
-                    height: 20.0,
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}
-                />
-              </TouchableOpacity>
             </View>
-          </View>
-
-          <View>
-            <Text
+            <View
               style={{
-                fontSize: 18,
-                fontWeight: 'bold',
-                marginLeft: 20,
-                color: 'black',
+                width: '50%',
+                height: 100,
+                justifyContent: 'center',
               }}>
-              Assigned Certificates
-            </Text>
-            <FlatGrid
-              itemDimension={80}
-              data={certificates}
-              style={styles.gridView}
-              spacing={15}
-              renderItem={({item}) => (
-                <Image
-                  source={{uri: item}}
-                  resizeMode="cover"
-                  style={{
-                    borderRadius: 10,
-                    height: 80,
-                    overflow: 'hidden',
-                  }}></Image>
-              )}
-            />
+              <Text
+                style={{
+                  fontSize: 16.0,
+                  color: 'black',
+                  fontWeight: 'bold',
+                }}>
+                {selectedObject.title}
+              </Text>
+
+              <Text
+                style={{
+                  textAlign: 'left',
+                  top: 5.0,
+                  color: 'black',
+                }}>
+                {selectedObject.qualification}
+              </Text>
+            </View>
           </View>
 
           <View
             style={{
-              marginHorizontal: 20,
+              flexDirection: 'column',
+              marginHorizontal: 10,
+              borderRadius: 10,
+              backgroundColor: 'white',
             }}>
-            <Text
+            <View
               style={{
-                fontSize: 18,
-                fontWeight: 'bold',
-                color: 'black',
+                flex: 1,
+                flexDirection: 'row',
+                marginTop: 15,
+                marginHorizontal: 15,
               }}>
-              Details
-            </Text>
+              <Text
+                style={{
+                  fontSize: 16.0,
+                  color: 'black',
+                  fontWeight: 'bold',
+                }}>
+                {'Clinic Address : '}
+              </Text>
 
-            <View style={{flexDirection: 'row', marginTop: 20}}>
-              <Text style={styles.detailTitle}>Qualification : </Text>
-              <Text style={{color: 'gray'}}>{qualification}</Text>
+              <Text
+                style={{
+                  paddingLeft: 25,
+                  color: 'black',
+                  width: '65%',
+                }}>
+                {selectedObject.address}
+              </Text>
             </View>
 
-            <View style={{flexDirection: 'row', marginTop: 10}}>
-              <Text style={styles.detailTitle}>Speciality : </Text>
-              <Text style={{color: 'gray'}}>{speciality}</Text>
+            <View
+              style={{
+                flex: 1,
+                flexDirection: 'row',
+                marginTop: 15,
+                marginHorizontal: 15,
+              }}>
+              <Text
+                style={{
+                  fontSize: 16.0,
+                  color: 'black',
+                  fontWeight: 'bold',
+                }}>
+                {'Speciality : '}
+              </Text>
+
+              <Text
+                style={{
+                  paddingLeft: 25,
+                  color: 'black',
+                  width: '65%',
+                }}>
+                {selectedObject.speciality}
+              </Text>
             </View>
 
-            <View style={{flexDirection: 'row', marginTop: 10}}>
-              <Text style={styles.detailTitle}>Contact No : </Text>
-              <Text style={{color: 'gray'}}>{contact_number}</Text>
+            <View
+              style={{
+                flex: 1,
+                flexDirection: 'row',
+                marginTop: 15,
+                marginHorizontal: 15,
+              }}>
+              <Text
+                style={{
+                  fontSize: 16.0,
+                  color: 'black',
+                  fontWeight: 'bold',
+                }}>
+                {'Qualification : '}
+              </Text>
+
+              <Text
+                style={{
+                  paddingLeft: 25,
+                  color: 'black',
+                  width: '65%',
+                }}>
+                {selectedObject.qualification}
+              </Text>
             </View>
 
-            <View style={{flexDirection: 'row', marginTop: 10}}>
-              <Text style={styles.detailTitle}>Email : </Text>
-              <Text style={{color: 'gray'}}>{email}</Text>
+            <View
+              style={{
+                flex: 1,
+                flexDirection: 'row',
+                marginTop: 15,
+                marginHorizontal: 15,
+              }}>
+              <Text
+                style={{
+                  fontSize: 16.0,
+                  color: 'black',
+                  fontWeight: 'bold',
+                }}>
+                {'Email : '}
+              </Text>
+
+              <Text
+                style={{
+                  paddingLeft: 25,
+                  color: 'black',
+                  width: '65%',
+                }}>
+                {selectedObject.email}
+              </Text>
             </View>
-          </View>*/}
+
+            <View
+              style={{
+                flex: 1,
+                flexDirection: 'row',
+                marginTop: 15,
+                marginHorizontal: 15,
+                marginBottom: 15,
+              }}>
+              <Text
+                style={{
+                  fontSize: 16.0,
+                  color: 'black',
+                  fontWeight: 'bold',
+                }}>
+                {'Contact No. : '}
+              </Text>
+
+              <Text
+                style={{
+                  paddingLeft: 25,
+                  color: 'black',
+                  width: '65%',
+                }}>
+                {selectedObject.contact_number}
+              </Text>
+            </View>
+          </View>
         </View>
       </ScrollView>
 
-      {/*{sponsorsResponseDataObj.length > 0 && (
+      {sponsorsResponseDataObj.length > 0 && (
         <View
           style={{
             height: 80,
@@ -206,7 +287,7 @@ const DirectoryDetail = ({route, navigation}) => {
             }}
             renderItem={item => (
               <Image
-                resizeMode="cover"
+                resizeMode="contain"
                 key={item._id}
                 source={{uri: item.image}}
                 style={{
@@ -217,7 +298,7 @@ const DirectoryDetail = ({route, navigation}) => {
             )}
           />
         </View>
-      )}*/}
+      )}
     </SafeAreaView>
   );
 };
