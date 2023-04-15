@@ -23,6 +23,7 @@ import VerifyOTPView from './Screens/VerifyOTPView';
 import ResetPassword from './Screens/ResetPassword';
 import SponsorsList from './Screens/SponsorsList';
 import GalleryImage from './Screens/GalleryImage';
+import DirectoryDetail from './Screens/DirectoryDetail';
 
 const Stack = createNativeStackNavigator();
 
@@ -151,6 +152,18 @@ const App = () => {
               headerTitleAlign: 'center',
               headerTintColor: 'black',
               headerTitle: 'Directory',
+            }}
+          />
+
+          <Stack.Screen
+            name="DirectoryDetail"
+            component={DirectoryDetail}
+            options={{
+              headerBackTitleVisible: false,
+              headerBackVisible: true,
+              headerTitleAlign: 'center',
+              headerTintColor: 'black',
+              headerTitle: 'Dr Details',
             }}
           />
 
@@ -347,6 +360,18 @@ const App = () => {
               headerTitleAlign: 'center',
               headerTintColor: 'black',
               headerTitle: 'Directory',
+            }}
+          />
+
+          <Stack.Screen
+            name="DirectoryDetail"
+            component={DirectoryDetail}
+            options={{
+              headerBackTitleVisible: false,
+              headerBackVisible: true,
+              headerTitleAlign: 'center',
+              headerTintColor: 'black',
+              headerTitle: 'Dr Details',
             }}
           />
 

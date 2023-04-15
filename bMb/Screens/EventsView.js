@@ -75,7 +75,6 @@ const EventsView = ({navigation}) => {
   };
 
   const getCardList = responseArray => {
-    console.log('getCardList-101');
     responseArray.map(currentObj => {
       eventArray.push(
         <View

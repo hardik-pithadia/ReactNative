@@ -1,5 +1,12 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, FlatList, Image, Dimensions} from 'react-native';
+import {
+  View,
+  Text,
+  FlatList,
+  Image,
+  Dimensions,
+  TouchableOpacity,
+} from 'react-native';
 import PageLoader from '../Utils/loader';
 import {getDataFromServer} from '../Utils/WebRequestManager';
 import NetInfo from '@react-native-community/netinfo';
@@ -12,81 +19,6 @@ const DirectoryList = ({navigation}) => {
   const [responseDataObj, setResponseData] = useState([]);
   const [authToken, setAuthToken] = useState('');
   const [sponsorsResponseDataObj, setSponsorsResponseDataObj] = useState([]);
-
-  const DATA = [
-    {
-      id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-      title: 'First Item',
-      mobile: '7666240144',
-      speciality: 'MD',
-      email: 'hardik@gmail.com',
-      address: 'H-1303, Vimal Heights, new link road',
-    },
-    {
-      id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-      title: 'Second Item',
-      mobile: '7666240174',
-      speciality: 'MBBS',
-      email: 'hardik@gmail.com',
-      address: 'H-1303, Vimal Heights, new link road',
-    },
-    {
-      id: '58694a0f-3da1-471f-bd96-145571e29d72',
-      title: 'Third Item',
-      mobile: '7888240144',
-      speciality: 'MS',
-      email: 'hardik@gmail.com',
-      address: 'H-1303, Vimal Heights, new link road',
-    },
-    {
-      id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-      title: 'First Item',
-      mobile: '7666240144',
-      speciality: 'ENT',
-      email: 'hardik@gmail.com',
-      address: 'H-1303, Vimal Heights, new link road',
-    },
-    {
-      id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-      title: 'Second Item',
-      mobile: '7666240174',
-      speciality: 'MS',
-      email: 'hardik@gmail.com',
-      address: 'H-1303, Vimal Heights, new link road',
-    },
-    {
-      id: '58694a0f-3da1-471f-bd96-145571e29d72',
-      title: 'Third Item',
-      mobile: '7888240144',
-      speciality: 'MD',
-      email: 'hardik@gmail.com',
-      address: 'H-1303, Vimal Heights, new link road',
-    },
-    {
-      id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-      title: 'First Item',
-      mobile: '7666240144',
-      speciality: 'MD',
-      email: 'hardik@gmail.com',
-      address: 'H-1303, Vimal Heights, new link road',
-    },
-    {
-      id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-      title: 'Second Item',
-      mobile: '7666240174',
-      speciality: 'MBBS',
-      email: 'hardik@gmail.com',
-      address: 'H-1303, Vimal Heights, new link road',
-    },
-    {
-      id: '58694a0f-3da1-471f-bd96-145571e29d72',
-      title: 'Third Item',
-      mobile: '7888240144',
-      speciality: 'MBBS',
-      email: 'hardik@gmail.com',
-      address: 'H-1303, Vimal Heights, new link road',
-    },
-  ];
 
   useEffect(() => {
     getData(Constants.AUTH_TOKEN).then(resultStr => {
@@ -141,6 +73,10 @@ const DirectoryList = ({navigation}) => {
     setLoading(false);
   };
 
+  const directoryButtonClicked = selectedItem => {
+    navigation.navigate('DirectoryDetail', {selectedObject: selectedItem});
+  };
+
   const renderItem = ({item}) => (
     <Item
       title={item.title}
@@ -149,11 +85,22 @@ const DirectoryList = ({navigation}) => {
       email={item.email}
       state={item.state}
       imageName={item.image}
+      currentObj={item}
     />
   );
 
-  const Item = ({title, mobile, speciality, email, state, imageName}) => (
-    <View
+  const Item = ({
+    title,
+    mobile,
+    speciality,
+    email,
+    state,
+    imageName,
+    currentObj,
+  }) => (
+    <TouchableOpacity
+      keyExtractor={'1'}
+      onPress={() => directoryButtonClicked(currentObj)}
       style={{
         backgroundColor: '#1B195B',
         padding: 5,
@@ -212,7 +159,7 @@ const DirectoryList = ({navigation}) => {
           {state}
         </Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 
   return (
