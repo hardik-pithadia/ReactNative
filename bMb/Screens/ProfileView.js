@@ -35,6 +35,7 @@ const ProfileView = ({navigation}) => {
   const [authToken, setAuthToken] = useState('');
   const [profileImagePath, setProfileImagePath] = useState('');
   const [certificates, setCertificates] = useState([]);
+  const [assignedCertificates, setAssignedCertificates] = useState([]);
 
   useEffect(() => {
     getData(Constants.IMAGE_NAME).then(resultStr => {
@@ -98,11 +99,6 @@ const ProfileView = ({navigation}) => {
     return unsubscribe;
   }, [navigation]);
 
-  const [items, setItems] = useState([
-    {id: 0, name: require('../Images/Certificate1.jpg')},
-    {id: 1, name: require('../Images/Certificate2.jpg')},
-  ]);
-
   const getAllDoctorResponse = async () => {
     setLoading(true);
 
@@ -131,6 +127,12 @@ const ProfileView = ({navigation}) => {
             responseData.response.data.degree_certificate,
             responseData.response.data.mmc_certificate,
           ]);
+          setAssignedCertificates(responseData.response.data.certificates);
+
+          console.log(
+            'Certification : ',
+            JSON.stringify(responseData.response.data.certificates),
+          );
         }
       } else {
         Alert.alert('Error', responseData.response.message, [
@@ -388,15 +390,7 @@ const ProfileView = ({navigation}) => {
             </Text>
           </View>*/}
 
-          <View
-            style={
-              {
-                //    marginTop: 15,
-                //    marginLeft: 10,
-                //    marginRight: 10,
-                //    backgroundColor: 'pink',
-              }
-            }>
+          <View>
             <Text
               style={{
                 fontSize: 18,
@@ -425,6 +419,45 @@ const ProfileView = ({navigation}) => {
                     onPress={() => handleImageClickEvent(item.id)}
                   />*/}
                 </Image>
+              )}
+            />
+          </View>
+
+          <View>
+            <Text
+              style={{
+                fontSize: 18,
+                fontWeight: 'bold',
+                marginLeft: 20,
+                color: 'black',
+              }}>
+              Certificates
+            </Text>
+            <FlatGrid
+              itemDimension={80}
+              data={assignedCertificates}
+              style={styles.gridView}
+              spacing={15}
+              renderItem={({item}) => (
+                console.log('ITEMS : ', item.url),
+                (
+                  <Image
+                    source={{uri: item.url}}
+                    resizeMode="cover"
+                    style={{
+                      borderRadius: 10,
+                      height: 80,
+                      overflow: 'hidden',
+                      backgroundColor: 'pink',
+                      width: 100,
+                      height: 100,
+                    }}>
+                    {/*<TouchableOpacity
+                    style={{width: '100%', height: '100%'}}
+                    onPress={() => handleImageClickEvent(item.id)}
+                  />*/}
+                  </Image>
+                )
               )}
             />
           </View>
