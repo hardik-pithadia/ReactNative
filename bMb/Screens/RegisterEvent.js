@@ -69,11 +69,13 @@ const RegisterEvent = ({route, navigation}) => {
     RazorpayCheckout.open(options)
       .then(data => {
         // handle success
+        console.log("Response : ", JSON.stringify(data))
         alert(`Success: ${data.razorpay_payment_id}`);
         navigation.navigate('RegisterEventSuccess');
       })
       .catch(error => {
         // handle failure
+        console.log("Response : ", JSON.stringify(error))
         alert(`Error: ${error.code} | ${error.description}`);
       });
   };
