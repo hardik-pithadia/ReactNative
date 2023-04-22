@@ -496,41 +496,41 @@ const ProfileView = ({navigation}) => {
             </View>
           </View>
         </View>
+        {sponsorsResponseDataObj.length > 0 && (
+          <View
+            style={{
+              height: 150,
+              marginLeft: 20,
+              marginRight: 20,
+              marginBottom: 50,
+              marginTop: 20,
+            }}>
+            <Carousel
+              autoPlayTime={3000}
+              autoPlay={true}
+              data={sponsorsResponseDataObj}
+              dotStyle={{
+                width: 10,
+                height: 10,
+                marginTop: 45,
+                borderRadius: 5,
+                backgroundColor: '#000',
+              }}
+              renderItem={item => (
+                <Image
+                  resizeMethod="resize"
+                  key={item._id}
+                  source={{uri: item.image}}
+                  style={{
+                    height: 150,
+                    width: Dimensions.get('window').width,
+                  }}
+                />
+              )}
+            />
+          </View>
+        )}
       </ScrollView>
-
-      {sponsorsResponseDataObj.length > 0 && (
-        <View
-          style={{
-            height: 80,
-            marginLeft: 20,
-            marginRight: 20,
-            marginBottom: 50,
-            marginTop: 20,
-          }}>
-          <Carousel
-            autoPlayTime={3000}
-            autoPlay={true}
-            data={sponsorsResponseDataObj}
-            dotStyle={{
-              width: 10,
-              height: 10,
-              borderRadius: 5,
-              backgroundColor: '#000',
-            }}
-            renderItem={item => (
-              <Image
-                resizeMode="cover"
-                key={item._id}
-                source={{uri: item.image}}
-                style={{
-                  height: '85%',
-                  width: Dimensions.get('window').width,
-                }}
-              />
-            )}
-          />
-        </View>
-      )}
     </SafeAreaView>
   );
 };

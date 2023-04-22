@@ -50,10 +50,6 @@ const HomeView = ({navigation}) => {
 
     setLoading(true);
 
-    //    var responseData = await getDataFromServer(
-    //      Constants.base_URL + '/announcement/getall',
-    //    );
-
     var responseData = await getDataFromServer(
       Constants.base_URL + '/dashboard',
     );
@@ -97,28 +93,28 @@ const HomeView = ({navigation}) => {
     setLoading(false);
   };
 
-  const whatsAppButtonClicked = () => {
-    console.log('whatsApp Button Clicked');
+  // const whatsAppButtonClicked = () => {
+  //   console.log('whatsApp Button Clicked');
 
-    let msg = 'Hello World';
-    let mobile = 7666240144;
-    if (mobile) {
-      if (msg) {
-        let url = 'whatsapp://send?text=' + msg + '&phone=91' + mobile;
-        Linking.openURL(url)
-          .then(data => {
-            console.log('WhatsApp Opened successfully ' + data);
-          })
-          .catch(() => {
-            alert('Make sure WhatsApp installed on your device');
-          });
-      } else {
-        alert('Please enter message to send');
-      }
-    } else {
-      alert('Please enter mobile no');
-    }
-  };
+  //   let msg = 'Hello World';
+  //   let mobile = 7666240144;
+  //   if (mobile) {
+  //     if (msg) {
+  //       let url = 'whatsapp://send?text=' + msg + '&phone=91' + mobile;
+  //       Linking.openURL(url)
+  //         .then(data => {
+  //           console.log('WhatsApp Opened successfully ' + data);
+  //         })
+  //         .catch(() => {
+  //           alert('Make sure WhatsApp installed on your device');
+  //         });
+  //     } else {
+  //       alert('Please enter message to send');
+  //     }
+  //   } else {
+  //     alert('Please enter mobile no');
+  //   }
+  // };
 
   const handleQuickLinksClickEvent = menuItem => {
     console.log('handleImageClickEvent : ' + menuItem);
@@ -207,9 +203,8 @@ const HomeView = ({navigation}) => {
           {responseDataObj.length > 0 && (
             <View
               style={{
-                height: 200,
-                marginLeft: 20,
-                marginRight: 20,
+                height: 250,
+                marginHorizontal: 20,
               }}>
               <Carousel
                 autoPlayTime={3000}
@@ -222,14 +217,28 @@ const HomeView = ({navigation}) => {
                   backgroundColor: '#000',
                 }}
                 renderItem={item => (
-                  <View>
+                  <TouchableOpacity
+                    onPress={() => {
+                      console.log('Button Clicked');
+                      Linking.canOpenURL(item.link)
+                        .then(supported => {
+                          if (supported) {
+                            return Linking.openURL(item.link);
+                          } else {
+                            Alert.alert('Error', 'URL is not supported');
+                          }
+                        })
+                        .catch(err => console.log(err));
+                    }}>
                     <Image
-                      resizeMode="cover"
+                      resizeMode="stretch"
                       key={item._id}
-                      source={{uri: item.image}}
+                      source={{
+                        uri: item.image,
+                      }}
                       style={{
                         height: '80%',
-                        width: Dimensions.get('window').width,
+                        width: 350,
                       }}
                     />
                     <View style={{flexDirection: 'row'}}>
@@ -239,6 +248,7 @@ const HomeView = ({navigation}) => {
                           fontWeight: '900',
                           marginBottom: 40,
                           color: 'black',
+                          width: 225,
                         }}>
                         {item.title}
                       </Text>
@@ -249,11 +259,12 @@ const HomeView = ({navigation}) => {
                           fontWeight: '500',
                           marginBottom: 40,
                           color: 'black',
+                          width: 120,
                         }}>
                         {item.created_at.split('T')[0]}
                       </Text>
                     </View>
-                  </View>
+                  </TouchableOpacity>
                 )}
               />
             </View>
@@ -336,16 +347,17 @@ const HomeView = ({navigation}) => {
                   dotStyle={{
                     width: 10,
                     height: 10,
+                    marginTop: 45,
                     borderRadius: 5,
                     backgroundColor: '#000',
                   }}
                   renderItem={item => (
                     <Image
-                      resizeMode="contain"
+                      resizeMethod="auto"
                       key={item._id}
                       source={{uri: item.image}}
                       style={{
-                        height: '85%',
+                        height: 150,
                         width: Dimensions.get('window').width,
                       }}
                     />

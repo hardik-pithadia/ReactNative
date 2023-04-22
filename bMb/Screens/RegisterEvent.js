@@ -69,13 +69,13 @@ const RegisterEvent = ({route, navigation}) => {
     RazorpayCheckout.open(options)
       .then(data => {
         // handle success
-        console.log("Response : ", JSON.stringify(data))
+        console.log('Response : ', JSON.stringify(data));
         alert(`Success: ${data.razorpay_payment_id}`);
         navigation.navigate('RegisterEventSuccess');
       })
       .catch(error => {
         // handle failure
-        console.log("Response : ", JSON.stringify(error))
+        console.log('Response : ', JSON.stringify(error));
         alert(`Error: ${error.code} | ${error.description}`);
       });
   };
@@ -289,6 +289,10 @@ const RegisterEvent = ({route, navigation}) => {
             <View
               style={{
                 height: 150,
+                marginLeft: 20,
+                marginRight: 20,
+                marginBottom: 50,
+                marginTop: 20,
               }}>
               <Carousel
                 autoPlayTime={3000}
@@ -297,12 +301,14 @@ const RegisterEvent = ({route, navigation}) => {
                 dotStyle={{
                   width: 10,
                   height: 10,
+                  marginTop: 45,
+                  marginBottom: 50,
                   borderRadius: 5,
                   backgroundColor: '#000',
                 }}
                 renderItem={item => (
                   <Image
-                    resizeMode="cover"
+                    resizeMethod="resize"
                     key={item._id}
                     source={{uri: item.image}}
                     style={{
