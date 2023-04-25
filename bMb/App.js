@@ -24,6 +24,7 @@ import ResetPassword from './Screens/ResetPassword';
 import SponsorsList from './Screens/SponsorsList';
 import GalleryImage from './Screens/GalleryImage';
 import DirectoryDetail from './Screens/DirectoryDetail';
+// import PDFView from './Screens/PDFView';
 
 const Stack = createNativeStackNavigator();
 
@@ -215,6 +216,18 @@ const App = () => {
             }}
           />
 
+          {/* <Stack.Screen
+            name="PDFView"
+            component={PDFView}
+            options={{
+              headerBackTitleVisible: false,
+              headerBackVisible: true,
+              headerTitleAlign: 'center',
+              headerTintColor: 'black',
+              headerTitle: 'PDF View',
+            }}
+          /> */}
+
           <Stack.Screen
             name="Notifications"
             component={Notifications}
@@ -283,6 +296,18 @@ const App = () => {
               headerTitle: 'Join Us',
             }}
           />
+
+          {/* <Stack.Screen
+            name="PDFView"
+            component={PDFView}
+            options={{
+              headerBackTitleVisible: false,
+              headerBackVisible: true,
+              headerTitleAlign: 'center',
+              headerTintColor: 'black',
+              headerTitle: 'PDF View',
+            }}
+          /> */}
 
           <Stack.Screen
             name="Home"

@@ -317,79 +317,6 @@ const ProfileView = ({navigation}) => {
             </View>
           </View>
 
-          {/*<View
-            style={{
-              backgroundColor: 'white',
-              height: 125.0,
-              marginTop: 35,
-              marginRight: 25,
-              marginLeft: 25,
-              borderRadius: 10.0,
-              alignItems: 'flex-start',
-              justifyContent: 'flex-end',
-              flexDirection: 'column',
-            }}>
-            <View
-              style={{
-                flexDirection: 'row',
-                width: '100%',
-              }}>
-              <TouchableOpacity
-                onPress={() => imagePickerButtonClicked()}
-                style={{
-                  backgroundColor: '#F2F2F2',
-                  width: 30,
-                  height: 30,
-                  marginLeft: 25,
-                  marginBottom: 10,
-                  borderRadius: 15,
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}>
-                <Image
-                  source={require('../Images/camera_purple.png')}
-                  style={{width: 25, height: 25}}
-                />
-              </TouchableOpacity>
-
-              <TouchableOpacity
-                onPress={() => locationButtonClicked()}
-                style={{
-                  backgroundColor: '#F2F2F2',
-                  width: 30,
-                  height: 30,
-                  marginLeft: 25,
-                  borderRadius: 15,
-                  marginBottom: 10,
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}>
-                <Image
-                  source={require('../Images/location_purple.png')}
-                  style={{width: 25, height: 25}}
-                />
-              </TouchableOpacity>
-
-              <TouchableOpacity
-                onPress={() => postButtonClicked()}
-                style={{
-                  backgroundColor: '#3F60A0',
-                  width: 100,
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  marginLeft: 100,
-                  borderRadius: 5,
-                  marginBottom: 5,
-                }}>
-                <Text style={{color: 'white', fontSize: 15}}>POST</Text>
-              </TouchableOpacity>
-            </View>
-
-            <Text style={{fontSize: 15, color: 'lightgray', marginLeft: 25}}>
-              What do you want to tell everyone?
-            </Text>
-          </View>*/}
-
           <View>
             <Text
               style={{
@@ -434,30 +361,22 @@ const ProfileView = ({navigation}) => {
               Certificates
             </Text>
             <FlatGrid
-              itemDimension={80}
-              data={assignedCertificates}
+              itemDimension={70}
+              data={certificates}
               style={styles.gridView}
               spacing={15}
               renderItem={({item}) => (
-                console.log('ITEMS : ', item.url),
-                (
+                <TouchableOpacity>
                   <Image
-                    source={{uri: item.url}}
+                    source={require('../Images/pdfImage.png')}
                     resizeMode="cover"
-                    style={{
-                      borderRadius: 10,
-                      height: 80,
-                      overflow: 'hidden',
-                      backgroundColor: 'pink',
-                      width: 100,
-                      height: 100,
-                    }}>
+                    style={{}}>
                     {/*<TouchableOpacity
                     style={{width: '100%', height: '100%'}}
                     onPress={() => handleImageClickEvent(item.id)}
                   />*/}
                   </Image>
-                )
+                </TouchableOpacity>
               )}
             />
           </View>

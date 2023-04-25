@@ -71,12 +71,12 @@ const RegisterEvent = ({route, navigation}) => {
         // handle success
         console.log('Response : ', JSON.stringify(data));
         alert(`Success: ${data.razorpay_payment_id}`);
-        navigation.navigate('RegisterEventSuccess');
+        // navigation.navigate('RegisterEventSuccess');
       })
       .catch(error => {
         // handle failure
-        console.log('Response : ', JSON.stringify(error));
-        alert(`Error: ${error.code} | ${error.description}`);
+        console.log('Error : ', JSON.stringify(error));
+        // alert(`Error: ${error.code} | ${error.description}`);
       });
   };
 
