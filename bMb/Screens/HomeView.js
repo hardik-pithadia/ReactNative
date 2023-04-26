@@ -235,6 +235,7 @@ const HomeView = ({navigation}) => {
                       key={item._id}
                       source={{
                         uri: item.image,
+                        // uri: 'https://stonewood.co.nz/wp-content/uploads/elementor/thumbs/Queenstown-Franchise-pp2wouxopkdjjz7op90pgmrjgqxcdm8jaa56lsuu8s.jpg',
                       }}
                       style={{
                         height: '80%',
