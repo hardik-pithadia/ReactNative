@@ -188,6 +188,10 @@ const ProfileView = ({navigation}) => {
     ]);
   };
 
+  const pdfButtonClicked = () => {
+    console.log('pdfButtonClicked');
+  };
+
   return (
     <SafeAreaView>
       {isLoading && <PageLoader show={isLoading} />}
@@ -366,16 +370,11 @@ const ProfileView = ({navigation}) => {
               style={styles.gridView}
               spacing={15}
               renderItem={({item}) => (
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => pdfButtonClicked()}>
                   <Image
                     source={require('../Images/pdfImage.png')}
                     resizeMode="cover"
-                    style={{}}>
-                    {/*<TouchableOpacity
-                    style={{width: '100%', height: '100%'}}
-                    onPress={() => handleImageClickEvent(item.id)}
-                  />*/}
-                  </Image>
+                    style={{}}></Image>
                 </TouchableOpacity>
               )}
             />
