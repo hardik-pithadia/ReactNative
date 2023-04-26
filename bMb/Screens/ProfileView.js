@@ -188,8 +188,8 @@ const ProfileView = ({navigation}) => {
     ]);
   };
 
-  const pdfButtonClicked = () => {
-    console.log('pdfButtonClicked');
+  const pdfButtonClicked = pdfURL => {
+    console.log('pdfButtonClicked : ', pdfURL);
   };
 
   return (
@@ -366,11 +366,11 @@ const ProfileView = ({navigation}) => {
             </Text>
             <FlatGrid
               itemDimension={70}
-              data={certificates}
+              data={assignedCertificates}
               style={styles.gridView}
               spacing={15}
               renderItem={({item}) => (
-                <TouchableOpacity onPress={() => pdfButtonClicked()}>
+                <TouchableOpacity onPress={() => pdfButtonClicked(item.url)}>
                   <Image
                     source={require('../Images/pdfImage.png')}
                     resizeMode="cover"

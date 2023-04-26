@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, Dimensions, View} from 'react-native';
-import Pdf from 'react-native-pdf';
+// import Pdf from 'react-native-pdf';
 
 const PDFView = ({navigation}) => {
   const source = {
@@ -10,7 +10,7 @@ const PDFView = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-      <Pdf
+      {/* <Pdf
         source={source}
         onLoadComplete={(numberOfPages, filePath) => {
           console.log(`Number of pages: ${numberOfPages}`);
@@ -25,7 +25,7 @@ const PDFView = ({navigation}) => {
           console.log(`Link pressed: ${uri}`);
         }}
         style={styles.pdf}
-      />
+      /> */}
     </View>
   );
 };
