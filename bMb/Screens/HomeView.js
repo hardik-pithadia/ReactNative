@@ -222,7 +222,18 @@ const HomeView = ({navigation}) => {
                   backgroundColor: '#000',
                 }}
                 renderItem={item => (
-                  <View>
+                  <TouchableOpacity
+                    onPress={() => {
+                      Linking.canOpenURL(item.link)
+                        .then(supported => {
+                          if (supported) {
+                            return Linking.openURL(item.link);
+                          } else {
+                            Alert.alert('Error', 'URL is not supported');
+                          }
+                        })
+                        .catch(err => console.log(err));
+                    }}>
                     <Image
                       resizeMode="cover"
                       key={item._id}
@@ -253,7 +264,7 @@ const HomeView = ({navigation}) => {
                         {item.created_at.split('T')[0]}
                       </Text>
                     </View>
-                  </View>
+                  </TouchableOpacity>
                 )}
               />
             </View>
