@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   Dimensions,
 } from 'react-native';
-import {SectionGrid, FlatGrid} from 'react-native-super-grid';
+import {SectionGrid} from 'react-native-super-grid';
 import * as Constants from '../Utils/constants';
 import {getData} from '../Utils/utility';
 import {Carousel} from 'react-native-auto-carousel';
@@ -16,7 +16,7 @@ import PageLoader from '../Utils/loader';
 import {getDataFromServer} from '../Utils/WebRequestManager';
 import NetInfo from '@react-native-community/netinfo';
 
-const Gallery = ({route, navigation}) => {
+const Gallery = ({navigation}) => {
   const [sponsorsResponseDataObj, setSponsorsResponseDataObj] = useState([]);
   const [responseDataObject, setResponseDataObject] = useState([]);
 

@@ -1,17 +1,29 @@
-import React from 'react';
-import {Image, View, Text} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {Image, View, Dimensions} from 'react-native';
+
+const w = Dimensions.get('window');
 
 const GalleryImage = ({route, navigation}) => {
   var imageURL = route.params.imageName;
 
+  const [galleryImage, setGalleryImage] = useState('');
+  useEffect(() => {
+    setGalleryImage(imageURL);
+  }, [galleryImage]);
+
   return (
-    <View>
+    <View
+      style={{
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}>
       <Image
-        resizeMode="center"
         source={{
-          uri: imageURL,
+          uri: imageURL + `?w=${w.width * 2}&buster=${Math.random()}`,
         }}
-        style={{width: '100%', height: '100%'}}
+        style={{width: w.width, height: w.width}}
+        resizeMode="cover"
       />
     </View>
   );
