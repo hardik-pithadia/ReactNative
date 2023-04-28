@@ -10,6 +10,7 @@ import {
   ImageBackground,
   Alert,
   Dimensions,
+  Linking,
 } from 'react-native';
 import {FlatGrid} from 'react-native-super-grid';
 import {getData, removeData} from '../Utils/utility';
@@ -434,30 +435,35 @@ const ProfileView = ({navigation}) => {
               Certificates
             </Text>
             <FlatGrid
-              itemDimension={80}
+              itemDimension={70}
               data={assignedCertificates}
               style={styles.gridView}
               spacing={15}
               renderItem={({item}) => (
-                console.log('ITEMS : ', item.url),
-                (
+                <TouchableOpacity
+                  onPress={() => {
+                    console.log('ITEMS : ', item.url);
+                    Linking.canOpenURL(item.url)
+                      .then(supported => {
+                        if (!supported) {
+                          Alert.alert('Please Provide Valid URL');
+                        } else {
+                          return Linking.openURL(item.url);
+                        }
+                      })
+                      .catch(err => console.log(err));
+                  }}>
                   <Image
-                    source={{uri: item.url}}
+                    source={require('../Images/pdfImage.png')}
                     resizeMode="cover"
                     style={{
                       borderRadius: 10,
                       height: 80,
                       overflow: 'hidden',
-                      backgroundColor: 'pink',
                       width: 100,
                       height: 100,
-                    }}>
-                    {/*<TouchableOpacity
-                    style={{width: '100%', height: '100%'}}
-                    onPress={() => handleImageClickEvent(item.id)}
-                  />*/}
-                  </Image>
-                )
+                    }}></Image>
+                </TouchableOpacity>
               )}
             />
           </View>
