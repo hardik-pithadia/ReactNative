@@ -16,6 +16,8 @@ import PageLoader from '../Utils/loader';
 import {getDataFromServer} from '../Utils/WebRequestManager';
 import NetInfo from '@react-native-community/netinfo';
 
+const w = Dimensions.get('window');
+
 const Gallery = ({navigation}) => {
   const [sponsorsResponseDataObj, setSponsorsResponseDataObj] = useState([]);
   const [responseDataObject, setResponseDataObject] = useState([]);
@@ -90,9 +92,11 @@ const Gallery = ({navigation}) => {
               onPress={() => imageButtonClicked(item.url)}>
               <Image
                 source={{
-                  uri: item.url,
+                  uri: item.url + `?w=${w.width * 2}&buster=${Math.random()}`,
                 }}
                 style={{width: '100%', height: '100%', borderRadius: 8}}
+                // style={{width: w.width, height: w.width}}
+                resizeMode="cover"
               />
             </TouchableOpacity>
           )}
