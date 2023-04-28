@@ -414,12 +414,7 @@ const ProfileView = ({navigation}) => {
                     borderRadius: 10,
                     height: 80,
                     overflow: 'hidden',
-                  }}>
-                  {/*<TouchableOpacity
-                    style={{width: '100%', height: '100%'}}
-                    onPress={() => handleImageClickEvent(item.id)}
-                  />*/}
-                </Image>
+                  }}></Image>
               )}
             />
           </View>
@@ -435,14 +430,13 @@ const ProfileView = ({navigation}) => {
               Certificates
             </Text>
             <FlatGrid
-              itemDimension={70}
+              itemDimension={75}
               data={assignedCertificates}
               style={styles.gridView}
               spacing={15}
               renderItem={({item}) => (
                 <TouchableOpacity
                   onPress={() => {
-                    console.log('ITEMS : ', item.url);
                     Linking.canOpenURL(item.url)
                       .then(supported => {
                         if (!supported) {
@@ -458,11 +452,11 @@ const ProfileView = ({navigation}) => {
                     resizeMode="cover"
                     style={{
                       borderRadius: 10,
-                      height: 80,
                       overflow: 'hidden',
-                      width: 100,
+                      width: 75,
                       height: 100,
-                    }}></Image>
+                    }}
+                  />
                 </TouchableOpacity>
               )}
             />
