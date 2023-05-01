@@ -193,8 +193,12 @@ const ProfileView = ({navigation}) => {
     <SafeAreaView>
       {isLoading && <PageLoader show={isLoading} />}
       <ScrollView style={{backgroundColor: '#F2F2F2'}}>
-        <View>
-          <View style={{flexDirection: 'row', justifyContent: 'space-evenly'}}>
+        <View style={{marginBottom: 100}}>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-evenly',
+            }}>
             <Image
               style={{
                 height: 130,
@@ -293,7 +297,7 @@ const ProfileView = ({navigation}) => {
                 resizeMode="cover"
                 source={{uri: profileImagePath}}
               />
-              <TouchableOpacity
+              {/* <TouchableOpacity
                 onPress={() => profileImageButtonClicked()}
                 style={{
                   backgroundColor: '#3F60A0',
@@ -314,7 +318,7 @@ const ProfileView = ({navigation}) => {
                     justifyContent: 'center',
                   }}
                 />
-              </TouchableOpacity>
+              </TouchableOpacity> */}
             </View>
           </View>
 
