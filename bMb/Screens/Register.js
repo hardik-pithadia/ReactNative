@@ -361,6 +361,7 @@ const Register = ({route, navigation}) => {
         onPress={() => loginButtonClicked()}
         style={{
           height: 30,
+          marginBottom: 100,
           alignItems: 'center',
           justifyContent: 'center',
         }}>
@@ -644,6 +645,7 @@ const Register = ({route, navigation}) => {
           <TextInput
             style={{
               width: '85%',
+              height: 45,
               paddingLeft: 10,
               fontSize: 18,
               justifyContent: 'center',
@@ -670,6 +672,7 @@ const Register = ({route, navigation}) => {
           <TextInput
             style={{
               width: '85%',
+              height: 45,
               paddingLeft: 10,
               fontSize: 18,
               justifyContent: 'center',
@@ -696,6 +699,7 @@ const Register = ({route, navigation}) => {
           <TextInput
             style={{
               width: '85%',
+              height: 45,
               paddingLeft: 10,
               fontSize: 18,
               justifyContent: 'center',
@@ -722,6 +726,7 @@ const Register = ({route, navigation}) => {
           <TextInput
             style={{
               width: '85%',
+              height: 45,
               paddingLeft: 10,
               fontSize: 18,
               justifyContent: 'center',
@@ -748,6 +753,7 @@ const Register = ({route, navigation}) => {
           <TextInput
             style={{
               width: '85%',
+              height: 45,
               paddingLeft: 10,
               fontSize: 18,
               justifyContent: 'center',
@@ -774,6 +780,7 @@ const Register = ({route, navigation}) => {
           <TextInput
             style={{
               width: '85%',
+              height: 75,
               paddingLeft: 10,
               fontSize: 18,
               justifyContent: 'flex-start',
@@ -803,6 +810,7 @@ const Register = ({route, navigation}) => {
           <TextInput
             style={{
               width: '85%',
+              height: 45,
               paddingLeft: 10,
               fontSize: 18,
               justifyContent: 'center',
@@ -829,6 +837,7 @@ const Register = ({route, navigation}) => {
           <TextInput
             style={{
               width: '85%',
+              height: 45,
               paddingLeft: 10,
               fontSize: 18,
               justifyContent: 'center',
@@ -855,6 +864,7 @@ const Register = ({route, navigation}) => {
           <TextInput
             style={{
               width: '85%',
+              height: 45,
               paddingLeft: 10,
               fontSize: 18,
               justifyContent: 'center',
@@ -877,7 +887,7 @@ const Register = ({route, navigation}) => {
             marginRight: 25,
             borderRadius: 10,
             marginTop: 10,
-            height: 40,
+            height: 45,
             flexDirection: 'row',
             alignItems: 'center',
           }}>
@@ -921,7 +931,7 @@ const Register = ({route, navigation}) => {
             marginRight: 25,
             borderRadius: 10,
             marginTop: 10,
-            height: 40,
+            height: 45,
             flexDirection: 'row',
             alignItems: 'center',
           }}>
@@ -929,6 +939,7 @@ const Register = ({route, navigation}) => {
             style={{
               flex: 1,
               height: '100%',
+
               justifyContent: 'center',
             }}
             onPress={() => setAnniversaryDateOpen(true)}>
@@ -965,7 +976,7 @@ const Register = ({route, navigation}) => {
             marginRight: 25,
             borderRadius: 10,
             marginTop: 10,
-            height: 40,
+            height: 45,
             flexDirection: 'row',
             alignItems: 'center',
           }}>
@@ -993,7 +1004,7 @@ const Register = ({route, navigation}) => {
             marginRight: 25,
             borderRadius: 10,
             marginTop: 10,
-            height: 40,
+            height: 45,
             flexDirection: 'row',
             alignItems: 'center',
           }}>
@@ -1025,6 +1036,7 @@ const Register = ({route, navigation}) => {
           <TextInput
             style={{
               width: '85%',
+              height: 45,
               paddingLeft: 10,
               fontSize: 18,
               justifyContent: 'center',
@@ -1052,6 +1064,7 @@ const Register = ({route, navigation}) => {
           <TextInput
             style={{
               width: '85%',
+              height: 45,
               paddingLeft: 10,
               fontSize: 18,
               justifyContent: 'center',
