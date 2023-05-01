@@ -18,7 +18,7 @@ import PageLoader from '../Utils/loader';
 import {getDataFromServer} from '../Utils/WebRequestManager';
 import * as Constants from '../Utils/constants';
 import NetInfo from '@react-native-community/netinfo';
-import {storeData} from '../Utils/utility';
+import {storeData, getData} from '../Utils/utility';
 
 const HomeView = ({navigation}) => {
   const [items, setItems] = useState([
@@ -97,28 +97,28 @@ const HomeView = ({navigation}) => {
     setLoading(false);
   };
 
-  const whatsAppButtonClicked = () => {
-    console.log('whatsApp Button Clicked');
+  // const whatsAppButtonClicked = () => {
+  //   console.log('whatsApp Button Clicked');
 
-    let msg = 'Hello World';
-    let mobile = 7666240144;
-    if (mobile) {
-      if (msg) {
-        let url = 'whatsapp://send?text=' + msg + '&phone=91' + mobile;
-        Linking.openURL(url)
-          .then(data => {
-            console.log('WhatsApp Opened successfully ' + data);
-          })
-          .catch(() => {
-            alert('Make sure WhatsApp installed on your device');
-          });
-      } else {
-        alert('Please enter message to send');
-      }
-    } else {
-      alert('Please enter mobile no');
-    }
-  };
+  //   let msg = 'Hello World';
+  //   let mobile = 7666240144;
+  //   if (mobile) {
+  //     if (msg) {
+  //       let url = 'whatsapp://send?text=' + msg + '&phone=91' + mobile;
+  //       Linking.openURL(url)
+  //         .then(data => {
+  //           console.log('WhatsApp Opened successfully ' + data);
+  //         })
+  //         .catch(() => {
+  //           alert('Make sure WhatsApp installed on your device');
+  //         });
+  //     } else {
+  //       alert('Please enter message to send');
+  //     }
+  //   } else {
+  //     alert('Please enter mobile no');
+  //   }
+  // };
 
   const handleQuickLinksClickEvent = menuItem => {
     console.log('handleImageClickEvent : ' + menuItem);
@@ -127,11 +127,51 @@ const HomeView = ({navigation}) => {
       console.log('SponsorsList');
       navigation.navigate('SponsorsList');
     } else if (menuItem === 2) {
-      console.log('Navigate to Directory List');
-      navigation.navigate('DorectoryList');
+      console.log('Navigate to Directory List : ');
+      getData(Constants.AUTH_TOKEN).then(resultStr => {
+        if ((resultStr || '').length > 0) {
+          console.log('Navigate to Directory');
+          navigation.navigate('DorectoryList');
+        } else {
+          console.log('Navigate to Login');
+          Alert.alert('Login Required', 'Please Login to Open Directory', [
+            {
+              text: 'Log In',
+              style: 'default',
+              onPress: () => {
+                navigation.navigate('Login');
+              },
+            },
+            {
+              text: 'Cancel',
+              style: 'cancel',
+            },
+          ]);
+        }
+      });
     } else if (menuItem === 3) {
       console.log('Navigate to Events');
-      navigation.navigate('Events');
+      getData(Constants.AUTH_TOKEN).then(resultStr => {
+        if ((resultStr || '').length > 0) {
+          console.log('Navigate to Events');
+          navigation.navigate('Events');
+        } else {
+          console.log('Navigate to Login');
+          Alert.alert('Login Required', 'Please Login to Open Event', [
+            {
+              text: 'Log In',
+              style: 'default',
+              onPress: () => {
+                navigation.navigate('Login');
+              },
+            },
+            {
+              text: 'Cancel',
+              style: 'cancel',
+            },
+          ]);
+        }
+      });
     } else if (menuItem === 4) {
       console.log('Navigate to About Us');
       navigation.navigate('AboutUs');

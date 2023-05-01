@@ -176,8 +176,10 @@ const ProfileView = ({navigation}) => {
         text: 'Ok',
         style: 'default',
         onPress: () => {
-          removeData(Constants.IS_LOGIN);
-          navigation.navigate('Login');
+          // removeData(Constants.IS_LOGIN);
+          removeData(Constants.AUTH_TOKEN);
+          navigation.navigate('Home');
+          // navigation.navigate('Base');
           //navigation.navigate.popToTop();
           //
         },
@@ -403,7 +405,7 @@ const ProfileView = ({navigation}) => {
                 marginLeft: 20,
                 color: 'black',
               }}>
-              Assigned Certificates
+              Certificates
             </Text>
             <FlatGrid
               itemDimension={80}
@@ -431,7 +433,7 @@ const ProfileView = ({navigation}) => {
                 marginLeft: 20,
                 color: 'black',
               }}>
-              Certificates
+              Assigned Certificates
             </Text>
             <FlatGrid
               itemDimension={75}

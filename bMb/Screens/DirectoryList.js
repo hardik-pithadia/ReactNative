@@ -29,6 +29,7 @@ const DirectoryList = ({navigation}) => {
       setSponsorsResponseDataObj(JSON.parse(resultStr));
     });
 
+    console.log('Token : ', authToken.length);
     if (authToken.length > 0) {
       getAllDoctorList();
     }
