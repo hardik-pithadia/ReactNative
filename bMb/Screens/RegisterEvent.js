@@ -201,13 +201,14 @@ const RegisterEvent = ({route, navigation}) => {
   );
 
   return (
-    <ScrollView contentContainerStyle={{flexGrow: 1}}>
+    <ScrollView contentContainerStyle={{flexGrow: 1, marginBottom: 45}}>
       {isLoading && <PageLoader show={isLoading} />}
       <View
         style={{
           backgroundColor: 'white',
           flex: 1,
           flexDirection: 'column',
+          marginBottom: 65,
         }}>
         <View
           style={{
@@ -319,7 +320,7 @@ const RegisterEvent = ({route, navigation}) => {
             height: 40,
             marginLeft: 25,
             marginRight: 25,
-            marginTop: 10,
+            marginTop: 20,
             justifyContent: 'space-between',
             alignItems: 'center',
             flexDirection: 'row',
