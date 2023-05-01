@@ -150,7 +150,7 @@ const HomeView = ({navigation}) => {
         }
       });
     } else if (menuItem === 3) {
-      console.log('Navigate to Events');
+      console.log('Navigate to Events : ');
       getData(Constants.AUTH_TOKEN).then(resultStr => {
         if ((resultStr || '').length > 0) {
           console.log('Navigate to Events');
