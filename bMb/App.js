@@ -48,7 +48,8 @@ const App = () => {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Base">
+      {/* <Stack.Navigator initialRouteName="Base"> */}
+      <Stack.Navigator initialRouteName="Login">
         <Stack.Screen
           name="Login"
           component={Login}
@@ -134,11 +135,7 @@ const App = () => {
           name="RegisterEventSuccess"
           component={RegisterSuccess}
           options={{
-            headerBackTitleVisible: false,
-            headerBackVisible: true,
-            headerTitleAlign: 'center',
-            headerTintColor: 'black',
-            headerTitle: 'Register for Event',
+            headerShown: false,
           }}
         />
 

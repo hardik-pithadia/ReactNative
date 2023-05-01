@@ -297,30 +297,26 @@ const Register = ({route, navigation}) => {
         postRegisterDataToServer();
       }
     }
-
-    //    navigation.navigate('RegisterEvent');
-    //    navigation.navigate('Login');
   };
 
-  const paymentResponse = () => {
+  const paymentResponse = paymentObject => {
     console.log('pay Button Clicked');
 
     var options = {
-      description: 'BMB',
-      image:
-        'https://t3.ftcdn.net/jpg/04/86/50/10/360_F_486501071_QtYYAMQimmsr8898Tze3Jm7gdNIbPp3o.jpg',
-      currency: 'INR',
+      description: paymentObject.description,
+      image: paymentObject.image,
+      currency: paymentObject.currency,
       // key: 'rzp_test_WXfTPTwgnQufLh', // Your api key
       key: 'rzp_test_QFN6160kezfj4v', // Your api key
       // amount: (parseInt(currentObj.bookingAmount) * 100).toString(),
-      amount: '100.00',
-      name: firstName,
+      amount: paymentObject.amount.toString(),
+      name: paymentObject.name,
       prefill: {
-        email: 'hardik.pithadia@tejora.com',
-        contact: '7666240144',
-        name: 'Razorpay Software',
+        email: paymentObject.prefill.email,
+        contact: paymentObject.prefill.contact,
+        name: paymentObject.prefill.name,
       },
-      theme: {color: '#3F60A0'},
+      theme: {color: paymentObject.theme.color},
     };
     RazorpayCheckout.open(options)
       .then(data => {
@@ -407,7 +403,7 @@ const Register = ({route, navigation}) => {
 
     if (responseData.response) {
       if (responseData.response.status) {
-        paymentResponse();
+        makePaymentResponse(responseData.response.data._id);
       } else {
         Alert.alert('Error', responseData.response.message, [
           {
@@ -417,6 +413,36 @@ const Register = ({route, navigation}) => {
               setEmail('');
               setPassword('');
             },
+          },
+        ]);
+      }
+    }
+
+    setLoading(false);
+  };
+
+  const makePaymentResponse = async userId => {
+    setLoading(true);
+
+    console.log('-------------------------------------');
+
+    var responseData = await postDataToServer(
+      Constants.base_URL + '/doctor/member_ship/' + userId,
+      [],
+    );
+
+    if (responseData.response) {
+      if (responseData.response.status) {
+        console.log(
+          'Payment Response Success: ' +
+            JSON.stringify(responseData.response.data.order_info),
+        );
+        paymentResponse(responseData.response.data.order_info);
+      } else {
+        Alert.alert('Error', responseData.response.message, [
+          {
+            text: 'Ok',
+            style: 'cancel',
           },
         ]);
       }
