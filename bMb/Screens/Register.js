@@ -377,7 +377,7 @@ const Register = ({route, navigation}) => {
       last_name: lastName,
       email: email,
       contact_number: contactNumber,
-      address: address,
+      home_address: address,
       password: confirmPassword,
       qualification: qualification,
       speciality: speciality,
