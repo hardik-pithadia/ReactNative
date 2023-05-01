@@ -171,7 +171,7 @@ const Login = ({navigation}) => {
           style={{
             width: 175,
             height: 175,
-            marginTop: 30,
+            marginTop: 75,
           }}
         />
         <View
