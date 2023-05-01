@@ -9,10 +9,11 @@ import {
   TextInput,
   FlatList,
   Dimensions,
+  Alert,
 } from 'react-native';
 import RazorpayCheckout from 'react-native-razorpay';
 import PageLoader from '../Utils/loader';
-import {getDataFromServer} from '../Utils/WebRequestManager';
+import {postDataToServer} from '../Utils/WebRequestManager';
 import * as Constants from '../Utils/constants';
 import {getData} from '../Utils/utility';
 import {Carousel} from 'react-native-auto-carousel';
@@ -43,7 +44,51 @@ const RegisterEvent = ({route, navigation}) => {
     setDialogVisibleValue(false);
   };
 
-  const payButtonClicked = () => {
+  const makePaymentResponse = async () => {
+    var membersArray = [];
+    await arrayList.map(currentObj => {
+      // console.log('Members Array : ', JSON.stringify(currentObj[0]));
+      var membersDict = currentObj[0];
+      membersArray.push(membersDict);
+    });
+
+    // setLoading(true);
+
+    var mobValue = {
+      eventId: currentObj._id,
+      members: membersArray,
+    };
+
+    console.log('-------------------------------------');
+    console.log('Register Object : ' + JSON.stringify(mobValue));
+
+    var responseData = await postDataToServer(
+      Constants.base_URL + '/eventregister',
+      JSON.stringify(mobValue),
+    );
+
+    console.log('Register Response : ' + JSON.stringify(responseData));
+
+    if (responseData.response) {
+      if (responseData.response.status) {
+        console.log(
+          'Register Response Success: ' + JSON.stringify(responseData),
+        );
+        // payButtonClicked()
+      } else {
+        Alert.alert('Error', responseData.response.message, [
+          {
+            text: 'Ok',
+            style: 'cancel',
+          },
+        ]);
+      }
+    }
+
+    setLoading(false);
+  };
+
+  const payButtonClicked = paymentObject => {
     var bookingAmt = currentObj.bookingAmount;
     if (arrayList.length === 0) {
       bookingAmt = parseInt(bookingAmt) * 100;
@@ -487,7 +532,7 @@ const RegisterEvent = ({route, navigation}) => {
         </Modal>
 
         <TouchableOpacity
-          onPress={() => payButtonClicked()}
+          onPress={() => makePaymentResponse()}
           style={{
             backgroundColor: '#D1AA70',
             height: 45,
