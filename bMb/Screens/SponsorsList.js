@@ -77,7 +77,7 @@ const SponsorsList = () => {
           renderItem={({item}) => (
             <View>
               <Image
-                resizeMode="contain"
+                resizeMode="cover"
                 key={item._id}
                 source={{uri: item.image}}
                 style={{
