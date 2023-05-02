@@ -47,12 +47,16 @@ const RegisterEvent = ({route, navigation}) => {
   const makePaymentResponse = async () => {
     var membersArray = [];
     await arrayList.map(currentObj => {
-      // console.log('Members Array : ', JSON.stringify(currentObj[0]));
-      var membersDict = currentObj[0];
+      console.log('Name : ', currentObj[0].name, ', Age : ', currentObj[0].id);
+
+      var membersDict = {
+        name: currentObj[0].name,
+        age: currentObj[0].id,
+      };
       membersArray.push(membersDict);
     });
 
-    // setLoading(true);
+    setLoading(true);
 
     var mobValue = {
       eventId: currentObj._id,
