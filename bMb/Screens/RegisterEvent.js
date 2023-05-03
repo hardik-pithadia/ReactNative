@@ -13,7 +13,7 @@ import {
 } from 'react-native';
 import RazorpayCheckout from 'react-native-razorpay';
 import PageLoader from '../Utils/loader';
-import {postDataToServer} from '../Utils/WebRequestManager';
+import {postDataToServerWithToken} from '../Utils/WebRequestManager';
 import * as Constants from '../Utils/constants';
 import {getData} from '../Utils/utility';
 import {Carousel} from 'react-native-auto-carousel';
@@ -35,7 +35,6 @@ const RegisterEvent = ({route, navigation}) => {
   var nameArray = [];
 
   useEffect(() => {
-    console.log('PROPS : ', JSON.stringify(currentObj));
     getData(Constants.AUTH_TOKEN).then(resultStr => {
       setAuthToken(resultStr || '');
     });
@@ -45,7 +44,7 @@ const RegisterEvent = ({route, navigation}) => {
     // getData(Constants.SPONSORS).then(resultStr => {
     //   setSponsorsResponseDataObj(JSON.parse(resultStr));
     // });
-  }, []);
+  }, [authToken]);
 
   const closeDialog = () => {
     setDialogVisibleValue(false);
@@ -73,19 +72,54 @@ const RegisterEvent = ({route, navigation}) => {
     console.log('-------------------------------------');
     console.log('Register Object : ' + JSON.stringify(mobValue));
 
-    var responseData = await postDataToServer(
+    var responseData = await postDataToServerWithToken(
       Constants.base_URL + '/eventregister',
       JSON.stringify(mobValue),
+      authToken,
     );
-
-    console.log('Register Response : ' + JSON.stringify(responseData));
 
     if (responseData.response) {
       if (responseData.response.status) {
         console.log(
-          'Register Response Success: ' + JSON.stringify(responseData),
+          'Register Response Success 101 : ' +
+            JSON.stringify(responseData.response),
         );
-        // payButtonClicked()
+
+        generateOrderId(responseData.response.data._id);
+      } else {
+        Alert.alert('Error', responseData.response.message, [
+          {
+            text: 'Ok',
+            style: 'cancel',
+          },
+        ]);
+      }
+    }
+
+    setLoading(false);
+  };
+
+  const generateOrderId = async userId => {
+    setLoading(true);
+    console.log('-------------------------------------');
+
+    var mobValue = {
+      reg_id: userId,
+    };
+
+    var responseData = await postDataToServerWithToken(
+      Constants.base_URL + '/make_payment',
+      JSON.stringify(mobValue),
+      authToken,
+    );
+
+    if (responseData.response) {
+      if (responseData.response.status) {
+        console.log(
+          'Payment Response Success: ' +
+            JSON.stringify(responseData.response.data.order_info),
+        );
+        payButtonClicked(responseData.response.data.order_info);
       } else {
         Alert.alert('Error', responseData.response.message, [
           {
@@ -108,19 +142,19 @@ const RegisterEvent = ({route, navigation}) => {
     }
 
     var options = {
-      description: currentObj.organiser,
-      image: currentObj.image,
-      currency: 'INR',
+      description: paymentObject.description,
+      image: paymentObject.image,
+      currency: paymentObject.currency,
       // key: 'rzp_test_WXfTPTwgnQufLh', // Your api key
       key: 'rzp_test_QFN6160kezfj4v', // Your api key
-      amount: bookingAmt.toString(),
-      name: currentObj.title,
+      amount: paymentObject.amount.toString(),
+      name: paymentObject.name,
       prefill: {
-        email: 'hardik.pithadia@tejora.com',
-        contact: '7666240144',
-        name: 'Razorpay Software',
+        email: paymentObject.prefill.email,
+        contact: paymentObject.prefill.contact,
+        name: paymentObject.prefill.name,
       },
-      theme: {color: '#3F60A0'},
+      theme: {color: paymentObject.theme.color},
     };
     RazorpayCheckout.open(options)
       .then(data => {
@@ -543,7 +577,11 @@ const RegisterEvent = ({route, navigation}) => {
         </Modal>
 
         <TouchableOpacity
-          onPress={() => makePaymentResponse()}
+          onPress={() =>
+            authToken.length > 0
+              ? makePaymentResponse()
+              : console.log('Auth NOT AVAILABLE')
+          }
           style={{
             backgroundColor: '#D1AA70',
             height: 45,
