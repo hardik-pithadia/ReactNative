@@ -109,10 +109,10 @@ const Gallery = ({navigation}) => {
       {sponsorsResponseDataObj.length > 0 && (
         <View
           style={{
-            height: 80,
+            height: 150,
             marginLeft: 20,
             marginRight: 20,
-            //  marginBottom: 50,
+            marginBottom: 50,
             marginTop: 20,
           }}>
           <Carousel
@@ -127,7 +127,6 @@ const Gallery = ({navigation}) => {
             }}
             renderItem={item => (
               <Image
-                // resizeMode="cover"
                 resizeMode="contain"
                 key={item._id}
                 source={{uri: item.image}}

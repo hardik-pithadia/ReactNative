@@ -24,7 +24,7 @@ const RegisterEvent = ({route, navigation}) => {
   const [txtName, setName] = useState('');
   const [txtAge, setAge] = useState('');
   const [memberCount, setMemberCount] = useState();
-
+  const [authToken, setAuthToken] = useState('');
   const [arrayList, setArrayList] = useState([]);
 
   const [isDialogVisible, setDialogVisibleValue] = useState(false);
@@ -35,9 +35,16 @@ const RegisterEvent = ({route, navigation}) => {
   var nameArray = [];
 
   useEffect(() => {
-    getData(Constants.SPONSORS).then(resultStr => {
-      setSponsorsResponseDataObj(JSON.parse(resultStr));
+    console.log('PROPS : ', JSON.stringify(currentObj));
+    getData(Constants.AUTH_TOKEN).then(resultStr => {
+      setAuthToken(resultStr || '');
     });
+
+    setSponsorsResponseDataObj(currentObj.sponsers);
+
+    // getData(Constants.SPONSORS).then(resultStr => {
+    //   setSponsorsResponseDataObj(JSON.parse(resultStr));
+    // });
   }, []);
 
   const closeDialog = () => {
