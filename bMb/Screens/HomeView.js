@@ -404,68 +404,6 @@ const HomeView = ({navigation}) => {
                 />
               </View>
             )}
-
-            {/*<ScrollView
-              horizontal={true}
-              style={{
-                marginBottom: 25,
-                height: 110,
-              }}>
-              <Image
-                source={require('../Images/demoImage1.png')}
-                style={{
-                  height: 80,
-                  width: 175,
-                  marginTop: 15,
-                  marginRight: 15,
-                  marginLeft: 25,
-                  borderRadius: 10,
-                }}
-              />
-              <Image
-                source={require('../Images/demoImage1.png')}
-                style={{
-                  height: 80,
-                  width: 175,
-                  marginTop: 15,
-                  marginRight: 10,
-                  borderRadius: 10,
-                }}
-              />
-
-              <Image
-                source={require('../Images/demoImage1.png')}
-                style={{
-                  height: 80,
-                  width: 175,
-                  marginTop: 15,
-                  marginRight: 10,
-                  borderRadius: 10,
-                }}
-              />
-
-              <Image
-                source={require('../Images/demoImage1.png')}
-                style={{
-                  height: 80,
-                  width: 175,
-                  marginTop: 15,
-                  marginRight: 10,
-                  borderRadius: 10,
-                }}
-              />
-
-              <Image
-                source={require('../Images/demoImage1.png')}
-                style={{
-                  height: 80,
-                  width: 175,
-                  marginTop: 15,
-                  marginRight: 10,
-                  borderRadius: 10,
-                }}
-              />
-            </ScrollView>*/}
           </View>
         </View>
       </ScrollView>
@@ -476,7 +414,6 @@ const HomeView = ({navigation}) => {
 const styles = StyleSheet.create({
   gridView: {
     marginTop: 10,
-    //    marginBottom: 20,
   },
   itemContainer: {
     justifyContent: 'flex-end',
