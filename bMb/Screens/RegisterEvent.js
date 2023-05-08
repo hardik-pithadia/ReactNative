@@ -134,6 +134,7 @@ const RegisterEvent = ({route, navigation}) => {
   };
 
   const payButtonClicked = paymentObject => {
+    console.log('ORDER OBJ : ', JSON.stringify(paymentObject));
     var bookingAmt = currentObj.bookingAmount;
     if (arrayList.length === 0) {
       bookingAmt = parseInt(bookingAmt) * 100;
@@ -141,25 +142,26 @@ const RegisterEvent = ({route, navigation}) => {
       bookingAmt = parseInt(bookingAmt + bookingAmt * arrayList.length) * 100;
     }
 
-    var options = {
-      description: paymentObject.description,
-      image: paymentObject.image,
-      currency: paymentObject.currency,
-      // key: 'rzp_test_WXfTPTwgnQufLh', // Your api key
-      key: 'rzp_test_QFN6160kezfj4v', // Your api key
-      amount: paymentObject.amount.toString(),
-      name: paymentObject.name,
-      prefill: {
-        email: paymentObject.prefill.email,
-        contact: paymentObject.prefill.contact,
-        name: paymentObject.prefill.name,
-      },
-      theme: {color: paymentObject.theme.color},
-    };
-    RazorpayCheckout.open(options)
+    // var options = {
+    //   description: paymentObject.description,
+    //   image: paymentObject.image,
+    //   currency: paymentObject.currency,
+    //   // key: 'rzp_test_WXfTPTwgnQufLh', // Your api key
+    //   key: 'rzp_test_QFN6160kezfj4v', // Your api key
+    //   amount: paymentObject.amount.toString(),
+    //   name: paymentObject.name,
+    //   prefill: {
+    //     email: paymentObject.prefill.email,
+    //     contact: paymentObject.prefill.contact,
+    //     name: paymentObject.prefill.name,
+    //   },
+    //   theme: {color: paymentObject.theme.color},
+    // };
+    RazorpayCheckout.open(paymentObject)
       .then(data => {
         // handle success
-        alert(`Success: ${data.razorpay_payment_id}`);
+        console.log('Payment Response HARDIK : ', JSON.stringify(data));
+        // alert(`Success: ${data.razorpay_payment_id}`);
         navigation.navigate('RegisterEventSuccess');
       })
       .catch(error => {

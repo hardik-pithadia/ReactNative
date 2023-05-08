@@ -318,10 +318,10 @@ const Register = ({route, navigation}) => {
       },
       theme: {color: paymentObject.theme.color},
     };
-    RazorpayCheckout.open(options)
+    RazorpayCheckout.open(paymentObject)
       .then(data => {
         // handle success
-        alert(`Success: ${data.razorpay_payment_id}`);
+        // alert(`Success: ${data.razorpay_payment_id}`);
         navigation.navigate('RegisterEventSuccess');
       })
       .catch(error => {
