@@ -302,22 +302,23 @@ const Register = ({route, navigation}) => {
   const paymentResponse = paymentObject => {
     console.log('pay Button Clicked');
 
-    var options = {
-      description: paymentObject.description,
-      image: paymentObject.image,
-      currency: paymentObject.currency,
-      // key: 'rzp_test_WXfTPTwgnQufLh', // Your api key
-      key: 'rzp_test_QFN6160kezfj4v', // Your api key
-      // amount: (parseInt(currentObj.bookingAmount) * 100).toString(),
-      amount: paymentObject.amount.toString(),
-      name: paymentObject.name,
-      prefill: {
-        email: paymentObject.prefill.email,
-        contact: paymentObject.prefill.contact,
-        name: paymentObject.prefill.name,
-      },
-      theme: {color: paymentObject.theme.color},
-    };
+    // var options = {
+    //   description: paymentObject.description,
+    //   image: paymentObject.image,
+    //   currency: paymentObject.currency,
+    //   // key: 'rzp_test_WXfTPTwgnQufLh', // Your api key
+    //   key: 'rzp_test_QFN6160kezfj4v', // Your api key
+    //   // amount: (parseInt(currentObj.bookingAmount) * 100).toString(),
+    //   amount: paymentObject.amount.toString(),
+    //   name: paymentObject.name,
+    //   prefill: {
+    //     email: paymentObject.prefill.email,
+    //     contact: paymentObject.prefill.contact,
+    //     name: paymentObject.prefill.name,
+    //   },
+    //   theme: {color: paymentObject.theme.color},
+    // };
+
     RazorpayCheckout.open(paymentObject)
       .then(data => {
         // handle success
