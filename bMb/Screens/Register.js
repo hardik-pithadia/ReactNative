@@ -299,35 +299,60 @@ const Register = ({route, navigation}) => {
     }
   };
 
+  const verifyPayment = async res => {
+    setLoading(true);
+    var responseData = await postDataToServerWithToken(
+      Constants.base_URL + '/verify_payment',
+      JSON.stringify(res),
+      authToken,
+    );
+    console.log('verifyPayment', responseData);
+    if (responseData.response) {
+      if (responseData.response.status) {
+        setLoading(false);
+        navigation.navigate('RegisterEventSuccess');
+      } else {
+        setLoading(false);
+        Alert.alert('Error', responseData.response.message, [
+          {
+            text: 'Ok',
+            style: 'cancel',
+          },
+        ]);
+      }
+    }
+
+    setLoading(false);
+  };
+
   const paymentResponse = paymentObject => {
     console.log('pay Button Clicked');
 
-    // var options = {
-    //   description: paymentObject.description,
-    //   image: paymentObject.image,
-    //   currency: paymentObject.currency,
-    //   // key: 'rzp_test_WXfTPTwgnQufLh', // Your api key
-    //   key: 'rzp_test_QFN6160kezfj4v', // Your api key
-    //   // amount: (parseInt(currentObj.bookingAmount) * 100).toString(),
-    //   amount: paymentObject.amount.toString(),
-    //   name: paymentObject.name,
-    //   prefill: {
-    //     email: paymentObject.prefill.email,
-    //     contact: paymentObject.prefill.contact,
-    //     name: paymentObject.prefill.name,
-    //   },
-    //   theme: {color: paymentObject.theme.color},
-    // };
-
+    var options = {
+      description: paymentObject.description,
+      image: paymentObject.image,
+      currency: paymentObject.currency,
+      // key: 'rzp_test_WXfTPTwgnQufLh', // Your api key
+      key: 'rzp_test_QFN6160kezfj4v', // Your api key
+      // amount: (parseInt(currentObj.bookingAmount) * 100).toString(),
+      amount: paymentObject.amount.toString(),
+      name: paymentObject.name,
+      prefill: {
+        email: paymentObject.prefill.email,
+        contact: paymentObject.prefill.contact,
+        name: paymentObject.prefill.name,
+      },
+      theme: {color: paymentObject.theme.color},
+    };
     RazorpayCheckout.open(paymentObject)
       .then(data => {
+        verifyPayment(data);
         // handle success
         // alert(`Success: ${data.razorpay_payment_id}`);
-        navigation.navigate('RegisterEventSuccess');
       })
       .catch(error => {
         // handle failure
-        alert(`Error: ${error.code} | ${error.description}`);
+        // alert(`Error: ${error.code} | ${error.description}`);
       });
   };
 

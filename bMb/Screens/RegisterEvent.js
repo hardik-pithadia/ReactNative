@@ -68,6 +68,7 @@ const RegisterEvent = ({route, navigation}) => {
       eventId: currentObj._id,
       members: membersArray,
     };
+    console.log(mobValue);
 
     console.log('-------------------------------------');
     console.log('Register Object : ' + JSON.stringify(mobValue));
@@ -78,13 +79,10 @@ const RegisterEvent = ({route, navigation}) => {
       authToken,
     );
 
+    console.log('responseData:::::', responseData);
+
     if (responseData.response) {
       if (responseData.response.status) {
-        console.log(
-          'Register Response Success 101 : ' +
-            JSON.stringify(responseData.response),
-        );
-
         generateOrderId(responseData.response.data._id);
       } else {
         Alert.alert('Error', responseData.response.message, [
@@ -100,8 +98,8 @@ const RegisterEvent = ({route, navigation}) => {
   };
 
   const generateOrderId = async userId => {
+    console.log('Generating order', userId);
     setLoading(true);
-    console.log('-------------------------------------');
 
     var mobValue = {
       reg_id: userId,
@@ -133,8 +131,33 @@ const RegisterEvent = ({route, navigation}) => {
     setLoading(false);
   };
 
+  const verifyPayment = async res => {
+    setLoading(true);
+    var responseData = await postDataToServerWithToken(
+      Constants.base_URL + '/verify_payment',
+      JSON.stringify(res),
+      authToken,
+    );
+    console.log('verifyPayment', responseData);
+    if (responseData.response) {
+      if (responseData.response.status) {
+        setLoading(false);
+        navigation.navigate('RegisterEventSuccess');
+      } else {
+        setLoading(false);
+        Alert.alert('Error', responseData.response.message, [
+          {
+            text: 'Ok',
+            style: 'cancel',
+          },
+        ]);
+      }
+    }
+
+    setLoading(false);
+  };
+
   const payButtonClicked = paymentObject => {
-    console.log('ORDER OBJ : ', JSON.stringify(paymentObject));
     var bookingAmt = currentObj.bookingAmount;
     if (arrayList.length === 0) {
       bookingAmt = parseInt(bookingAmt) * 100;
@@ -159,14 +182,16 @@ const RegisterEvent = ({route, navigation}) => {
     // };
     RazorpayCheckout.open(paymentObject)
       .then(data => {
+        console.log('CALALALALALAALLA SUCESSSS', data);
+        verifyPayment(data);
         // handle success
-        console.log('Payment Response HARDIK : ', JSON.stringify(data));
+        // console.log('Payment Response HARDIK : ', JSON.stringify(options));
         // alert(`Success: ${data.razorpay_payment_id}`);
-        navigation.navigate('RegisterEventSuccess');
       })
       .catch(error => {
+        setLoading(false);
         // handle failure
-        alert(`Error: ${error.code} | ${error.description}`);
+        // alert(`Error: ${error.code} | ${error.description}`);
       });
   };
 
