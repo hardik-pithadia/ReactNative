@@ -1,5 +1,5 @@
 import React from 'react';
-import {Image} from 'react-native';
+import {Image, TouchableOpacity} from 'react-native';
 import ProfileView from './ProfileView';
 import HomeView from './HomeView';
 import EventsView from './EventsView';
@@ -81,7 +81,7 @@ const BaseView = ({navigation}) => {
         component={ProfileView}
       />
 
-      <sampleTabNavigation.Screen
+      {/* <sampleTabNavigation.Screen
         name="Notifications"
         options={{
           headerShown: false,
@@ -94,7 +94,7 @@ const BaseView = ({navigation}) => {
           ),
         }}
         component={Notifications}
-      />
+      /> */}
     </sampleTabNavigation.Navigator>
   );
 };

@@ -7,6 +7,7 @@ import {
   SafeAreaView,
   TouchableOpacity,
   Dimensions,
+  Alert,
 } from 'react-native';
 import PageLoader from '../Utils/loader';
 import {getDataFromServer} from '../Utils/WebRequestManager';
@@ -26,6 +27,7 @@ const EventsView = ({navigation}) => {
   var nameDetailArray = [];
 
   useEffect(() => {
+    console.log('Event View');
     getData(Constants.AUTH_TOKEN).then(resultStr => {
       setAuthToken(resultStr || '');
     });
@@ -34,10 +36,59 @@ const EventsView = ({navigation}) => {
       setSponsorsResponseDataObj(JSON.parse(resultStr));
     });
 
+    getData(Constants.IS_LOGIN).then(resultStr => {
+      console.log('Is Login : ', resultStr);
+      if (resultStr === undefined) {
+        showLoginDialog();
+      }
+    });
+
     if (authToken.length > 0) {
       getEventResponse();
     }
   }, [eventArray.length, authToken]);
+
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      if (authToken.length > 0) {
+        getEventResponse();
+      } else {
+        console.log('Please Login101 : ');
+
+        getData(Constants.AUTH_TOKEN).then(resultStr => {
+          console.log('TOKEN : ' + resultStr || '');
+          setAuthToken(resultStr || '');
+        });
+
+        getData(Constants.IS_LOGIN).then(resultStr => {
+          if (resultStr === undefined) {
+            showLoginDialog();
+          }
+        });
+      }
+    });
+
+    // Return the function to unsubscribe from the event so it gets removed on unmount
+    return unsubscribe;
+  }, [navigation]);
+
+  const showLoginDialog = () => {
+    console.log('showLoginDialog');
+
+    Alert.alert('Login Required', 'Please Login to Open Event', [
+      {
+        text: 'Log In',
+        style: 'default',
+        onPress: () => {
+          navigation.navigate('Login');
+        },
+      },
+      {
+        text: 'Cancel',
+        style: 'cancel',
+      },
+    ]);
+  };
 
   const getEventResponse = async () => {
     setResponseData([]);

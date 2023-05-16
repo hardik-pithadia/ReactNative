@@ -180,9 +180,9 @@ const RegisterEvent = ({route, navigation}) => {
     //   },
     //   theme: {color: paymentObject.theme.color},
     // };
+    console.log('Payment Obj : ', JSON.stringify(paymentObject));
     RazorpayCheckout.open(paymentObject)
       .then(data => {
-        console.log('CALALALALALAALLA SUCESSSS', data);
         verifyPayment(data);
         // handle success
         // console.log('Payment Response HARDIK : ', JSON.stringify(options));

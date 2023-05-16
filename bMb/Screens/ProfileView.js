@@ -34,6 +34,8 @@ const ProfileView = ({navigation}) => {
   const [idValue, setIdValue] = useState('');
   const [sponsorsResponseDataObj, setSponsorsResponseDataObj] = useState([]);
   const [authToken, setAuthToken] = useState('');
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
+  const [isUserLoggedInFlag, setIsUserLoggedInFlag] = useState(true);
   const [profileImagePath, setProfileImagePath] = useState('');
   const [certificates, setCertificates] = useState([]);
   const [assignedCertificates, setAssignedCertificates] = useState([]);
@@ -84,6 +86,13 @@ const ProfileView = ({navigation}) => {
       setAuthToken(resultStr || '');
     });
 
+    getData(Constants.IS_LOGIN).then(resultStr => {
+      console.log('Is Login : ', resultStr);
+      if (resultStr === undefined) {
+        showLoginDialog();
+      }
+    });
+
     if (idValue.length > 0 && authToken.length > 0) {
       getAllDoctorResponse();
     }
@@ -93,6 +102,20 @@ const ProfileView = ({navigation}) => {
     const unsubscribe = navigation.addListener('focus', () => {
       if (idValue.length > 0 && authToken.length > 0) {
         getAllDoctorResponse();
+      } else {
+        console.log('Please Login101 : ');
+        getData(Constants.AUTH_TOKEN).then(resultStr => {
+          console.log('TOKEN : ' + resultStr || '');
+          setAuthToken(resultStr || '');
+        });
+        getData(Constants.ID).then(resultStr => {
+          setIdValue(resultStr || '');
+        });
+        getData(Constants.IS_LOGIN).then(resultStr => {
+          if (resultStr === undefined) {
+            showLoginDialog();
+          }
+        });
       }
     });
 
@@ -168,6 +191,24 @@ const ProfileView = ({navigation}) => {
     console.log('Post Button Clicked');
   };
 
+  const showLoginDialog = () => {
+    console.log('showLoginDialog');
+
+    Alert.alert('Login Required', 'Please Login to Open Profile', [
+      {
+        text: 'Log In',
+        style: 'default',
+        onPress: () => {
+          navigation.navigate('Login');
+        },
+      },
+      {
+        text: 'Cancel',
+        style: 'cancel',
+      },
+    ]);
+  };
+
   const logoutButtonClicked = () => {
     console.log('Logout Button Clicked');
 
@@ -176,12 +217,9 @@ const ProfileView = ({navigation}) => {
         text: 'Ok',
         style: 'default',
         onPress: () => {
-          // removeData(Constants.IS_LOGIN);
+          removeData(Constants.IS_LOGIN);
           removeData(Constants.AUTH_TOKEN);
           navigation.navigate('Home');
-          // navigation.navigate('Base');
-          //navigation.navigate.popToTop();
-          //
         },
       },
       {
@@ -194,6 +232,7 @@ const ProfileView = ({navigation}) => {
   return (
     <SafeAreaView>
       {isLoading && <PageLoader show={isLoading} />}
+      {/* {authToken === undefined && showLoginDialog()} */}
       <ScrollView style={{backgroundColor: '#F2F2F2'}}>
         <View style={{marginBottom: 100}}>
           <View
@@ -501,6 +540,60 @@ const ProfileView = ({navigation}) => {
               <Text style={{color: 'gray'}}>{email}</Text>
             </View>
           </View>
+
+          <TouchableOpacity
+            onPress={() => {
+              console.log('Delete Account');
+              Alert.alert(
+                'Delete Account',
+                'Are you sure you want to Delete Account?',
+                [
+                  {
+                    text: 'Delete',
+                    style: 'default',
+                    onPress: () => {
+                      console.log('Delete User Account');
+                      Linking.canOpenURL(
+                        'https://bmbapp.evolvingweb.in/delete-account.html',
+                      )
+                        .then(supported => {
+                          if (supported) {
+                            return Linking.openURL(
+                              'https://bmbapp.evolvingweb.in/delete-account.html',
+                            );
+                          } else {
+                            Alert.alert('Error', 'URL is not supported');
+                          }
+                        })
+                        .catch(err => console.log(err));
+                    },
+                  },
+                  {
+                    text: 'Cancel',
+                    style: 'cancel',
+                  },
+                ],
+              );
+            }}
+            style={{
+              alignItems: 'center',
+              justifyContent: 'center',
+              backgroundColor: 'red',
+              marginHorizontal: 50,
+              marginVertical: 50,
+              borderRadius: 10,
+              height: 50,
+            }}>
+            <Text
+              style={{
+                color: 'white',
+                fontSize: 25,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
+              Delete Account
+            </Text>
+          </TouchableOpacity>
         </View>
       </ScrollView>
 
