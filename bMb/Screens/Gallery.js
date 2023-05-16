@@ -31,11 +31,11 @@ const Gallery = ({navigation}) => {
       setSponsorsResponseDataObj(JSON.parse(resultStr));
     });
 
-    NetInfo.fetch().then(state => {
-      if (!state.isConnected) {
-        Alert.alert('Network', 'Please Check Internet Connection');
-      }
-    });
+    // NetInfo.fetch().then(state => {
+    //   if (!state.isConnected) {
+    //     Alert.alert('Network', 'Please Check Internet Connection');
+    //   }
+    // });
     getGalleryResponse();
   }, []);
 
@@ -76,6 +76,10 @@ const Gallery = ({navigation}) => {
   };
 
   const imageButtonClicked = imageId => {
+    console.log(
+      'IMAGE URL : ',
+      imageId + `?w=${w.width * 2}&buster=${Math.random()}`,
+    );
     navigation.navigate('GalleryImage', {imageName: imageId});
   };
 
@@ -94,10 +98,22 @@ const Gallery = ({navigation}) => {
                 source={{
                   uri: item.url + `?w=${w.width * 2}&buster=${Math.random()}`,
                 }}
-                style={{width: '100%', height: '100%', borderRadius: 8}}
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  borderRadius: 8,
+                }}
                 // style={{width: w.width, height: w.width}}
                 resizeMode="cover"
               />
+              {/* <Image
+                source={{
+                  uri: item.url,
+                }}
+                style={{width: '100%', height: '100%', borderRadius: 8}}
+                // style={{width: w.width, height: w.width}}
+                resizeMode="cover"
+              /> */}
             </TouchableOpacity>
           )}
           renderSectionHeader={({section}) => (

@@ -39,12 +39,13 @@ const RegisterEvent = ({route, navigation}) => {
       setAuthToken(resultStr || '');
     });
 
+    console.log('SPONSORS : ', JSON.stringify(currentObj.sponsers));
     setSponsorsResponseDataObj(currentObj.sponsers);
 
     // getData(Constants.SPONSORS).then(resultStr => {
     //   setSponsorsResponseDataObj(JSON.parse(resultStr));
     // });
-  }, [authToken]);
+  }, [authToken, sponsorsResponseDataObj]);
 
   const closeDialog = () => {
     setDialogVisibleValue(false);
